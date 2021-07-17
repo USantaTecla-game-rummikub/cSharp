@@ -13,13 +13,12 @@ namespace Rummy.models
         protected Tile[] tiles;
         protected int size;
 
-        public TilesGroup()
+        protected TilesGroup()
         {            
             this.size = 0;
         }
         
-        public bool isValidTile(Tile tile)
-        {
+        public bool isAccepted(Tile tile) {            
             return this.size == 0 || this.isValidInsertion(tile);
         }
 
@@ -29,5 +28,6 @@ namespace Rummy.models
         public abstract bool isValidInsertion(Tile tile);
 
         public abstract bool isValid();
+        
     }
 }

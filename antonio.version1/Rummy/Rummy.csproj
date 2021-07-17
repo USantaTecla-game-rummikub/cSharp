@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="models\Command.cs" />
     <Compile Include="models\Player.cs" />
+    <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
     <Compile Include="models\Run.cs" />
     <Compile Include="models\Serie.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="types\Color.cs" />
+    <Compile Include="types\Message.cs" />
     <Compile Include="types\TileNumber.cs" />
   </ItemGroup>
   <ItemGroup>
