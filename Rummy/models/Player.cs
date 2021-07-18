@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rummy.types;
+using System;
 
 namespace Rummy.models
 {
@@ -10,14 +11,14 @@ namespace Rummy.models
 
         public Player(Table table)
         {
-            this.rack = new Tile[Table.TILES_TOTALES];
             this.table = table;
+            this.rack = new Tile[Table.TILES_TOTALES];            
             this.topRack = 0;
         }
 
-        internal void takeTile()
+        internal void extractTile()
         {
-            this.rack[topRack++] = this.table.getTileFromPounch();
+           this.rack[topRack++] = this.table.extract();
         }
 
         internal bool isWinner()
@@ -26,6 +27,28 @@ namespace Rummy.models
         }
 
         internal void write()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void executeAction()
+        {
+            Console.Write(Message.REQUEST_ACTION);
+            string respond = Console.ReadLine();
+            // new CommandInterpreter(respond).;
+        }
+
+        internal bool isResume()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void writeCongratulations()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool isEnd()
         {
             throw new NotImplementedException();
         }
