@@ -1,0 +1,3 @@
+# Rummy
+## Design Diagram
+![PlantUML model](https://www.planttext.com/api/plantuml/png/P9593i8m34NtFaNMIEq94EeEiQkW5qX392eoL1aMbRWP2ux45MW6aohTsV_7ty_Az_tfhAF6UIa0cA3MagkNSidrG4V1SzqBkd23XZSAw6YTeSoHOHBSdetsypz3vUh6pOG95yMqd0LtA8GvdA3i2H1taqFJvCsRFYmiRQ-zOW-081CTX4INNhJj2GM8GIcYK4AfoV6rUW6urX9whMwEgAqCjSiEfsr4P058Z14ttPk50qwjzwXa5_Q8LOjGi7PMnzLz_TyV0000__y30000)
