@@ -4,8 +4,11 @@ namespace escuela_it
 {
     public class Player
     {
-        public Player()
+        private string name;
+
+        public Player(string v)
         {
+            this.name = v;
         }
 
         internal void addNewTile(Tile tile)

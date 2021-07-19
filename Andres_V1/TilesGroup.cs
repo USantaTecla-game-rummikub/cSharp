@@ -15,10 +15,10 @@ namespace escuela_it
         {
             Tile[] tiles = getTileFromOrigin(origin);
             if (!origin.include(tiles))
-                Console.WriteLine("Error: Tile not found on the group.");
+                Console.WriteLine("Error: Tiles not found on the group.");
             else if (!this.canAddToGroup(tiles))
             {
-                Console.WriteLine("Error: Tile can not be added on the group.");
+                Console.WriteLine("Error: Tiles can not be added on the group.");
             }
             else
             {

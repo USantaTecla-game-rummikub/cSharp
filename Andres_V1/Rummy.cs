@@ -13,7 +13,7 @@ namespace escuela_it
         public Rummy()
         {
             pounch = new Pounch();
-            turn = new Turn(new Player[PLAYERS_COUNT] { new Player(), new Player() });
+            turn = new Turn(new Player[PLAYERS_COUNT] { new Player("1"), new Player("2") });
             table = new Table();
         }
 
