@@ -8,14 +8,23 @@ public class Run : TilesGroup
     {
     }
 
-    public override bool isOk()
+    protected override void add(Tile[] tiles)
     {
-        return true;
+        throw new NotImplementedException();
     }
 
-    public override TilesGroup readFrom(TilesGroup origin)
+    protected override bool canAddToGroup(Tile[] tiles)
     {
-        Tile[] tiles = base.takeTileFrom(origin); 
-        throw new NotImplementedException();        
+        throw new NotImplementedException();
+    }
+
+    protected override TilesGroup newTilesGroup(TilesGroup tilesGroup)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void take(Tile[] tiles)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -7,12 +7,22 @@ namespace escuela_it
         {
         }
 
-        public override bool isOk()
+        protected override void add(Tile[] tiles)
         {
-          return false;
+            throw new System.NotImplementedException();
         }
 
-        public override TilesGroup readFrom(TilesGroup origin)
+        protected override bool canAddToGroup(Tile[] tiles)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override TilesGroup newTilesGroup(TilesGroup tilesGroup)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void take(Tile[] tile)
         {
             throw new System.NotImplementedException();
         }
