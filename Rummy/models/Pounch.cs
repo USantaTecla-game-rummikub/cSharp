@@ -1,6 +1,7 @@
 ﻿using Rummy.types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +12,12 @@ namespace Rummy.models
     {
         private Tile[] pounch;        
 
-        public Pounch(int numTiles)
-        {
+        public Pounch(int numTiles) {
             this.createTiles(numTiles);
             this.shuffleTiles();
         }
 
-        private void createTiles(int numTiles)
-        {
+        private void createTiles(int numTiles) {
             this.pounch = new Tile[numTiles];
             int i = 0;
             Array numbers = Enum.GetValues(typeof(TileNumber));
@@ -32,11 +31,9 @@ namespace Rummy.models
             }            
         }
 
-        private void shuffleTiles()
-        {
+        private void shuffleTiles() {
             int numIterations = 10000;
-            for (int i = 0; i < numIterations; i++)
-            {
+            for (int i = 0; i < numIterations; i++) {
                 Random rnd = new Random();
                 int indexTile1 = rnd.Next(0, this.pounch.Length);
                 int indexTile2 = rnd.Next(0, this.pounch.Length);
@@ -46,9 +43,13 @@ namespace Rummy.models
             }
         }
 
-        public Tile extract()
-        {
+        public Tile extract() {
+            Debug.Assert(this.pounch.Length > 0);
             return this.pounch[this.pounch.Length - 1];
+        }        
+
+        public bool isEmpty() {
+            return this.pounch.Length == 0;
         }
     }
 }

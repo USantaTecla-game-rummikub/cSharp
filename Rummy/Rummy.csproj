@@ -43,7 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\Command.cs" />
+    <Compile Include="models\interpreter\Action.cs" />
+    <Compile Include="models\interpreter\Arguments.cs" />
+    <Compile Include="models\interpreter\Command.cs" />
+    <Compile Include="models\interpreter\End.cs" />
+    <Compile Include="models\interpreter\Exit.cs" />
+    <Compile Include="models\interpreter\Expression.cs" />
+    <Compile Include="models\interpreter\ExpressionGroupMove.cs" />
+    <Compile Include="models\interpreter\ExpressionList.cs" />
+    <Compile Include="models\interpreter\ExpressionTileDown.cs" />
+    <Compile Include="models\interpreter\Group.cs" />
+    <Compile Include="models\interpreter\Help.cs" />
+    <Compile Include="models\interpreter\Instruction.cs" />
+    <Compile Include="models\interpreter\Mov.cs" />
+    <Compile Include="models\interpreter\Parser.cs" />
+    <Compile Include="models\interpreter\Put.cs" />
+    <Compile Include="models\interpreter\Redo.cs" />
+    <Compile Include="models\interpreter\Sentence.cs" />
+    <Compile Include="models\interpreter\Undo.cs" />
     <Compile Include="models\Player.cs" />
     <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
@@ -55,7 +72,9 @@
     <Compile Include="models\Turn.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="types\ActionType.cs" />
     <Compile Include="types\Color.cs" />
+    <Compile Include="types\GroupType.cs" />
     <Compile Include="types\Message.cs" />
     <Compile Include="types\TileNumber.cs" />
   </ItemGroup>

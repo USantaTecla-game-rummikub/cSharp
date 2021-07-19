@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rummy.types
 {
-    public enum Color {
-        RED,
-        GREEN,
-        YELLOW,
-        BLACK
+    enum GroupType {
+        SERIE,
+        RUN
     }
 }
