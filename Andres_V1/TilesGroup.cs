@@ -1,61 +1,83 @@
 using System;
+using System.Diagnostics;
 
 namespace escuela_it
 {
-    public abstract class TilesGroup
+    public class TilesGroup : IOrigin
     {
-        protected Tile[] tiles;
-        protected int tilesCount;
-        protected TilesGroup(Tile[] tiles)
+        private Tile[] tiles;
+        private int tilesCount;
+        private IChecker[] checkers;
+        
+        private const int SIZE_MAX = 13;
+        public TilesGroup(IChecker[] checkers)
         {
-            this.tiles = tiles;
+            tiles = new Tile[SIZE_MAX];
             this.tilesCount = 0;
+            this.checkers = checkers;
         }
-        public TilesGroup readFrom(TilesGroup origin)
-        {
-            Tile[] tiles = getTileFromOrigin(origin);
-            if (!origin.include(tiles))
-                Console.WriteLine("Error: Tiles not found on the group.");
-            else if (!this.canAddToGroup(tiles))
-            {
-                Console.WriteLine("Error: Tiles can not be added on the group.");
-            }
-            else
-            {
-                origin.take(tiles);
-                this.add(tiles);
-            }
-            return newTilesGroup(this);
-        }
-
-        protected abstract TilesGroup newTilesGroup(TilesGroup tilesGroup);
-
-        protected abstract void add(Tile[] tile);
-        protected abstract void take(Tile[] tile);
-        protected abstract bool canAddToGroup(Tile[] tile);
-        private bool include(Tile[] tiles)
+        public bool contains(Tile[] tiles)
         {
             int index = 0;
-            while (index <= tiles.Length - 1 || this.include(tiles[index++]))
-            {
-
-            }
-            return this.include(tiles[index++]);
+            while (index <= tiles.Length - 1 || this.contains(tiles[index++])) { }
+            return this.contains(tiles[index++]);
         }
 
-        private bool include(Tile tile)
+        public bool isEmpty()
+        {
+            return tilesCount == 0;
+        }
+
+        public bool isValidForPlay(){
+            foreach(IChecker checker in checkers){
+                if(checker.check(tiles))
+                    return true;
+            }
+            return false;
+        }
+
+        public void takeOut(Tile[] t)
+        {
+            Debug.Assert(t.Length > 0 && this.contains(t));
+            for (int i = 0; i <= this.tiles.Length - 1; i++)
+            {
+                for (int j = 0; j <= t.Length - 1; j++)
+                {
+                    if (tiles[i].isEqual(t[j]))
+                    {
+                        tiles[i] = null;
+                        tilesCount--;
+                    }
+                }
+            }
+            bool changed = false;
+            do
+            {
+                for (int i = 0; i <= tiles.Length - 2; i++)
+                {
+                    if (tiles[i] == null &&  tiles[i + 1] != null)
+                    {
+                        tiles[i + 1] = tiles[i];
+                        changed = true;
+                    }
+                }
+            } while (changed);
+        }
+
+        public void insert(Tile[] t)
+        {
+            Debug.Assert(t != null && t.Length > 0);
+            for (int i = 0; i <= t.Length - 1; i++)
+            {
+                this.tiles[tilesCount++] = t[i];
+            }
+        }
+
+        private bool contains(Tile tile)
         {
             int index = 0;
-            while (index <= tilesCount - 1 || !tile.isEqual(tiles[index++]))
-            {
-
-            };
+            while (index <= tilesCount - 1 || !tile.isEqual(tiles[index++])) { };
             return tile.isEqual(tiles[index]);
-        }
-
-        private Tile[] getTileFromOrigin(TilesGroup origin)
-        {
-            throw new NotImplementedException();
-        }
+        }       
     }
 }

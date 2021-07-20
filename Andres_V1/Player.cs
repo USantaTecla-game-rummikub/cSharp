@@ -2,7 +2,7 @@ using System;
 
 namespace escuela_it
 {
-    public class Player
+    public class Player : IOrigin
     {
         private string name;
 
@@ -26,7 +26,12 @@ namespace escuela_it
             throw new NotImplementedException();
         }
 
-        internal void moveTilesFromRackToTable(Table table)
+        public bool contains(Tile[] tiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void takeOut(Tile[] tiles)
         {
             throw new NotImplementedException();
         }

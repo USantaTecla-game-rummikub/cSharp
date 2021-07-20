@@ -9,7 +9,6 @@ namespace escuela_it
         Table table;
         Pounch pounch;
         Turn turn;
-
         public Rummy()
         {
             pounch = new Pounch();
@@ -44,14 +43,41 @@ namespace escuela_it
                     opt = menu.getOption();
                     switch (opt)
                     {
-                        case 1: player.moveTilesFromRackToTable(table); break;
-                        case 2: table.moveTilesFromGroupToGroup(); break;
+                        case 1: moveTilesFromRackToTable(player); break;
+                        case 2: moveFromGroupToGroupTiles(); break;
                         case 3: player.addNewTile(pounch.take()); break;
                         case 4: break;
                     }
+                    table.clean();
                 } while (menu.finishTurn() || menu.finishPlay() || !player.isWinner());
 
             } while (menu.finishPlay() || !player.isWinner());
+        }
+
+        private void moveTilesFromRackToTable(Player player)
+        {
+            new Mover(table).from(player).to(this.readGroupDest()).these(this.readTiles());
+        }
+
+        private void moveFromGroupToGroupTiles()
+        {
+            new Mover(table).from(this.readGroupOrigin()).to(this.readGroupDest())
+                .these(this.readTiles()).move();
+        }
+
+        private Tile[] readTiles()
+        {
+            throw new NotImplementedException();
+        }
+
+        private int readGroupDest()
+        {
+            throw new NotImplementedException();
+        }
+
+        private int readGroupOrigin()
+        {
+            throw new NotImplementedException();
         }
 
         private void show(Player player)
