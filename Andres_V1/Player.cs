@@ -2,38 +2,28 @@ using System;
 
 namespace escuela_it
 {
-    public class Player : IOrigin
+    public class Player : Group
     {
-        private string name;
-
-        public Player(string v)
+        const int MAX_SIZE_TILES = 104;
+        private string name; 
+        
+        public Player(string v) :base(new Tile[MAX_SIZE_TILES])
         {
             this.name = v;
+        }       
+
+        public bool isWinner()
+        {
+            return this.tilesCount==0;
         }
 
-        internal void addNewTile(Tile tile)
+        public void show()
         {
-            throw new NotImplementedException();
-        }
-
-        internal bool isWinner()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void show()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool contains(Tile[] tiles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void takeOut(Tile[] tiles)
-        {
-            throw new NotImplementedException();
+            Console.WriteLine("------------------------------------------------------------------------------");
+            Console.WriteLine("Player {0}: ", this.name);
+            foreach(var t in tiles){
+                t.show();
+            }
         }
     }
 }

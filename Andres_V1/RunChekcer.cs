@@ -1,6 +1,6 @@
 namespace escuela_it
 {
-    public class RunChekcer : IChecker
+    public class RunChekcer : Checker
     {
         public bool check(Tile[] tiles)
         {

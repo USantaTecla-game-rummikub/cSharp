@@ -6,15 +6,14 @@ namespace escuela_it
     public class Table
     {
         const int MAX_TILES_GROUP = 46;
-        TilesGroup[] tilesGroup;
+        TableTilesGroup[] tilesGroup;
         int countTileGroup = 0;
         public Table()
         {
-            tilesGroup = new TilesGroup[MAX_TILES_GROUP];
-            
+            tilesGroup = new TableTilesGroup[MAX_TILES_GROUP];            
         }
 
-        public TilesGroup getTilesGroup(int index)
+        public TableTilesGroup getTilesGroup(int index)
         {
             throw new NotImplementedException();
         }
@@ -38,12 +37,12 @@ namespace escuela_it
             return countTileGroup == 0;
         }
 
-        internal void delete(TilesGroup origen)
+        public TableTilesGroup createNewGroup()
         {
-            throw new NotImplementedException();
+            return new TableTilesGroup(new Checker[]{new RunChekcer(), new SerieChecker()});
         }
 
-        internal void clean()
+        public void clean()
         {
             throw new NotImplementedException();
         }

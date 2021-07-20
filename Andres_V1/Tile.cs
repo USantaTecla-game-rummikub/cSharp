@@ -13,5 +13,10 @@ namespace escuela_it
         {
             throw new NotImplementedException();
         }
+
+        internal void show()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

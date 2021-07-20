@@ -23,7 +23,7 @@ namespace escuela_it
                 for (int j = 0; j < PLAYERS_COUNT; i++)
                 {
                     Player p = turn.nextPlayer();
-                    p.addNewTile(pounch.take());
+                    p.insert(pounch.take());
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace escuela_it
                     {
                         case 1: moveTilesFromRackToTable(player); break;
                         case 2: moveFromGroupToGroupTiles(); break;
-                        case 3: player.addNewTile(pounch.take()); break;
+                        case 3: player.insert(pounch.take()); break;
                         case 4: break;
                     }
                     table.clean();

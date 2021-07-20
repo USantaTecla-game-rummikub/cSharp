@@ -6,8 +6,8 @@ namespace escuela_it
     public class Mover
     {
         private Table table;
-        private IOrigin origen;
-        private TilesGroup destination;
+        private Origin origin;
+        private Destination destination;
         private Tile[] tiles;
         public Mover(Table table)
         {
@@ -15,11 +15,12 @@ namespace escuela_it
         }
         public Mover from(int index)
         {
-            this.origen = table.getTilesGroup(index);
+            this.origin = table.getTilesGroup(index);
             return this;
         }
 
-        public Mover from(Player p){
+        public Mover from(Origin origin){
+            this.origin = origin;
             return this;
         }
         public Mover to(int index)
@@ -30,22 +31,22 @@ namespace escuela_it
                 this.destination = this.createNewGroup();
             return this;
         }
-        private TilesGroup createNewGroup()
+        private TableTilesGroup createNewGroup()
         {
-            return new TilesGroup(new IChecker[]{new RunChekcer(), new SerieChecker()});
+            return table.createNewGroup();
         }
         public Mover these(Tile[] tiles){
             this.tiles = tiles;
             return this;
         }
         public void move(){
-            Debug.Assert(origen!=null && table!= null && tiles!=null && tiles.Length > 0);
-            if(!this.origen.contains(this.tiles)){
+            Debug.Assert(origin!=null && table!= null && tiles!=null && tiles.Length > 0);
+            if(!this.origin.contains(this.tiles)){
                 Console.WriteLine("Error: Origin not contains tiles.");
                 return;
             }
             this.destination.insert(tiles);
-            this.origen.takeOut(tiles);                      
+            this.origin.takeOut(tiles);                      
         }        
     }
 }

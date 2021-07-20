@@ -11,7 +11,7 @@ namespace escuela_it
             this.players = players;
         }
 
-        internal Player nextPlayer()
+        public Player nextPlayer()
         {
             throw new NotImplementedException();
         }
