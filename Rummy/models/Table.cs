@@ -32,16 +32,19 @@ namespace Rummy.models
             return this.pounch.extract();
         }
 
-        public void addTileToGroup(Tile tile, int groupIndex)
-        {
-            if (this.isValidInsertion(tile, groupIndex)) {
-               this.groups[groupIndex].addTile(tile);
-            }
+        public void addTileToGroup(Tile tile, int groupIndex) {            
+            this.groups[groupIndex].addTile(tile);         
         }
 
-        public bool isValidInsertion(Tile tile, int groupIndex)
-        {
-            return this.groups[groupIndex].isValidInsertion(tile);
+        public bool isValidGroups() {
+            bool valids = true;
+            foreach (TilesGroup group in this.groups) {
+                if (!group.isValid()) {
+                    valids = false;
+                    break;
+                }
+            }
+            return valids;
         }
         
         public void write() {
@@ -50,6 +53,11 @@ namespace Rummy.models
                 Console.WriteLine(group.ToString());
                 i++;
             }
+        }
+
+        internal bool isEmptyPounch()
+        {
+            throw new NotImplementedException();
         }
     }
 }

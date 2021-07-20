@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rummy.types
 {
-    public enum TileNumber
-    {
+    public enum TileNumber {
         ONE = 1,
         TWO = 2,
         THREE = 3,

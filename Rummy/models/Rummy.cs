@@ -26,10 +26,10 @@ namespace Rummy.models
                 do {                    
                     player.executeAction();
                 } while (!turn.isEnd());
-                if (turn.isEnd() && !player.isWinner()) {
+                if (turn.isEnd() && !player.isWinner() && !turn.hasWinnerByPoints()) {
                     turn.change();
                 }
-            } while (!player.isResume() && !player.isWinner());
+            } while (!player.isResume() && !player.isWinner() && turn.hasWinnerByPoints());
             if (player.isWinner()) {
                 player.writeCongratulations();
             }

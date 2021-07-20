@@ -22,14 +22,14 @@ namespace Rummy.models
 
         public override bool isValid() {
             if (this.size > 0) {
-                bool validGroup = true;
-                Tile tileRef = tiles[0];
+                bool validGroup = true;                
                 for (int i = 1; i < this.size; i++) {
-                    if (tiles[i].isNumberDistinctTo(tileRef) || tiles[i].isColorEqualsTo(tileRef)) {
-                        validGroup = false;
-                        break;
+                    for (int j = 0; j < i; j++) {
+                       if (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j])) {
+                           validGroup = false;
+                           break;
+                       }                       
                     }
-                    tileRef = tiles[i];
                 }
                 return this.isSizeValid() && validGroup;
             }
@@ -39,7 +39,7 @@ namespace Rummy.models
         public override bool isValidInsertion(Tile tile) {             
             bool colorOk = true;
             foreach (Tile t in this.tiles) {
-               if (t.isColorEqualsTo(tile)) {
+               if (t.isColorEqualsTo(tile) || t.isNumberDistinctTo(tile)) {
                     colorOk = false;
                     break;
                }

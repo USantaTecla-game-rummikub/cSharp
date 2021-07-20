@@ -1,0 +1,98 @@
+@startuml
+
+title modelo de diseño
+
+class Rummy {
+}
+
+Rummy --> Turn
+Turn *--> Table
+Turn *--> "2..4" Player
+Table *--> Pounch
+Table *--> TilesGroup
+Player --> Table
+Player --> "n" Tile
+
+Rummy ..> Player
+
+class Turn {
+   +take(): Player
+   +change()
+   +isEnd(): bool
+   +write()
+   +getWinnerByPoints(): Player
+   +hasWinnerByPoints(): bool
+}
+
+class Table {
+  +extract()
+  +addTileToGroup(tile, groupIndex)
+  +isValidInsertion(tile, groupIndex)
+}
+
+class Pounch {
+  +extract()
+  +isEmpty(): bool
+}
+
+class Player {
+  +extractTile()
+  +executeAction()
+  +isWinner()
+  +getPoints()
+  +write()
+  +isResume()
+  +writeCongratulations()
+  +isEnd()
+}
+
+abstract class TilesGroup {
+   +addTile(tile)
+   +isValid()
+}
+
+class Tile {
+  +getNumber()
+  +isNumberLessThan(tile)
+  +isNumberGreaterThen(tile)
+  +isColorEqualsTo(tile)
+  +isNumberDistinctTo(tile)
+  +isColorDistinct(tile)
+}
+
+TilesGroup *--> "3..13" Tile
+
+Player ..> ActionParser
+ActionParser ..> Sentence
+Command <|-- Sentence
+Command <|-- Instruction
+Command <|-- Arguments
+Sentence *--> Instruction
+Sentence *--> Arguments
+abstract class Command {
+  
+  #interpret(string[] expression)
+}
+
+class Instruction {
+   -name
+}
+
+Arguments *--> Expression
+Arguments *--> ExpressionList
+Expression *--> TargetGroup
+ExpressionList *--> Expression 
+ExpressionList *--> ExpressionList
+ExpressionList <|-- ExpressionNull
+Expression <|-- ExpressionTileDown
+Expression <|-- ExpressionGroupMove
+ExpressionGroupMove *--> OriginGroup
+Expression *--> TilesList
+
+ActionParser *--> "1..2" TilesGroup
+ActionParser *--> "n" Tile
+class ActionParser {
+   
+}
+
+@enduml

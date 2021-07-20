@@ -8,6 +8,10 @@ namespace Rummy.models
         private TileNumber number;
         private Color color;
 
+        public TileNumber getNumber() {
+            return this.number;
+        }
+
         public Tile(TileNumber number, Color color)
         {
             this.number = number;
@@ -32,6 +36,11 @@ namespace Rummy.models
         internal bool isNumberDistinctTo(Tile tile)
         {
             return this.number != tile.number;
+        }
+
+        public bool isNumberLessOrEqualThan(Tile tile)
+        {
+            return this.number <= tile.number;
         }
 
         internal bool isColorDistinct(Tile tile)

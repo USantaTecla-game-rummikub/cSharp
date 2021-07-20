@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rummy.types
+namespace Rummy.models.interpreter
 {
-    public enum Color {
-        RED,
-        GREEN,
-        YELLOW,
-        BLACK
+    private 
+    public class ExpressionTileDown: Expression
+    {
+
     }
 }
