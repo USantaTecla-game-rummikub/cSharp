@@ -54,6 +54,11 @@ namespace escuela_it
             } while (menu.finishPlay() || !player.isWinner());
         }
 
+        static void Main(string[] args)
+        {
+            new Rummy().play();
+        }
+
         private void moveTilesFromRackToTable(Player player)
         {
             new Mover(table).from(player).to(this.readGroupDest()).these(this.readTiles());
@@ -89,10 +94,6 @@ namespace escuela_it
             player.show();
             table.show();
         }
-
-        static void Main(string[] args)
-        {
-            new Rummy().play();
-        }
+       
     }
 }
