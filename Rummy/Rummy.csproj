@@ -43,29 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\interpreter\Action.cs" />
-    <Compile Include="models\interpreter\Arguments.cs" />
-    <Compile Include="models\interpreter\Command.cs" />
-    <Compile Include="models\interpreter\End.cs" />
-    <Compile Include="models\interpreter\Exit.cs" />
-    <Compile Include="models\interpreter\Expression.cs" />
-    <Compile Include="models\interpreter\ExpressionGroupMove.cs" />
-    <Compile Include="models\interpreter\ExpressionList.cs" />
-    <Compile Include="models\interpreter\ExpressionTileDown.cs" />
+    <Compile Include="models\GroupMovement.cs" />
+    <Compile Include="models\interpreter\ExpEnd.cs" />
+    <Compile Include="models\interpreter\ExpMovIn.cs" />
+    <Compile Include="models\interpreter\ExpPutIn.cs" />
+    <Compile Include="models\interpreter\ExpMov.cs" />
+    <Compile Include="models\interpreter\ExpPut.cs" />
+    <Compile Include="models\interpreter\ExpTileGroup.cs" />
     <Compile Include="models\interpreter\Group.cs" />
-    <Compile Include="models\interpreter\Help.cs" />
-    <Compile Include="models\interpreter\Instruction.cs" />
-    <Compile Include="models\interpreter\Mov.cs" />
-    <Compile Include="models\interpreter\Parser.cs" />
-    <Compile Include="models\interpreter\Put.cs" />
-    <Compile Include="models\interpreter\Redo.cs" />
-    <Compile Include="models\interpreter\Sentence.cs" />
-    <Compile Include="models\interpreter\Undo.cs" />
+    <Compile Include="models\interpreter\CommandParser.cs" />
+    <Compile Include="models\interpreter\Expression.cs" />
+    <Compile Include="models\interpreter\ExpTileRack.cs" />
+    <Compile Include="models\IPlayerCommand.cs" />
     <Compile Include="models\Player.cs" />
     <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
-    <Compile Include="models\Run.cs" />
-    <Compile Include="models\Serie.cs" />
     <Compile Include="models\Table.cs" />
     <Compile Include="models\Tile.cs" />
     <Compile Include="models\TilesGroup.cs" />
@@ -74,8 +66,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="types\ActionType.cs" />
     <Compile Include="types\Color.cs" />
+    <Compile Include="types\CommandString.cs" />
+    <Compile Include="types\Error.cs" />
     <Compile Include="types\GroupType.cs" />
     <Compile Include="types\Message.cs" />
+    <Compile Include="types\SubcommandString.cs" />
     <Compile Include="types\TileNumber.cs" />
   </ItemGroup>
   <ItemGroup>

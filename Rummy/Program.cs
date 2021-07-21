@@ -10,7 +10,7 @@ namespace Rummy
     {
         static void Main(string[] args)
         {
-            new models.Rummy(int.Parse(args[1])).play();
+            new models.Rummy(int.Parse(args[0])).play();
         }
     }
 }

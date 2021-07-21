@@ -1,6 +1,7 @@
 ﻿using Rummy.types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,18 +23,31 @@ namespace Rummy.models
 
         private Pounch pounch;
         private TilesGroup[] groups;
+        private int topGroups;
 
         public Table() {
             this.pounch = new Pounch(TILES_TOTALES);            
-            this.groups = new TilesGroup[GROUPS_MAX];            
+            this.groups = new TilesGroup[GROUPS_MAX];
+            topGroups = 0;
         }
        
-        internal Tile extract() {
+        public Tile extract() {
             return this.pounch.extract();
         }
 
         public void addTileToGroup(Tile tile, int groupIndex) {            
-            this.groups[groupIndex].addTile(tile);         
+            this.groups[groupIndex].addTile(tile);
+            topGroups++;
+        }
+
+        public void moveTileFromOriginGroupToTargetGroup(string tileTextDescription, int originGroup, int targetGroup)
+        {
+            Tile tile = this.getTile(tileTextDescription);
+            TilesGroup oGroup = this.getGroup(originGroup);
+            TilesGroup tGroup = this.getGroup(targetGroup);
+            Tile originTile = oGroup.getTile(tile);
+            tGroup.addTile(originTile);
+            oGroup.removeTile(originTile);
         }
 
         public bool isValidGroups() {
@@ -48,16 +62,61 @@ namespace Rummy.models
         }
         
         public void write() {
-            int i = 1;
-            foreach (TilesGroup group in this.groups) {
-                Console.WriteLine(group.ToString());
+
+            this.pounch.write();
+            for (int i = 0; i < this.topGroups; i++) {
+                this.groups[i].write();
                 i++;
             }
         }
 
-        internal bool isEmptyPounch()
+        public bool isEmptyPounch()
         {
-            throw new NotImplementedException();
+            return this.pounch.isEmpty();
+        }
+
+        public bool hasGroup(int indexGroup)
+        {            
+            foreach (TilesGroup group in this.groups)
+            {
+                if (group.hasIndex(indexGroup))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private TilesGroup getGroup(int indexGroup)
+        {
+            foreach (TilesGroup group in this.groups)
+            {
+                if (group.hasIndex(indexGroup))
+                {
+                    return group;
+                }
+            }
+            return null;
+        }
+
+        public bool existTileInTable(string tileTextDescription)
+        {            
+            return this.getTile(tileTextDescription) != null;
+        }
+
+        private Tile getTile(string tileTextDescription)
+        {
+            Debug.Assert(tileTextDescription.Length >= 2 && tileTextDescription.Length <= 3);
+            Tile tileFinded = null;
+            foreach (TilesGroup group in this.groups)
+            {
+                tileFinded = group.getTile(tileTextDescription);
+                if (tileFinded != null)
+                {
+                    break;
+                }
+            }
+            return tileFinded;
         }
     }
 }

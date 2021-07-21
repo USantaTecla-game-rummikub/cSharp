@@ -10,25 +10,38 @@ namespace Rummy.models
 {
     public class Pounch
     {
-        private Tile[] pounch;        
+        private Tile[] pounch;
+        private int top;
 
         public Pounch(int numTiles) {
+            this.top = 0;
             this.createTiles(numTiles);
             this.shuffleTiles();
         }
 
         private void createTiles(int numTiles) {
-            this.pounch = new Tile[numTiles];
-            int i = 0;
+            this.pounch = new Tile[numTiles];            
             Array numbers = Enum.GetValues(typeof(TileNumber));
             Array colors = Enum.GetValues(typeof(Color));
-            foreach (TileNumber number in numbers) {
-                foreach (Color color in colors) {
-                    Tile tile = new Tile(number, color);
-                    this.pounch[i] = tile;
-                    i = i + 1;
+            for (int i = 0; i < 2; i++)
+            {
+                foreach (TileNumber number in numbers)
+                {
+                    if (number != TileNumber.J)
+                    {
+                        foreach (Color color in colors)
+                        {
+                            if (color != Color.J)
+                            {
+                                Tile tile = new Tile(number, color);
+                                this.pounch[this.top++] = tile;                                
+                            }
+                        }
+                    }
                 }
-            }            
+            }
+            this.pounch[this.top++] = new Tile(TileNumber.J, Color.J);
+            this.pounch[this.top++] = new Tile(TileNumber.J, Color.J);
         }
 
         private void shuffleTiles() {
@@ -45,11 +58,20 @@ namespace Rummy.models
 
         public Tile extract() {
             Debug.Assert(this.pounch.Length > 0);
-            return this.pounch[this.pounch.Length - 1];
+            return this.pounch[this.top - 1];
         }        
 
         public bool isEmpty() {
-            return this.pounch.Length == 0;
+            return this.top == 0;
+        }
+
+        public void write()
+        {
+            Console.WriteLine(Message.POUNCH + this.top);
+            foreach (Tile tile in this.pounch) {
+                tile.write();
+                Console.Write(" ");
+            }
         }
     }
 }

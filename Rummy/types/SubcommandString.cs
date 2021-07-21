@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Rummy.types
 {
-    public enum Color {
-        R,
-        G,
-        Y,
-        B,
-        J
+    public class SubcommandString
+    {
+        public const string IN = "IN";
+        public const string FROM = "FROM";
     }
 }

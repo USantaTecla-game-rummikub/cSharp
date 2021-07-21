@@ -8,6 +8,6 @@ namespace Rummy.types
 {
     enum GroupType {
         SERIE,
-        RUN
+        RUN        
     }
 }

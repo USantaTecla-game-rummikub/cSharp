@@ -8,5 +8,6 @@ namespace Rummy.types
 {
     public class Message {
         public static string REQUEST_ACTION = "What action do you want to do?: ";
+        public static string POUNCH = "Pounch: ";
     }
 }

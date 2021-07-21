@@ -19,6 +19,7 @@ namespace Rummy.types
         TEN = 10,
         ELEVEN = 11,
         TWELVE = 12,
-        THIRTEEN = 13
+        THIRTEEN = 13,
+        J
     }
 }

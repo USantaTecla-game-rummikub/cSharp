@@ -1,6 +1,7 @@
 ﻿using Rummy.types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,27 +14,24 @@ namespace Rummy.models
         private const int SIZE_MAX_SERIE = 4;
         private const int SIZE_MAX_RUN = 13;
         private int id;
-        private Tile[] tiles;
-        private int size;
+        private List<Tile> tiles;        
         
         protected TilesGroup() {
-            this.tiles = new Tile[SIZE_MAX_RUN];
-            this.size = 0;
+            this.tiles = new List<Tile>();            
         }       
        
         public void addTile(Tile tile) {
-            if (this.tiles.Length < SIZE_MAX_RUN - 1) {
+            if (this.tiles.Count < SIZE_MAX_RUN - 1) {
                 int i = 0;
-                for (i = 0; i < this.size; i++) {
+                for (i = 0; i < this.tiles.Count; i++) {
                     if (tile.isNumberLessOrEqualThan(this.tiles[i])) {
-                        for (int j = this.size + 1; j > i; j--) {
+                        for (int j = this.tiles.Count + 1; j > i; j--) {
                             this.tiles[j] = this.tiles[j - 1];
                         }                        
                         break;
                     }
                 }
-                this.tiles[i] = tile;
-                this.size++;
+                this.tiles[i].clone(tile);                
             }
         }       
 
@@ -43,8 +41,8 @@ namespace Rummy.models
 
         private bool isRunValid() {
             bool validGroup = true;
-            for (int i = 0; i < this.size; i++) {
-                if (this.tiles[i].isNumberGreaterThan(this.tiles[i + 1])) {
+            for (int i = 0; i < this.tiles.Count; i++) {
+                if (this.tiles[i].isNumberGreaterThan(this.tiles[i + 1]) || !this.tiles[i].isJoker()) {
                     validGroup = false;
                     break;
                 }
@@ -52,25 +50,70 @@ namespace Rummy.models
             return this.isSizeValidForRun() && validGroup;
         }
 
-        private bool isSerieValid() {            
-                bool validGroup = true;
-                for (int i = 1; i < this.size; i++) {
-                    for (int j = 0; j < i; j++) {
-                        if (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j])) {
-                            validGroup = false;
-                            break;
-                        }
+        private bool isSerieValid() {
+            bool validGroup = true;
+            for (int i = 1; i < this.tiles.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j]) || !this.tiles[i].isJoker())
+                    {
+                        validGroup = false;
+                        break;
                     }
                 }
-                return this.isSizeValidForSerie() && validGroup;            
+            }
+            return this.isSizeValidForSerie() && validGroup;          
         }
-      
+
+        internal void write()
+        {
+            
+        }
+
+        public void removeTile(Tile originTile)
+        {
+            this.tiles.Remove(originTile);
+        }
+
+        public bool hasIndex(int indexGroup)
+        {
+            return this.id == indexGroup;
+        }
+
         private bool isSizeValidForSerie() {
-            return this.size >= SIZE_MIN_GROUP && this.size <= SIZE_MAX_SERIE;
+            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_SERIE;
         }
 
         private bool isSizeValidForRun() {
-            return this.size >= SIZE_MIN_GROUP && this.size <= SIZE_MAX_RUN;
+            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_RUN;
+        }
+
+        public Tile getTile(string tileString)
+        {
+            Debug.Assert(tileString.Length >= 2 && tileString.Length <= 3);
+            Tile tileFinded = null;
+            foreach (Tile tile in this.tiles) {
+                if (tile.isColorEqualsTo(tileString) && tile.isNumberEqualTo(tileString)) {
+                    tileFinded = tile;
+                    break;
+                }
+            }
+            return tileFinded;
+        }
+
+        public Tile getTile(Tile tileToSearch)
+        {            
+            Tile tileFinded = null;
+            foreach (Tile tile in this.tiles)
+            {
+                if (tile.isColorEqualsTo(tileToSearch) && tile.isNumberEqualTo(tileToSearch))
+                {
+                    tileFinded = tile;
+                    break;
+                }
+            }
+            return tileFinded;
         }
     }
 }

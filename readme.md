@@ -1,6 +1,6 @@
+```plantuml
 @startuml
-
-title modelo de diseño
+title diagrama de clases de diseño
 
 class Rummy {
   +play()
@@ -114,5 +114,5 @@ interface IPlayerCommand {
   +existTileInTable(tile): bool
   +moveTileFromGroupToGroup(tile, origin, target);
 }
-
 @enduml
+```

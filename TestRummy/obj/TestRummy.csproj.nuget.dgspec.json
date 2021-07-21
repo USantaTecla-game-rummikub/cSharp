@@ -1,0 +1,59 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
+        "projectName": "TestRummy",
+        "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
+        "packagesPath": "C:\\Users\\Antonio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Antonio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net50"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net50": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net50": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.16.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

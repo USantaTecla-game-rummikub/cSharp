@@ -1,29 +1,29 @@
 ﻿using Rummy.models.interpreter;
 using Rummy.types;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Rummy.models
 {
-    public class Player
+    public class Player: IPlayerCommand
     {
-        private Tile[] rack;
-        private int topRack;
+        private List<Tile> rack;        
         private Table table;
         private ActionType lastAction;
 
         public Player(Table table) {
             this.table = table;
-            this.rack = new Tile[Table.TILES_TOTALES];            
-            this.topRack = 0;
+            this.rack = new List<Tile>();            
         }
-
-        internal void extractTile() {
+      
+        public void extractTile() {
             this.lastAction = ActionType.EXTRACT;
-            this.rack[topRack++] = this.table.extract();
+            this.rack.Add(this.table.extract());
         }
 
-        internal bool isWinner() {
-            return this.rack.Length == 0;
+        public bool isWinner() {
+            return this.rack.Count == 0;
         }
 
         public int getPoints() {
@@ -34,31 +34,97 @@ namespace Rummy.models
             return points;
         }
 
-        internal void write() {
+        public void write() {
             
+            foreach (Tile tile in this.rack)
+            {
+                tile.write();
+            }
         }
 
-        internal void executeAction()
+        public void executeAction()
         {
             Console.Write(Message.REQUEST_ACTION);            
-            Parser parser = new Parser(Console.ReadLine());
-            this.lastAction = ActionType.TILEDOWN;
+            CommandParser parser = new CommandParser(Console.ReadLine(), this);
+            parser.parse();
         }
 
-        internal bool isResume() {
+        public bool isResume() {
             return false;
         }
 
-        internal void writeCongratulations() {
+        public void writeCongratulations() {
             Console.WriteLine("¡¡ Congratulations, you made a RUMMY !!");
         }
 
-        internal bool isEnd() {
+        public bool isEnd() {
             return false;
         }
 
-        internal ActionType getLastAction() {
+        public ActionType getLastAction() {
             return this.lastAction;
+        }
+
+        private void addTileToGroup(Tile tile, int groupIndex)
+        {
+            this.table.addTileToGroup(tile, groupIndex);
+            this.rack.Remove(tile);
+            this.lastAction = ActionType.TILEDOWN;
+        }       
+
+        public void addTileToGroup(string tileString, int groupIndex) {
+            Debug.Assert(this.findTileInRack(tileString) != null);            
+            this.addTileToGroup(this.findTileInRack(tileString), groupIndex);
+        }
+        private Tile findTileInRack(string tileString)
+        {
+            Debug.Assert(tileString.Length >= 2 && tileString.Length <= 3);
+            Tile tileFinded = null;
+            foreach (Tile tile in this.rack) {
+                if (tile.isColorEqualsTo(tileString) && tile.isNumberEqualTo(tileString))
+                {
+                    tileFinded = tile;
+                    break;
+                }
+            }
+            return tileFinded;
+        }
+
+        public bool existGroup(string targetGroup) {
+            if (int.TryParse(targetGroup, out int result)) {
+                return this.table.hasGroup(int.Parse(targetGroup));
+            } else {
+                return false;
+            }
+        }
+        
+        public bool existTileInRack(string tileDescription)
+        {
+            return this.findTileInRack(tileDescription) != null;
+        }
+
+        public bool existTileInTable(string tileDescription)
+        {
+            return this.table.existTileInTable(tileDescription);
+        }
+
+        public void moveTileFromGroupToGroup(string tileString, int origin, int target)
+        {
+            this.table.moveTileFromOriginGroupToTargetGroup(tileString, origin, target);
+            this.lastAction = ActionType.GROUPMOVEMENT;
+        }       
+
+        public void endTurn()
+        {
+
+        }
+
+        public bool canEndTurn()
+        {
+            if (this.lastAction == ActionType.TILEDOWN || this.lastAction == ActionType.END || this.lastAction == ActionType.EXTRACT) {
+                return true;
+            }
+            return false;
         }
     }
 }

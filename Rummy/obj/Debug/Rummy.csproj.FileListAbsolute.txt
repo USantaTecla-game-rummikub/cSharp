@@ -1,1 +1,7 @@
 C:\Users\antonio.padron\Documents\escuelait\master-desarrollo\curso de pruebas\practica\Rummy\Rummy\obj\Debug\Rummy.csprojAssemblyReference.cache
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\obj\Debug\Rummy.csprojAssemblyReference.cache
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\bin\Debug\Rummy.exe.config
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\bin\Debug\Rummy.exe
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\bin\Debug\Rummy.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\obj\Debug\Rummy.exe
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\obj\Debug\Rummy.pdb

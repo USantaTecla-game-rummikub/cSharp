@@ -64,6 +64,7 @@ namespace Rummy.models
         }
 
         public void write() {
+            Console.WriteLine("---------------------------------------------------------------------------------");
             this.table.write();
             this.writePlayers();
         }
