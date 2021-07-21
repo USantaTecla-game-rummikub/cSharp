@@ -1,6 +1,6 @@
 @startuml
 
-title modelo de diseño
+title diagrama de clases de diseño
 
 class Rummy {
   +play()
@@ -113,6 +113,32 @@ interface IPlayerCommand {
   +existTileInRack(tile): bool
   +existTileInTable(tile): bool
   +moveTileFromGroupToGroup(tile, origin, target);
+}
+
+Tile *--> Color
+Tile *--> TileNumber
+
+enum Color {
+  RED,
+  GREEN,
+  BLACK,
+  YELLOW
+}
+
+enum TileNumber {
+  ONE,
+  TWO,
+  THREE,
+  FOUR,
+  FIVE,
+  SIX,
+  SEVEN,
+  EIGHT,
+  NINE, 
+  TEN,
+  ELEVEN,
+  TWELVE,
+  THIRTEEN
 }
 
 @enduml
