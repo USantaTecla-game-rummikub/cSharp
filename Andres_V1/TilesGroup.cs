@@ -1,61 +1,30 @@
 using System;
+using System.Diagnostics;
 
 namespace escuela_it
 {
-    public abstract class TilesGroup
+    public class TableTilesGroup : Group
     {
-        protected Tile[] tiles;
-        protected int tilesCount;
-        protected TilesGroup(Tile[] tiles)
+        
+        private Checker[] checkers;        
+        private const int SIZE_MAX = 13;
+        public TableTilesGroup(Checker[] checkers) : base(new Tile[SIZE_MAX])
         {
-            this.tiles = tiles;
             this.tilesCount = 0;
-        }
-        public TilesGroup readFrom(TilesGroup origin)
+            this.checkers = checkers;
+        }        
+
+        public bool isEmpty()
         {
-            Tile[] tiles = getTileFromOrigin(origin);
-            if (!origin.include(tiles))
-                Console.WriteLine("Error: Tiles not found on the group.");
-            else if (!this.canAddToGroup(tiles))
-            {
-                Console.WriteLine("Error: Tiles can not be added on the group.");
+            return tilesCount == 0;
+        }
+
+        public bool isValidForPlay(){
+            foreach(Checker checker in checkers){
+                if(checker.check(tiles))
+                    return true;
             }
-            else
-            {
-                origin.take(tiles);
-                this.add(tiles);
-            }
-            return newTilesGroup(this);
-        }
-
-        protected abstract TilesGroup newTilesGroup(TilesGroup tilesGroup);
-
-        protected abstract void add(Tile[] tile);
-        protected abstract void take(Tile[] tile);
-        protected abstract bool canAddToGroup(Tile[] tile);
-        private bool include(Tile[] tiles)
-        {
-            int index = 0;
-            while (index <= tiles.Length - 1 || this.include(tiles[index++]))
-            {
-
-            }
-            return this.include(tiles[index++]);
-        }
-
-        private bool include(Tile tile)
-        {
-            int index = 0;
-            while (index <= tilesCount - 1 || !tile.isEqual(tiles[index++]))
-            {
-
-            };
-            return tile.isEqual(tiles[index]);
-        }
-
-        private Tile[] getTileFromOrigin(TilesGroup origin)
-        {
-            throw new NotImplementedException();
-        }
+            return false;
+        } 
     }
 }

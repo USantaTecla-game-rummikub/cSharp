@@ -1,15 +1,29 @@
 using System;
+using System.Diagnostics;
 
 namespace escuela_it
 {
-    public class Tile
+    public abstract class Tile : TileAbstract
     {
-        internal Tile read()
+        int number;
+        Color color;
+        public Tile(int number, Color color)
+        {
+            Debug.Assert(number>0 && number<=13);
+            this.number = number;
+            this.color = color;
+        }
+
+        public Tile(){
+
+        }
+
+        public bool isEqual(Tile tile)
         {
             throw new NotImplementedException();
         }
 
-        internal bool isEqual(Tile tile)
+        public void show()
         {
             throw new NotImplementedException();
         }
