@@ -82,6 +82,8 @@ interface IExpression {
    +interpret(IPlayerCommand)
 }
 CommandParser *--> IExpression
+CommandParser ..> CommandString
+CommandParser ..> SubcommandString
 
 IExpression <|-- ExpPut
 IExpression <|-- ExpMov
@@ -122,7 +124,8 @@ enum Color {
   RED,
   GREEN,
   BLACK,
-  YELLOW
+  YELLOW,
+  JOKER
 }
 
 enum TileNumber {
@@ -138,7 +141,24 @@ enum TileNumber {
   TEN,
   ELEVEN,
   TWELVE,
-  THIRTEEN
+  THIRTEEN,
+  JOKER
 }
+
+enum CommandString {
+   PUT = "PUT",
+   MOV = "MOV";
+   END = "END";
+   HELP = "HELP";
+   UNDO = "UNDO";
+   REDO = "REDO";
+   RESUME = "RESUME";
+   EXIT = "EXIT";
+}
+enum SubcommandString {
+   IN = "IN",
+   FROM = "FROM"
+}
+
 
 @enduml

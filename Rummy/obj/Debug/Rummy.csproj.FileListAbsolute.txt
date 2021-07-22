@@ -5,3 +5,10 @@ C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proy
 C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\bin\Debug\Rummy.pdb
 C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\obj\Debug\Rummy.exe
 C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\Rummy\obj\Debug\Rummy.pdb
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\bin\Debug\Rummy.exe.config
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\bin\Debug\Rummy.exe
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\bin\Debug\Rummy.pdb
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\obj\Debug\Rummy.csproj.AssemblyReference.cache
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\obj\Debug\Rummy.csproj.CoreCompileInputs.cache
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\obj\Debug\Rummy.exe
+C:\Users\antonio.padron\OneDrive - Depositos Almacenes Numero Uno, S.A\Documents\escuelait\master-desarrollo\curso de pruebas\practica\cSharp\Rummy\obj\Debug\Rummy.pdb
