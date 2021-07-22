@@ -3,4 +3,4 @@
 
 ### Captura de pantalla del principio de la partida
 
-![Captura de pantalla](https://github.com/USantaTecla-game-rummikub/cSharp/Captura_ejecucion.png)
+![Captura de pantalla](https://github.com/USantaTecla-game-rummikub/cSharp/blob/main/Captura_ejecucion.PNG)
