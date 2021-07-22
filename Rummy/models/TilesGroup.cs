@@ -16,7 +16,8 @@ namespace Rummy.models
         private int id;
         private List<Tile> tiles;        
         
-        protected TilesGroup() {
+        public TilesGroup(int id) {
+            this.id = id;
             this.tiles = new List<Tile>();            
         }       
        
@@ -68,7 +69,11 @@ namespace Rummy.models
 
         internal void write()
         {
-            
+            Console.Write(this.id + ". ");
+            foreach (Tile tile in this.tiles)
+            {                
+                tile.write();                
+            }
         }
 
         public void removeTile(Tile originTile)

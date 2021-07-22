@@ -23,22 +23,33 @@ namespace Rummy.models
         private int GROUPS_MAX = (Table.TILES_TOTALES - 1) / SIZE_MIN_GROUP;
 
         private Pounch pounch;
-        private TilesGroup[] groups;
-        private int topGroups;
+        private List<TilesGroup> groups;        
 
         public Table() {                  
-            this.pounch = new Pounch(TILES_TOTALES);            
-            this.groups = new TilesGroup[GROUPS_MAX];
-            topGroups = 0;
+            this.pounch = new Pounch(TILES_TOTALES);
+            this.groups = List<TilesGroup>();            
         }
-       
+
+        private List<T> List<T>()
+        {
+            throw new NotImplementedException();
+        }
+
         public Tile extract() {
             return this.pounch.extract();
         }
 
-        public void addTileToGroup(Tile tile, int groupIndex) {            
-            this.groups[groupIndex].addTile(tile);
-            topGroups++;
+        public void addTileToGroup(Tile tile, int groupIndex) {
+            TilesGroup group = this.getGroup(groupIndex);
+            if (group == null)
+            {
+                TilesGroup newGroup = new TilesGroup(groupIndex);
+                newGroup.addTile(tile);
+                this.groups.Add(newGroup);                                
+            } else
+            {
+                group.addTile(tile);
+            }
         }
 
         public void moveTileFromOriginGroupToTargetGroup(string tileTextDescription, int originGroup, int targetGroup)
@@ -66,8 +77,9 @@ namespace Rummy.models
 
             this.pounch.write();
             Console.Write("Table: ");
-            for (int i = 0; i < this.topGroups; i++) {
+            for (int i = 0; i < this.groups.Count; i++) {
                 this.groups[i].write();
+                Console.WriteLine();
                 i++;
             }
             Console.WriteLine();
