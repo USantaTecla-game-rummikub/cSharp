@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Rummy.types
 {
     public enum Color {
-        R,
-        G,
-        Y,
-        B,
-        J
+        RED,
+        GREEN,
+        YELLOW,
+        BLUE,
+        JOKER
     }
 }

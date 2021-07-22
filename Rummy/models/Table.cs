@@ -1,5 +1,6 @@
 ﻿using Rummy.types;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Rummy.models
 {
     public class Table
-    {
+    {        
         private const int MALLETS = 2;
         private const int TILES_ONE_COLOR = 13;
         private const int TILES_RED = TILES_ONE_COLOR * MALLETS;
@@ -25,7 +26,7 @@ namespace Rummy.models
         private TilesGroup[] groups;
         private int topGroups;
 
-        public Table() {
+        public Table() {                  
             this.pounch = new Pounch(TILES_TOTALES);            
             this.groups = new TilesGroup[GROUPS_MAX];
             topGroups = 0;
@@ -64,10 +65,12 @@ namespace Rummy.models
         public void write() {
 
             this.pounch.write();
+            Console.Write("Table: ");
             for (int i = 0; i < this.topGroups; i++) {
                 this.groups[i].write();
                 i++;
             }
+            Console.WriteLine();
         }
 
         public bool isEmptyPounch()

@@ -70,8 +70,14 @@ namespace Rummy.models
         }
 
         private void writePlayers() {
+            Console.WriteLine();
             for (int i = 0; i < this.players.Length; i++) {
-                this.players[i].write();
+                if (this.currentPlayer == i)
+                {
+                    Console.Write("Player " + (i + 1) + ": ");
+                    this.players[i].write();
+                    Console.WriteLine();
+                }
             }
         }
 

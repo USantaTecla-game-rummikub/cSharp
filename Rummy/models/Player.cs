@@ -35,10 +35,40 @@ namespace Rummy.models
         }
 
         public void write() {
-            
-            foreach (Tile tile in this.rack)
-            {
+
+            List<Tile> redGroup = new List<Tile>();
+            List<Tile> blueGroup = new List<Tile>();
+            List<Tile> yellowGroup = new List<Tile>();
+            List<Tile> greenGroup = new List<Tile>();
+            List<Tile> jokerGroup = new List<Tile>();
+            foreach (Tile tile in this.rack) {
+                if (tile.isColorEqualsTo(Color.RED)) {
+                    redGroup.Add(tile);
+                } else if (tile.isColorEqualsTo(Color.BLUE)) {
+                    blueGroup.Add(tile);
+                } else if (tile.isColorEqualsTo(Color.GREEN)) {
+                    greenGroup.Add(tile);
+                } else if (tile.isColorEqualsTo(Color.YELLOW)) {
+                    yellowGroup.Add(tile);
+                } else if (tile.isColorEqualsTo(Color.JOKER)) {
+                    jokerGroup.Add(tile);
+                }
+            }
+            this.writeGroup(redGroup);
+            Console.Write("| ");
+            this.writeGroup(blueGroup);
+            Console.Write("| ");
+            this.writeGroup(yellowGroup);
+            Console.Write("| ");
+            this.writeGroup(greenGroup);
+            Console.Write("| ");
+            this.writeGroup(jokerGroup);
+        }
+        
+        private void writeGroup(List<Tile> colorGroup) {
+            foreach (Tile tile in colorGroup) {
                 tile.write();
+                Console.Write(" ");
             }
         }
 

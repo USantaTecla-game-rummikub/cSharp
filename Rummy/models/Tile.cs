@@ -1,13 +1,19 @@
 ﻿using Rummy.types;
 using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace Rummy.models
 {
     public class Tile
-    {
+    {        
         private TileNumber number;
         private Color color;
+        public Tile(TileNumber number, Color color)
+        {
+            this.number = number;
+            this.color = color;
+        }        
 
         public TileNumber getNumber() {
             return this.number;
@@ -16,13 +22,7 @@ namespace Rummy.models
         {
             this.number = tile.number;
             this.color = tile.color;
-        }
-
-        public Tile(TileNumber number, Color color)
-        {
-            this.number = number;
-            this.color = color;
-        }
+        }      
 
         public bool isNumberLessThan(Tile tile)
         {
@@ -37,6 +37,11 @@ namespace Rummy.models
         public bool isColorEqualsTo(Tile tile)
         {
             return this.color == tile.color;
+        }
+
+        public bool isColorEqualsTo(Color color)
+        {
+            return this.color == color;
         }
 
         public bool isColorEqualsTo(string tile) {
@@ -54,7 +59,7 @@ namespace Rummy.models
 
         internal void write()
         {
-            Console.Write(this.number.ToString() + this.color.ToString());
+            Console.Write(Pounch.getNumberVisualFormat(this.number) +  Pounch.getColorVisualFormat(this.color));
         }
 
         public bool isNumberDistinctTo(Tile tile)
@@ -69,7 +74,7 @@ namespace Rummy.models
 
         public bool isJoker()
         {
-            return this.number == TileNumber.J && this.color == Color.J;
+            return this.number == TileNumber.JOKER && this.color == Color.JOKER;
         }
 
         public bool isColorDistinct(Tile tile)
