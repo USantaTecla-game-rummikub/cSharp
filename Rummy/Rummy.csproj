@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="models\GroupMovement.cs" />
     <Compile Include="models\interpreter\ExpEnd.cs" />
     <Compile Include="models\interpreter\ExpMovIn.cs" />
     <Compile Include="models\interpreter\ExpPutIn.cs" />
