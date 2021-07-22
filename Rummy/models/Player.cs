@@ -55,12 +55,12 @@ namespace Rummy.models
                 }
             }
             this.writeGroup(redGroup);
+            Console.Write("| ");            
+            this.writeGroup(greenGroup);
             Console.Write("| ");
             this.writeGroup(blueGroup);
             Console.Write("| ");
-            this.writeGroup(yellowGroup);
-            Console.Write("| ");
-            this.writeGroup(greenGroup);
+            this.writeGroup(yellowGroup);            
             Console.Write("| ");
             this.writeGroup(jokerGroup);
         }

@@ -94,19 +94,15 @@ namespace Rummy.models
             this.pounch[this.top++] = new Tile(TileNumber.JOKER, Color.JOKER);
         }
 
-        private void shuffleTiles() {
-            int numIterations = 10000;
-            //  for (int i = 0; i < numIterations; i++) {
+        private void shuffleTiles() {            
             for (int i = 0; i < this.numTiles; i++)
             {
                 Random rnd = new Random();
-                int index = rnd.Next(i, this.pounch.Length);
-               // int indexTile2 = rnd.Next(i + 1, this.pounch.Length);
+                int index = rnd.Next(i, this.pounch.Length);               
                 Tile tmpTile = this.pounch[i];
                 this.pounch[i] = this.pounch[index];
                 this.pounch[index] = tmpTile;
-            }
-          //  }
+            }          
         }
 
         public Tile extract() {
