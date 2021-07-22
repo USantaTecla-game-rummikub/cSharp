@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rummy.types;
+using System;
 using System.Collections.Generic;
 
 namespace Rummy.models.interpreter
@@ -34,8 +35,26 @@ namespace Rummy.models.interpreter
         }
 
         private void addTilesToGroup(IPlayerCommand player) {
-            foreach (ExpTileRack tileExp in this.tilesExp) {
-                player.addTileToGroup(tileExp.getDescription(), int.Parse(this.tgroup.getGroup()));                
+            List<string> tiles = new List<string>();            
+            foreach (ExpTileRack tileExp in this.tilesExp)
+            {
+                tiles.Add(tileExp.getDescription());
+            }
+            if (player.isAllowedToTileDown(tiles))
+            {
+                foreach (ExpTileRack tileExp in this.tilesExp)
+                {
+                    if (this.tgroup.getGroup() != "")
+                    {
+                        player.addTileToGroup(tileExp.getDescription(), int.Parse(this.tgroup.getGroup()));
+                    } else
+                    {
+                        player.addTileToGroup(tileExp.getDescription());
+                    }
+                }
+            } else
+            {
+                this.error = Message.WRONG_POINTS;
             }
         }       
     }

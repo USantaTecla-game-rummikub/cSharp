@@ -20,7 +20,7 @@ namespace Rummy.models.interpreter
         {
             if (!player.existTileInTable(this.tileDescription))
             {
-                this.error = Error.WRONG_TILE;
+                this.error = ErrorMessage.WRONG_TILE;
             }
         }
 

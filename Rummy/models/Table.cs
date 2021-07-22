@@ -27,14 +27,9 @@ namespace Rummy.models
 
         public Table() {                  
             this.pounch = new Pounch(TILES_TOTALES);
-            this.groups = List<TilesGroup>();            
+            this.groups = new List<TilesGroup>();            
         }
-
-        private List<T> List<T>()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Tile extract() {
             return this.pounch.extract();
         }
@@ -43,7 +38,7 @@ namespace Rummy.models
             TilesGroup group = this.getGroup(groupIndex);
             if (group == null)
             {
-                TilesGroup newGroup = new TilesGroup(groupIndex);
+                TilesGroup newGroup = new TilesGroup(this.groups.Count + 1);
                 newGroup.addTile(tile);
                 this.groups.Add(newGroup);                                
             } else

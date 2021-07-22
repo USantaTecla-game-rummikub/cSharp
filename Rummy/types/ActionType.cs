@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Rummy.types
 {
-    public enum ActionType {
-        EXTRACT,
+    public enum ActionType {        
+        NULL,
+        EXTRACT,        
         TILEDOWN,
         GROUPMOVEMENT,
-        END
+        END        
     }
 }

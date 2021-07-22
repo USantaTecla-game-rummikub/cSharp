@@ -12,9 +12,9 @@ namespace Rummy.models.interpreter
         }
        
         public override void interpret(IPlayerCommand player) {
-            if (!player.existGroup(this.group)) {
-                this.error = Error.WRONG_GROUP;
-            }
+            if (this.group != null && this.group != "" && !player.existGroup(this.group)) {
+                this.error = ErrorMessage.WRONG_GROUP;
+            } 
         }
 
         public string getGroup()

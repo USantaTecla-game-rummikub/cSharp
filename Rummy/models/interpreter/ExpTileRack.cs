@@ -15,7 +15,7 @@ namespace Rummy.models.interpreter
         public override void interpret(IPlayerCommand player)
         {
             if (!player.existTileInRack(this.tileDescription)) {
-                this.error = Error.WRONG_TILE;
+                this.error = ErrorMessage.WRONG_TILE;
             } 
         }
 

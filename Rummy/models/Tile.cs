@@ -54,7 +54,7 @@ namespace Rummy.models
                     i++;
                 }
             }
-            return this.color.ToString() == tile[i].ToString();
+            return Pounch.getColorVisualFormat(this.color) == tile[i].ToString();
         }
 
         internal void write()
@@ -100,7 +100,7 @@ namespace Rummy.models
                     break;
                 }
             }          
-            return int.Parse(this.number.ToString()) == int.Parse(num);
+            return int.Parse(Pounch.getNumberVisualFormat(this.number)) == int.Parse(num);
         }
     }
 }

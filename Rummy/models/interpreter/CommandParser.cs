@@ -31,7 +31,7 @@ namespace Rummy.models.interpreter
                     case CommandString.MOV: 
                         this.parseMov(actionArguments); break;
                     default:
-                        this.error = Error.COMMAND_NOT_RECOGNIZED;
+                        this.error = ErrorMessage.COMMAND_NOT_RECOGNIZED;
                         break;
                }               
             }
@@ -75,17 +75,22 @@ namespace Rummy.models.interpreter
 
         private void parsePut(string[] argumentsGroups) {            
             List<ExpPutIn> lstExpIn = new List<ExpPutIn>();
-            for (int i = 1; i < argumentsGroups.Length; i++) {                
-                string[] tilesAndTargetGroup = argumentsGroups[i].Split(' ');                
-                if (this.hasSubcommandIn(tilesAndTargetGroup)) {
-                    string targetGroup = tilesAndTargetGroup[tilesAndTargetGroup.Length - 1];
-                    List<ExpTileRack> tilesExp = getRackTiles(tilesAndTargetGroup, 0);
-                    Group tGroup = new Group(targetGroup);
-                    ExpPutIn expIn = new ExpPutIn(tilesExp, tGroup);                                    
-                    lstExpIn.Add(expIn);                    
-                } else {
-                    this.error = Error.SUBCOMMAND_IN_NOT_RECOGNIZED;
-                }
+            for (int i = 0; i < argumentsGroups.Length; i++) {                
+                string[] tilesAndTargetGroup = argumentsGroups[i].Split(' ');
+                string targetGroup = "";
+                List<ExpTileRack> tilesExp = null;
+                if (this.hasSubcommandIn(tilesAndTargetGroup))
+                {
+                    targetGroup = tilesAndTargetGroup[tilesAndTargetGroup.Length - 1];
+                    tilesExp = getRackTiles(tilesAndTargetGroup, 2);
+                } else
+                {
+                    tilesExp = getRackTiles(tilesAndTargetGroup, 0);
+                }                                
+                Group tGroup = new Group(targetGroup);
+                ExpPutIn expIn = new ExpPutIn(tilesExp, tGroup);                                    
+                lstExpIn.Add(expIn);                    
+                
             }
             ExpPut expPut = new ExpPut(lstExpIn);
             expPut.interpret(this.player);            
@@ -95,9 +100,9 @@ namespace Rummy.models.interpreter
             return (tilesAndTargetGroup[tilesAndTargetGroup.Length - 2].ToUpper() == SubcommandString.IN);
         }
 
-        private List<ExpTileRack> getRackTiles(string[] tiles, int indexStart) {
+        private List<ExpTileRack> getRackTiles(string[] tiles, int beforeEnd) {
             List<ExpTileRack> tilesExp = new List<ExpTileRack>();
-            for (int i = indexStart; i < tiles.Length - 2; i++) {
+            for (int i = 1; i < tiles.Length - beforeEnd; i++) {
                 tilesExp.Add(new ExpTileRack(tiles[i]));
             }
             return tilesExp;

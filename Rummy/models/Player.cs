@@ -8,13 +8,18 @@ namespace Rummy.models
 {
     public class Player: IPlayerCommand
     {
+        private const int TEST_GROUP_INDEX = -1;
+        private const int POINTS_FOR_FIRST_TILES_DOWN = 30;
         private List<Tile> rack;        
         private Table table;
         private ActionType lastAction;
+        private bool hasPlayedHis30Points;
 
         public Player(Table table) {
             this.table = table;
-            this.rack = new List<Tile>();            
+            this.rack = new List<Tile>();
+            this.lastAction = ActionType.NULL;
+            this.hasPlayedHis30Points = false;
         }
       
         public void extractTile() {
@@ -28,11 +33,46 @@ namespace Rummy.models
 
         public int getPoints() {
             int points = 0;
-            foreach (Tile tile in this.rack) {
-                points += (int) tile.getNumber();
+            foreach (Tile tile in this.rack)
+            {
+                points += (int)tile.getNumber();
             }
             return points;
         }
+
+        private int getPointsByGroupsToDown(List<string> tiles)
+        {
+            return this.getPointsRunsToDown(tiles) + this.getPointsSeriesToDown(tiles);
+        }
+
+        private int getPointsSeriesToDown(List<string> tiles) {
+            TilesGroup group = this.createTestGroup(tiles);
+            if (group.isSerieValid())
+            {
+                return group.getPoints();
+            }
+            return 0;
+        }
+
+        private int getPointsRunsToDown(List<string> tiles)
+        {
+            TilesGroup group = this.createTestGroup(tiles);
+            if (group.isRunValid())
+            {
+                return group.getPoints();
+            }
+            return 0;
+        }
+
+        private TilesGroup createTestGroup(List<string> tiles)
+        {
+            TilesGroup group = new TilesGroup(TEST_GROUP_INDEX);
+            for (int i = 0; i < this.rack.Count - 1; i++)
+            {
+                group.addTile(this.findTileInRack(tiles[i]));
+            }
+            return group;
+        }       
 
         public void write() {
 
@@ -96,15 +136,27 @@ namespace Rummy.models
         }
 
         private void addTileToGroup(Tile tile, int groupIndex)
-        {
-            this.table.addTileToGroup(tile, groupIndex);
-            this.rack.Remove(tile);
-            this.lastAction = ActionType.TILEDOWN;
+        {            
+           this.table.addTileToGroup(tile, groupIndex);
+           this.rack.Remove(tile);
+           this.lastAction = ActionType.TILEDOWN;
+           this.hasPlayedHis30Points = true;         
         }       
+        
+        public bool isAllowedToTileDown(List<string> tiles)
+        {
+            return (!this.hasPlayedHis30Points && this.getPointsByGroupsToDown(tiles) >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
+        }
 
         public void addTileToGroup(string tileString, int groupIndex) {
             Debug.Assert(this.findTileInRack(tileString) != null);            
             this.addTileToGroup(this.findTileInRack(tileString), groupIndex);
+        }
+
+        public void addTileToGroup(string tileString)
+        {
+            Debug.Assert(this.findTileInRack(tileString) != null);
+            this.addTileToGroup(this.findTileInRack(tileString), TilesGroup.NEW);
         }
         private Tile findTileInRack(string tileString)
         {
@@ -155,6 +207,6 @@ namespace Rummy.models
                 return true;
             }
             return false;
-        }
+        }       
     }
 }

@@ -10,9 +10,10 @@ namespace Rummy.models
 {
     public class TilesGroup
     {
-        private const int SIZE_MIN_GROUP = 3;
-        private const int SIZE_MAX_SERIE = 4;
-        private const int SIZE_MAX_RUN = 13;
+        public const int SIZE_MIN_GROUP = 3;
+        public const int SIZE_MAX_SERIE = 4;
+        public const int SIZE_MAX_RUN = 13;
+        public const int NEW = 0;
         private int id;
         private List<Tile> tiles;        
         
@@ -40,7 +41,7 @@ namespace Rummy.models
             return this.isRunValid() || this.isSerieValid();
         }
 
-        private bool isRunValid() {
+        public bool isRunValid() {
             bool validGroup = true;
             for (int i = 0; i < this.tiles.Count; i++) {
                 if (this.tiles[i].isNumberGreaterThan(this.tiles[i + 1]) || !this.tiles[i].isJoker()) {
@@ -51,7 +52,17 @@ namespace Rummy.models
             return this.isSizeValidForRun() && validGroup;
         }
 
-        private bool isSerieValid() {
+        internal int getPoints()
+        {
+            int points = 0;
+            foreach (Tile tile in this.tiles)
+            {
+                points += (int)tile.getNumber();
+            }
+            return points;
+        }
+
+        public bool isSerieValid() {
             bool validGroup = true;
             for (int i = 1; i < this.tiles.Count; i++)
             {
