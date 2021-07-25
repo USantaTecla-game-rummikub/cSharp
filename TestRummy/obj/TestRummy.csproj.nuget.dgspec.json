@@ -1,31 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj": {}
+    "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj": {
-      "version": "1.0.0",
+    "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj",
+        "projectUniqueName": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj",
         "projectName": "Rummy",
-        "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj"
+        "projectPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj"
       },
       "frameworks": {
         "net472": {}
       }
     },
-    "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj": {
+    "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
+        "projectUniqueName": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj",
         "projectName": "TestRummy",
-        "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
-        "packagesPath": "C:\\Users\\Antonio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\obj\\",
+        "projectPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj",
+        "packagesPath": "C:\\Users\\arpaf\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Antonio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arpaf\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -37,9 +36,10 @@
         },
         "frameworks": {
           "net472": {
+            "targetAlias": "net472",
             "projectReferences": {
-              "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj": {
-                "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj"
+              "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj": {
+                "projectPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj"
               }
             }
           }
@@ -52,6 +52,7 @@
       },
       "frameworks": {
         "net472": {
+          "targetAlias": "net472",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -66,7 +67,7 @@
               "version": "[3.16.1, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

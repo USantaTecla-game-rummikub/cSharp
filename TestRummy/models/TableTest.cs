@@ -47,5 +47,17 @@ namespace TestRummy.models
                  }, TilesGroup.NEW);
             Assert.IsFalse(table.isValidGroups());
         }
+
+        [Test]
+        public void giveTilesInWrongSerieNumberWhenDownThenValidGroupIsFalse()
+        {
+            Table table = new Table();
+            table.addTilesToGroup(new List<Tile>() {
+                new Tile(TileNumber.ONE, Color.RED),
+                new Tile(TileNumber.ONE, Color.BLUE),
+                new Tile(TileNumber.TEN, Color.GREEN)
+                 }, TilesGroup.NEW);
+            Assert.IsFalse(table.isValidGroups());
+        }
     }
 }

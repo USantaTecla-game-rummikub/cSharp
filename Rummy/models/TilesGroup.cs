@@ -53,13 +53,7 @@ namespace Rummy.models
         public bool isSerieValid() {
             Debug.Assert(this.tiles != null && this.tiles.Count >= SIZE_MIN_GROUP);
             bool validGroup = true;
-            for (int i = 1; i < this.tiles.Count; i++)
-            {
-               if (tiles[i].isNumberDistinctTo(tiles[i - 1])) {
-                    validGroup = false;
-                }
-            }
-          /*  for (int i = 1; i < this.tiles.Count; i++) {
+            for (int i = 1; i < this.tiles.Count; i++) {
                 for (int j = 0; j < i; j++) {
                     if (!this.tiles[i].isJoker() && (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j]))) {
                         validGroup = false;
@@ -69,7 +63,7 @@ namespace Rummy.models
                 if (!validGroup) {
                     break;
                 }
-            } */
+            } 
             return this.isSizeValidForSerie() && validGroup;
         }
 
