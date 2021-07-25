@@ -50,6 +50,29 @@ namespace Rummy.models
             return this.isSerieValid() || this.isRunValid();
         }
 
+        public bool isSerieValid() {
+            Debug.Assert(this.tiles != null && this.tiles.Count >= SIZE_MIN_GROUP);
+            bool validGroup = true;
+            for (int i = 1; i < this.tiles.Count; i++)
+            {
+               if (tiles[i].isNumberDistinctTo(tiles[i - 1])) {
+                    validGroup = false;
+                }
+            }
+          /*  for (int i = 1; i < this.tiles.Count; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (!this.tiles[i].isJoker() && (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j]))) {
+                        validGroup = false;
+                        break;
+                    }
+                }
+                if (!validGroup) {
+                    break;
+                }
+            } */
+            return this.isSizeValidForSerie() && validGroup;
+        }
+
         public bool isRunValid() {
             bool validGroup = true;
             for (int i = 0; i < this.tiles.Count - 1; i++) {
@@ -61,6 +84,17 @@ namespace Rummy.models
             return this.isSizeValidForRun() && validGroup;
         }
 
+
+        public bool isSizeValidForSerie()
+        {
+            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_SERIE;
+        }
+
+        public bool isSizeValidForRun()
+        {
+            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_RUN;
+        }
+
         internal int getPoints()
         {
             int points = 0;
@@ -70,27 +104,7 @@ namespace Rummy.models
             }
             return points;
         }
-
-        public bool isSerieValid() {
-            bool validGroup = true;
-            for (int i = 1; i < this.tiles.Count; i++) {
-              /*  if (!this.tiles[i].isJoker() && (tiles[i].isNumberDistinctTo(tiles[i - 1]) || tiles[i].isColorEqualsTo(tiles[i - 1]))) {
-                    validGroup = false;
-                    break;
-                } */
-                for (int j = 0; j < i; j++) {
-                    if (!this.tiles[i].isJoker() && (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j])) ) {
-                        validGroup = false;
-                        break;
-                    }
-                } 
-                if (!validGroup) {
-                    break;
-                }
-            }
-            return this.isSizeValidForSerie() && validGroup;                                  
-        }
-
+       
         internal void write()
         {
             Console.Write(this.id + ". ");
@@ -108,14 +122,6 @@ namespace Rummy.models
         public bool hasIndex(int indexGroup)
         {
             return this.id == indexGroup;
-        }
-
-        public bool isSizeValidForSerie() {
-            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_SERIE;
-        }
-
-        public bool isSizeValidForRun() {
-            return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_RUN;
         }
 
         public Tile getTile(string tileString)

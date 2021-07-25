@@ -73,7 +73,7 @@ namespace TestRummy.models
         }
 
         [Test]
-        public void givenTwoJokersWhenCompareThenAreEquals()
+        public void givenTwoJokersWhenCompareThenIsTrue()
         {
             Tile tile = new Tile(TileNumber.JOKER, Color.JOKER);
             Tile tile2 = new Tile(TileNumber.JOKER, Color.JOKER);

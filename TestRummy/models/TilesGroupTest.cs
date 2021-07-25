@@ -18,7 +18,7 @@ namespace TestRummy.models
         }
 
         [Test]
-        public void givenSerieWhenTestSizeThenIsOk()
+        public void givenSerieWhenTestSizeThenIsTrue()
         {
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
             TilesGroup group = this.getSerieGroup();            
@@ -40,7 +40,7 @@ namespace TestRummy.models
         }
 
         [Test]
-        public void givenSerieWhenTestIsValidThenIsOk()
+        public void givenSerieWhenTestValidThenIsTrue()
         {            
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
             TilesGroup group = this.getSerieGroup();
@@ -60,9 +60,11 @@ namespace TestRummy.models
             Tile tile1 = new Tile(TileNumber.ONE, Color.RED);
             Tile tile2 = new Tile(TileNumber.TWO, Color.RED);
             Tile tile3 = new Tile(TileNumber.THREE, Color.RED);
+            Tile tile4 = new Tile(TileNumber.FOUR, Color.RED);
             group.addTile(tile1);
             group.addTile(tile2);
             group.addTile(tile3);
+            group.addTile(tile4);
             return group;
         }
 
