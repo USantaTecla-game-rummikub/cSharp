@@ -51,9 +51,9 @@ namespace Rummy.models
         {
             colorsVisualFormat = new Hashtable()
             {
-                [Color.BLUE] = "B",
-                [Color.GREEN] = "G",
                 [Color.RED] = "R",
+                [Color.GREEN] = "G",
+                [Color.BLUE] = "B",                              
                 [Color.YELLOW] = "Y",
                 [Color.JOKER] = ""
             };
@@ -94,15 +94,18 @@ namespace Rummy.models
             this.pounch[this.top++] = new Tile(TileNumber.JOKER, Color.JOKER);
         }
 
-        private void shuffleTiles() {            
-            for (int i = 0; i < this.numTiles; i++)
+        private void shuffleTiles() {
+            for (int j = 0; j < 10000; j++)
             {
-                Random rnd = new Random();
-                int index = rnd.Next(i, this.pounch.Length);               
-                Tile tmpTile = this.pounch[i];
-                this.pounch[i] = this.pounch[index];
-                this.pounch[index] = tmpTile;
-            }          
+                for (int i = 0; i < this.numTiles; i++)
+                {
+                    Random rnd = new Random();
+                    int index = rnd.Next(i, this.pounch.Length);
+                    Tile tmpTile = this.pounch[i];
+                    this.pounch[i] = this.pounch[index];
+                    this.pounch[index] = tmpTile;
+                }
+            }
         }
 
         public Tile extract() {
@@ -115,10 +118,15 @@ namespace Rummy.models
             return this.top == 0;
         }
 
+        public int count()
+        {
+            return this.top;
+        }
+
         public void write()
         {
             Console.WriteLine(Message.POUNCH + this.top);
-         /*   foreach (Tile tile in this.pounch) {
+          /*  foreach (Tile tile in this.pounch) {                
                 tile.write();
                 Console.Write(" ");
             } */

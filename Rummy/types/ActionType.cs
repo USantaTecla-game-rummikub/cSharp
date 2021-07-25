@@ -10,7 +10,6 @@ namespace Rummy.types
         NULL,
         EXTRACT,        
         TILEDOWN,
-        GROUPMOVEMENT,
-        END        
+        GROUPMOVEMENT,        
     }
 }

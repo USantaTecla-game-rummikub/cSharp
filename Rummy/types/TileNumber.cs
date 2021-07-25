@@ -20,6 +20,6 @@ namespace Rummy.types
         ELEVEN = 11,
         TWELVE = 12,
         THIRTEEN = 13,
-        JOKER
+        JOKER = 0
     }
 }

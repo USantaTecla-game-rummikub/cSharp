@@ -1,0 +1,17 @@
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\NUnit3.TestAdapter.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\NUnit3.TestAdapter.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\nunit.engine.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\nunit.engine.api.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\TestRummy.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\TestRummy.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\nunit.framework.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\Rummy.exe
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\Rummy.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\bin\Debug\net472\Rummy.exe.config
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.csprojAssemblyReference.cache
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.AssemblyInfoInputs.cache
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.AssemblyInfo.cs
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.csproj.CopyComplete
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.dll
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\TestRummy\obj\Debug\net472\TestRummy.pdb

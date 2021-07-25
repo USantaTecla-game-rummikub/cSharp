@@ -41,17 +41,8 @@ namespace Rummy.models.interpreter
                 tiles.Add(tileExp.getDescription());
             }
             if (player.isAllowedToTileDown(tiles))
-            {
-                foreach (ExpTileRack tileExp in this.tilesExp)
-                {
-                    if (this.tgroup.getGroup() != "")
-                    {
-                        player.addTileToGroup(tileExp.getDescription(), int.Parse(this.tgroup.getGroup()));
-                    } else
-                    {
-                        player.addTileToGroup(tileExp.getDescription());
-                    }
-                }
+            {                                                   
+                player.addTilesToGroup(tiles, this.tgroup.getGroup());                                                         
             } else
             {
                 this.error = Message.WRONG_POINTS;

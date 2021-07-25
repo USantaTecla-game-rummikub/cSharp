@@ -21,15 +21,15 @@ namespace Rummy.models
             Player player = null;
             this.writeHead();
             do {
-                player = turn.take();
-                turn.write();
-                do {                    
+                player = turn.take();                
+                do {
+                    turn.write();
                     player.executeAction();
                 } while (!turn.isEnd());
                 if (turn.isEnd() && !player.isWinner() && !turn.hasWinnerByPoints()) {
                     turn.change();
                 }
-            } while (!player.isResume() && !player.isWinner() && turn.hasWinnerByPoints());
+            } while (!player.isResume() && !player.isWinner() && !turn.hasWinnerByPoints());
             if (player.isWinner()) {
                 player.writeCongratulations();
             }

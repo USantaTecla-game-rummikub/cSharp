@@ -15,6 +15,11 @@ namespace Rummy.models
             this.color = color;
         }        
 
+        public Tile()
+        {
+
+        }
+
         public TileNumber getNumber() {
             return this.number;
         }
@@ -44,17 +49,28 @@ namespace Rummy.models
             return this.color == color;
         }
 
-        public bool isColorEqualsTo(string tile) {
-            int i = 0;
-            int num;
-            foreach (char token in tile) {
-                if (!int.TryParse(token.ToString(), out num)) {                               
-                    break;
-                } else {
-                    i++;
-                }
+        public bool isColorEqualsTo(string tile) {                        
+            if (tile.ToUpper() == Pounch.getColorVisualFormat(Color.JOKER))
+            {
+                return Pounch.getColorVisualFormat(this.color) == tile;
             }
-            return Pounch.getColorVisualFormat(this.color) == tile[i].ToString();
+            else
+            {
+                int num;
+                int i = 0;
+                foreach (char token in tile)
+                {
+                    if (!int.TryParse(token.ToString(), out num))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }                
+                return Pounch.getColorVisualFormat(this.color) == tile[i].ToString().ToUpper();
+            }
         }
 
         internal void write()
@@ -91,16 +107,26 @@ namespace Rummy.models
             int i = 0;
             int aux;
             string num = "";
-            foreach (char token in tileString) {
-                if (int.TryParse(token.ToString(), out aux)) {
-                    num += token;
-                    i++;
+            if (tileString.ToUpper() == Pounch.getNumberVisualFormat(TileNumber.JOKER))
+            {
+                return Pounch.getNumberVisualFormat(this.number) == tileString;
+            }
+            else
+            {
+                foreach (char token in tileString)
+                {
+                    if (int.TryParse(token.ToString(), out aux))
+                    {
+                        num += token;
+                        i++;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                else {
-                    break;
-                }
-            }          
-            return int.Parse(Pounch.getNumberVisualFormat(this.number)) == int.Parse(num);
+                return int.Parse(Pounch.getNumberVisualFormat(this.number)) == int.Parse(num);
+            }
         }
     }
 }

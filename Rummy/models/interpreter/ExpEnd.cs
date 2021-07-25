@@ -8,7 +8,7 @@
 
         public override void interpret(IPlayerCommand player)
         {
-            throw new System.NotImplementedException();
+            player.finishTurn();
         }
     }
 }

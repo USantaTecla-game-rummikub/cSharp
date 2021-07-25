@@ -27,6 +27,13 @@ namespace Rummy.models
             this.rack.Add(this.table.extract());
         }
 
+        public void addTileInRack(Tile tile)
+        {
+            Tile newTile = new Tile();
+            newTile.clone(tile);
+            this.rack.Add(newTile);
+        }
+
         public bool isWinner() {
             return this.rack.Count == 0;
         }
@@ -67,7 +74,7 @@ namespace Rummy.models
         private TilesGroup createTestGroup(List<string> tiles)
         {
             TilesGroup group = new TilesGroup(TEST_GROUP_INDEX);
-            for (int i = 0; i < this.rack.Count - 1; i++)
+            for (int i = 0; i < tiles.Count - 1; i++)
             {
                 group.addTile(this.findTileInRack(tiles[i]));
             }
@@ -128,7 +135,7 @@ namespace Rummy.models
         }
 
         public bool isEnd() {
-            return false;
+            return this.lastAction == ActionType.TILEDOWN || this.lastAction == ActionType.EXTRACT;
         }
 
         public ActionType getLastAction() {
@@ -138,26 +145,43 @@ namespace Rummy.models
         private void addTileToGroup(Tile tile, int groupIndex)
         {            
            this.table.addTileToGroup(tile, groupIndex);
-           this.rack.Remove(tile);
-           this.lastAction = ActionType.TILEDOWN;
-           this.hasPlayedHis30Points = true;         
-        }       
-        
+           this.rack.Remove(tile);                    
+        }
+
+        public void addTilesToGroup(List<string> tilesString, string groupIndex)
+        {            
+            Debug.Assert(tilesString != null && tilesString.Count > 0);
+            List<Tile> tiles = new List<Tile>();
+            foreach (string tile in tilesString)
+            {               
+                tiles.Add(this.findTileInRack(tile));             
+            }
+            if (groupIndex == null || groupIndex == "")
+            {
+                this.table.addTilesToGroup(tiles, TilesGroup.NEW);
+            } else
+            {
+                this.table.addTilesToGroup(tiles, int.Parse(groupIndex));
+            }            
+            foreach (Tile tile in tiles)
+            {
+                this.rack.Remove(tile);
+            }
+            this.hasPlayedHis30Points = true;
+            this.lastAction = ActionType.TILEDOWN;
+        }
+
+     /*   public void addTileToGroup(string tileString, int groupIndex)
+        {
+            Debug.Assert(this.findTileInRack(tileString) != null);            
+            this.addTileToGroup(this.findTileInRack(tileString), groupIndex);
+        } */
+
         public bool isAllowedToTileDown(List<string> tiles)
         {
             return (!this.hasPlayedHis30Points && this.getPointsByGroupsToDown(tiles) >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
         }
-
-        public void addTileToGroup(string tileString, int groupIndex) {
-            Debug.Assert(this.findTileInRack(tileString) != null);            
-            this.addTileToGroup(this.findTileInRack(tileString), groupIndex);
-        }
-
-        public void addTileToGroup(string tileString)
-        {
-            Debug.Assert(this.findTileInRack(tileString) != null);
-            this.addTileToGroup(this.findTileInRack(tileString), TilesGroup.NEW);
-        }
+      
         private Tile findTileInRack(string tileString)
         {
             Debug.Assert(tileString.Length >= 2 && tileString.Length <= 3);
@@ -196,17 +220,12 @@ namespace Rummy.models
             this.lastAction = ActionType.GROUPMOVEMENT;
         }       
 
-        public void endTurn()
+        public void finishTurn()
         {
-
-        }
-
-        public bool canEndTurn()
-        {
-            if (this.lastAction == ActionType.TILEDOWN || this.lastAction == ActionType.END || this.lastAction == ActionType.EXTRACT) {
-                return true;
-            }
-            return false;
-        }       
+            if (this.lastAction == ActionType.EXTRACT)
+            {
+                this.addTileInRack(this.table.extract());                
+            } 
+        }            
     }
 }

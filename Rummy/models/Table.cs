@@ -36,14 +36,22 @@ namespace Rummy.models
 
         public void addTileToGroup(Tile tile, int groupIndex) {
             TilesGroup group = this.getGroup(groupIndex);
-            if (group == null)
+            Tile newTile = new Tile();
+            newTile.clone(tile);
+            group.addTile(newTile);           
+        }
+
+        public void addTilesToGroup(List<Tile> tiles, int groupIndex)
+        {
+            if (groupIndex == TilesGroup.NEW)
             {
+                groupIndex = this.groups.Count + 1;
                 TilesGroup newGroup = new TilesGroup(this.groups.Count + 1);
-                newGroup.addTile(tile);
-                this.groups.Add(newGroup);                                
-            } else
+                this.groups.Add(newGroup);                
+            }
+            foreach (Tile tile in tiles)
             {
-                group.addTile(tile);
+                this.addTileToGroup(tile, groupIndex);
             }
         }
 
@@ -71,11 +79,10 @@ namespace Rummy.models
         public void write() {
 
             this.pounch.write();
-            Console.Write("Table: ");
-            for (int i = 0; i < this.groups.Count; i++) {
-                this.groups[i].write();
-                Console.WriteLine();
-                i++;
+            Console.WriteLine("Table: ");
+            foreach (TilesGroup group in this.groups) {
+                group.write();                
+                Console.WriteLine();                
             }
             Console.WriteLine();
         }

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETFramework,Version=v5.0": {
+    ".NETFramework,Version=v4.7.2": {
       "Microsoft.CodeCoverage/16.5.0": {
         "type": "package",
         "compile": {
@@ -44,6 +44,15 @@
         "type": "package",
         "build": {
           "build/net35/NUnit3TestAdapter.props": {}
+        }
+      },
+      "Rummy/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Rummy.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Rummy.dll": {}
         }
       }
     }
@@ -156,13 +165,19 @@
         "nunit3testadapter.3.16.1.nupkg.sha512",
         "nunit3testadapter.nuspec"
       ]
+    },
+    "Rummy/1.0.0": {
+      "type": "project",
+      "path": "../Rummy/Rummy.csproj",
+      "msbuildProject": "../Rummy/Rummy.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    ".NETFramework,Version=v5.0": [
+    ".NETFramework,Version=v4.7.2": [
       "Microsoft.NET.Test.Sdk >= 16.5.0",
       "NUnit >= 3.12.0",
-      "NUnit3TestAdapter >= 3.16.1"
+      "NUnit3TestAdapter >= 3.16.1",
+      "Rummy >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -182,15 +197,19 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net50"
+        "net472"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net50": {
-          "projectReferences": {}
+        "net472": {
+          "projectReferences": {
+            "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj": {
+              "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -200,7 +219,7 @@
       }
     },
     "frameworks": {
-      "net50": {
+      "net472": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
