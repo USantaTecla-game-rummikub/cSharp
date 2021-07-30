@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 namespace TestRummy.models
 {
     class PounchTest
-    {
+    {       
         [Test]
         public void givenColorWhenCompareWithStringThenOk() {
 
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
-            Assert.IsTrue(Pounch.getColorVisualFormat(Color.RED) == "R");
+            Assert.IsTrue(Pounch.getColorVisualFormat(Color.RED) == "R" && Pounch.getColorVisualFormat(Color.JOKER) == "J");            
         }
 
         [Test]
         public void givenNumberWhenCompareWithStringThenOk()
         {
-
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
             Assert.IsTrue(Pounch.getNumberVisualFormat(TileNumber.ONE) == "1" && Pounch.getNumberVisualFormat(TileNumber.THIRTEEN) == "13");
+            Assert.IsTrue(Pounch.getNumberVisualFormat(TileNumber.JOKER) == "J");
         }
 
         [Test]

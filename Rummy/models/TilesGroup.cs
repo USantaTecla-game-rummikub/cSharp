@@ -23,10 +23,11 @@ namespace Rummy.models
         }       
        
         public void addTile(Tile tile) {
+            Debug.Assert(tile != null);
             if (this.tiles.Count < SIZE_MAX_RUN - 1) {
                 int index = -1;
                 for (int i = 0; i < this.tiles.Count; i++) {
-                    if (tile.isNumberLessOrEqualThan(this.tiles[i])) {
+                    if (!tile.isJoker() && tile.isNumberLessThan(this.tiles[i])) {
                         index = i;
                         for (int j = this.tiles.Count; j > i; j--) {
                             this.tiles.Insert(j, this.tiles[j - 1]);
@@ -36,11 +37,9 @@ namespace Rummy.models
                 }
                 Tile newTile = new Tile();
                 newTile.clone(tile);
-                if (index != -1)
-                {
+                if (index != -1) {
                     this.tiles.Insert(index, newTile);
-                } else
-                {
+                } else {
                     this.tiles.Add(newTile);
                 }
             }
@@ -51,11 +50,11 @@ namespace Rummy.models
         }
 
         public bool isSerieValid() {
-            Debug.Assert(this.tiles != null && this.tiles.Count >= SIZE_MIN_GROUP);
+            Debug.Assert(this.tiles != null);
             bool validGroup = true;
             for (int i = 1; i < this.tiles.Count; i++) {
                 for (int j = 0; j < i; j++) {
-                    if (!this.tiles[i].isJoker() && (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j]))) {
+                    if ((!this.tiles[i].isJoker() && !this.tiles[j].isJoker()) && (tiles[i].isNumberDistinctTo(tiles[j]) || tiles[i].isColorEqualsTo(tiles[j]))) {
                         validGroup = false;
                         break;
                     }
@@ -68,9 +67,10 @@ namespace Rummy.models
         }
 
         public bool isRunValid() {
+            Debug.Assert(this.tiles != null);
             bool validGroup = true;
             for (int i = 0; i < this.tiles.Count - 1; i++) {
-                if (!this.tiles[i].isJoker() && (this.tiles[i].isNumberGreaterThan(this.tiles[i + 1]) || this.tiles[i].isColorDistinct(this.tiles[i + 1]))) {
+                if ((!this.anyHaveJokers(this.tiles[i], this.tiles[i + 1])) && (!this.hasDistanceAndColorOk(this.tiles[i], this.tiles[i + 1]))) {
                     validGroup = false;
                     break;
                 }
@@ -78,6 +78,15 @@ namespace Rummy.models
             return this.isSizeValidForRun() && validGroup;
         }
 
+        private bool anyHaveJokers(Tile tile1, Tile tile2)
+        {
+            return (tile1.isJoker() || tile2.isJoker());
+        }
+
+        private bool hasDistanceAndColorOk(Tile tile1, Tile tile2)
+        {
+            return tile1.isNumberLessThan(tile2) && tile1.distanceIsOne(tile2) && tile1.isColorEqualsTo(tile2);
+        }
 
         public bool isSizeValidForSerie()
         {
@@ -89,12 +98,12 @@ namespace Rummy.models
             return this.tiles.Count >= SIZE_MIN_GROUP && this.tiles.Count <= SIZE_MAX_RUN;
         }
 
-        internal int getPoints()
+        public int getPoints()
         {
             int points = 0;
             foreach (Tile tile in this.tiles)
             {
-                points += (int)tile.getNumber();
+                points = points + (int)tile.getNumber();
             }
             return points;
         }
@@ -131,13 +140,10 @@ namespace Rummy.models
             return tileFinded;
         }
 
-        public Tile getTile(Tile tileToSearch)
-        {            
+        public Tile getTile(Tile tileToSearch) {            
             Tile tileFinded = null;
-            foreach (Tile tile in this.tiles)
-            {
-                if (tile.isColorEqualsTo(tileToSearch) && tile.isNumberEqualTo(tileToSearch))
-                {
+            foreach (Tile tile in this.tiles) {
+                if (tile.isColorEqualsTo(tileToSearch) && tile.isNumberEqualTo(tileToSearch)) {
                     tileFinded = tile;
                     break;
                 }

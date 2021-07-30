@@ -123,7 +123,7 @@ namespace Rummy.models
 
         private Tile getTile(string tileTextDescription)
         {
-            Debug.Assert(tileTextDescription.Length >= 2 && tileTextDescription.Length <= 3);
+            Debug.Assert(tileTextDescription.Length >= 1 && tileTextDescription.Length <= 3);
             Tile tileFinded = null;
             foreach (TilesGroup group in this.groups)
             {
@@ -134,6 +134,18 @@ namespace Rummy.models
                 }
             }
             return tileFinded;
+        }
+
+        internal bool existsTileInGroup(string tileDescription, int group)
+        {
+            TilesGroup tilesGroup = this.getGroup(group);
+            if (tilesGroup != null)
+            {
+                return tilesGroup.getTile(tileDescription) != null;
+            } else
+            {
+                return false;
+            }
         }
     }
 }

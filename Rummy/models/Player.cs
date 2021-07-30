@@ -7,8 +7,7 @@ using System.Diagnostics;
 namespace Rummy.models
 {
     public class Player: IPlayerCommand
-    {
-        private const int TEST_GROUP_INDEX = -1;
+    {        
         private const int POINTS_FOR_FIRST_TILES_DOWN = 30;
         private List<Tile> rack;        
         private Table table;
@@ -24,7 +23,7 @@ namespace Rummy.models
       
         public void extractTile() {
             this.lastAction = ActionType.EXTRACT;
-            this.rack.Add(this.table.extract());
+            this.addTileInRack(this.table.extract());
         }
 
         public void addTileInRack(Tile tile)
@@ -61,8 +60,7 @@ namespace Rummy.models
             return 0;
         }
 
-        private int getPointsRunsToDown(List<string> tiles)
-        {
+        private int getPointsRunsToDown(List<string> tiles) {
             TilesGroup group = this.createTestGroup(tiles);
             if (group.isRunValid())
             {
@@ -73,8 +71,8 @@ namespace Rummy.models
 
         private TilesGroup createTestGroup(List<string> tiles)
         {
-            TilesGroup group = new TilesGroup(TEST_GROUP_INDEX);
-            for (int i = 0; i < tiles.Count - 1; i++)
+            TilesGroup group = new TilesGroup(TilesGroup.NEW);
+            for (int i = 0; i < tiles.Count; i++)
             {
                 group.addTile(this.findTileInRack(tiles[i]));
             }
@@ -170,13 +168,7 @@ namespace Rummy.models
             this.hasPlayedHis30Points = true;
             this.lastAction = ActionType.TILEDOWN;
         }
-
-     /*   public void addTileToGroup(string tileString, int groupIndex)
-        {
-            Debug.Assert(this.findTileInRack(tileString) != null);            
-            this.addTileToGroup(this.findTileInRack(tileString), groupIndex);
-        } */
-
+     
         public bool isAllowedToTileDown(List<string> tiles)
         {
             return (!this.hasPlayedHis30Points && this.getPointsByGroupsToDown(tiles) >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
@@ -184,7 +176,7 @@ namespace Rummy.models
       
         private Tile findTileInRack(string tileString)
         {
-            Debug.Assert(tileString.Length >= 2 && tileString.Length <= 3);
+            Debug.Assert(tileString.Length >= 1 && tileString.Length <= 3);
             Tile tileFinded = null;
             foreach (Tile tile in this.rack) {
                 if (tile.isColorEqualsTo(tileString) && tile.isNumberEqualTo(tileString))
@@ -214,6 +206,11 @@ namespace Rummy.models
             return this.table.existTileInTable(tileDescription);
         }
 
+        public bool existsTileInGroup(string tileDescription, int group)
+        {
+            return this.table.existsTileInGroup(tileDescription, group);
+        }
+
         public void moveTileFromGroupToGroup(string tileString, int origin, int target)
         {
             this.table.moveTileFromOriginGroupToTargetGroup(tileString, origin, target);
@@ -222,10 +219,11 @@ namespace Rummy.models
 
         public void finishTurn()
         {
-            if (this.lastAction == ActionType.EXTRACT)
+            if (this.lastAction == ActionType.NULL || this.lastAction == ActionType.EXTRACT)
             {
-                this.addTileInRack(this.table.extract());                
-            } 
+                this.extractTile();                
+            }
+            // this.lastAction = ActionType.ENDTURN;
         }            
     }
 }

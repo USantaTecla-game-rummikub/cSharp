@@ -1,0 +1,27 @@
+﻿using NUnit.Framework;
+using Rummy.models;
+using Rummy.models.interpreter;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestRummy.models.interpreter
+{
+    public class ExpEndTest
+    {
+        private const int NUM_PLAYERS = 2;
+
+        [Test]
+        public void givenPlayerWithoutActionWhenInterpretExpEndThenNumPointsPlusOne()
+        {
+            Turn turn = new Turn(NUM_PLAYERS);
+            Player player = turn.take();
+            int numPointsInitials = player.getPoints();
+            ExpEnd expEnd = new ExpEnd();
+            expEnd.interpret(player);
+            Assert.IsTrue(player.isEnd() && player.getPoints() == (numPointsInitials + 1));
+        }
+    }
+}

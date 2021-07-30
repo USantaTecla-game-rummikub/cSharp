@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Rummy.models.interpreter
@@ -16,6 +17,7 @@ namespace Rummy.models.interpreter
         public CommandParser(string input, IPlayerCommand player) {
             this.input = input;
             this.player = player;
+            this.error = "";
         }
 
         public void parse() {            
@@ -37,9 +39,14 @@ namespace Rummy.models.interpreter
             }
         }
 
-        private string getError()
+        public string getError()
         {
             return this.error;
+        }
+
+        public bool hasError()
+        {
+            return this.error != null && this.error != "";
         }
 
         private bool isInstructionSimple(string[] tokens) {
@@ -89,11 +96,14 @@ namespace Rummy.models.interpreter
                 }                                
                 Group tGroup = new Group(targetGroup);
                 ExpPutIn expIn = new ExpPutIn(tilesExp, tGroup);                                    
-                lstExpIn.Add(expIn);                    
-                
+                lstExpIn.Add(expIn);                                    
             }
             ExpPut expPut = new ExpPut(lstExpIn);
-            expPut.interpret(this.player);            
+            if (!this.hasError())
+            {
+                expPut.interpret(this.player);
+                this.error = expPut.getError();
+            }
         }
 
         private bool hasSubcommandIn(string[] tilesAndTargetGroup) {            
@@ -103,7 +113,14 @@ namespace Rummy.models.interpreter
         private List<ExpTileRack> getRackTiles(string[] tiles, int beforeEnd) {
             List<ExpTileRack> tilesExp = new List<ExpTileRack>();
             for (int i = 1; i < tiles.Length - beforeEnd; i++) {
-                tilesExp.Add(new ExpTileRack(tiles[i]));
+                if (Regex.IsMatch(tiles[i], "[0-9]{1,2}[R|G|B|Y]") || Regex.IsMatch(tiles[i], "[J|j]"))
+                {
+                    tilesExp.Add(new ExpTileRack(tiles[i]));
+                } else
+                {
+                    this.error = ErrorMessage.SUBCOMMAND_IN_NOT_RECOGNIZED;
+                    break;
+                }
             }
             return tilesExp;
         }

@@ -48,18 +48,18 @@ namespace Rummy.models
             this.currentPlayer = rnd.Next(0, this.players.Length);            
         }
 
-        internal Player take() {            
+        public Player take() {            
             return this.players[this.currentPlayer];
         }
-       
-        internal void change() {        
+
+        public void change() {        
             if (this.table.isEmptyPounch()) {
                 this.turnsAfterEmptyPounch++;
             }
             this.currentPlayer = ++this.currentPlayer % this.players.Length;
         }
       
-        internal bool isEnd() {
+        public bool isEnd() {
             return this.players[this.currentPlayer].isEnd();            
         }
 

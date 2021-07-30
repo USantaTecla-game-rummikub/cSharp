@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.Build.Tasks;
+using Rummy.types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Rummy.models.interpreter
 {
@@ -45,7 +46,14 @@ namespace Rummy.models.interpreter
         {
             foreach (ExpTileGroup tile in this.tiles)
             {
-                player.moveTileFromGroupToGroup(tile.ToString(), this.oGroup.toInt(), this.tGroup.toInt());
+                if (player.existsTileInGroup(tile.getDescription(), this.oGroup.toInt()))
+                {
+                    player.moveTileFromGroupToGroup(tile.getDescription(), this.oGroup.toInt(), this.tGroup.toInt());
+                } else
+                {
+                    this.error = ErrorMessage.WRONG_TILE;
+                    break;
+                }
             }
         }
     }

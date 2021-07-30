@@ -34,19 +34,23 @@ namespace Rummy.models.interpreter
             }
         }
 
-        private void addTilesToGroup(IPlayerCommand player) {
-            List<string> tiles = new List<string>();            
+        public List<string> getTiles()
+        {
+            List<string> tiles = new List<string>();
             foreach (ExpTileRack tileExp in this.tilesExp)
             {
                 tiles.Add(tileExp.getDescription());
             }
-            if (player.isAllowedToTileDown(tiles))
-            {                                                   
-                player.addTilesToGroup(tiles, this.tgroup.getGroup());                                                         
-            } else
+            return tiles;
+        }
+
+        internal void addTilesToGroup(IPlayerCommand player) {
+            List<string> tiles = new List<string>();            
+            foreach (ExpTileRack tileExp in this.tilesExp)
             {
-                this.error = Message.WRONG_POINTS;
-            }
+                tiles.Add(tileExp.getDescription());
+            }                                                        
+            player.addTilesToGroup(tiles, this.tgroup.getGroup());                                                                  
         }       
     }
 }

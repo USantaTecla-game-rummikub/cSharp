@@ -37,7 +37,7 @@ namespace Rummy.models
         public bool isNumberGreaterThan(Tile tile)
         {
             return this.number > tile.number;
-        }
+        }        
 
         public bool isColorEqualsTo(Tile tile)
         {
@@ -52,21 +52,19 @@ namespace Rummy.models
         public bool isColorEqualsTo(string tile) {                        
             if (tile.ToUpper() == Pounch.getColorVisualFormat(Color.JOKER))
             {
-                return Pounch.getColorVisualFormat(this.color) == tile;
+                return Pounch.getColorVisualFormat(this.color) == tile.ToUpper();
             }
             else
-            {
-                int num;
+            {                
                 int i = 0;
                 foreach (char token in tile)
                 {
-                    if (!int.TryParse(token.ToString(), out num))
-                    {
-                        break;
-                    }
-                    else
+                    if (Regex.IsMatch(token.ToString(), "[0-9]"))
                     {
                         i++;
+                    } else
+                    {
+                        break;
                     }
                 }                
                 return Pounch.getColorVisualFormat(this.color) == tile[i].ToString().ToUpper();
@@ -103,22 +101,19 @@ namespace Rummy.models
             return this.number == tile.number;
         }
 
-        public bool isNumberEqualTo(string tileString) {
-            int i = 0;
-            int aux;
-            string num = "";
+        public bool isNumberEqualTo(string tileString) {                           
             if (tileString.ToUpper() == Pounch.getNumberVisualFormat(TileNumber.JOKER))
             {
-                return Pounch.getNumberVisualFormat(this.number) == tileString;
+                return Pounch.getNumberVisualFormat(this.number) == tileString.ToUpper();
             }
             else
             {
+                string num = "";                
                 foreach (char token in tileString)
                 {
-                    if (int.TryParse(token.ToString(), out aux))
+                    if (Regex.IsMatch(token.ToString(), "[0-9]"))
                     {
-                        num += token;
-                        i++;
+                        num += token;                        
                     }
                     else
                     {
@@ -127,6 +122,11 @@ namespace Rummy.models
                 }
                 return int.Parse(Pounch.getNumberVisualFormat(this.number)) == int.Parse(num);
             }
+        }
+
+        internal bool distanceIsOne(Tile tile2)
+        {
+            return Math.Abs((int)this.number - (int)tile2.number) == 1;
         }
     }
 }

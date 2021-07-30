@@ -1,6 +1,6 @@
 ﻿namespace Rummy.models.interpreter
 {
-    internal class ExpEnd: Expression
+    public class ExpEnd: Expression
     {
         public ExpEnd()
         {

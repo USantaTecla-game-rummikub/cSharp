@@ -55,7 +55,7 @@ namespace Rummy.models
                 [Color.GREEN] = "G",
                 [Color.BLUE] = "B",                              
                 [Color.YELLOW] = "Y",
-                [Color.JOKER] = ""
+                [Color.JOKER] = "J"
             };
         }
 

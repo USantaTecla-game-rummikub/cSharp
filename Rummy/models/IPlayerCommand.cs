@@ -18,5 +18,6 @@ namespace Rummy.models
         bool isAllowedToTileDown(List<string> tiles);
 
         void finishTurn();
+        bool existsTileInGroup(string tileDescription, int group);
     }
 }
