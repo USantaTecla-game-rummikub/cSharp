@@ -34,7 +34,7 @@ namespace Rummy.models
             return this.pounch.extract();
         }
 
-        public void addTileToGroup(Tile tile, int groupIndex) {
+        public void addTileToGroup(Tile tile, int groupIndex) {            
             TilesGroup group = this.getGroup(groupIndex);
             Tile newTile = new Tile();
             newTile.clone(tile);
@@ -43,16 +43,31 @@ namespace Rummy.models
 
         public void addTilesToGroup(List<Tile> tiles, int groupIndex)
         {
-            if (groupIndex == TilesGroup.NEW)
-            {
+            if (groupIndex == TilesGroup.NEW) {
                 groupIndex = this.groups.Count + 1;
                 TilesGroup newGroup = new TilesGroup(this.groups.Count + 1);
-                this.groups.Add(newGroup);                
+                foreach (Tile tile in tiles) {
+                    newGroup.addTile(tile);
+                }
+                this.groups.Add(newGroup);
             }
+            else
+            {
+                foreach (Tile tile in tiles)
+                {
+                    this.addTileToGroup(tile, groupIndex);
+                }                
+            }
+        }
+
+        public bool isValidAddTilesInGroup(List<Tile> tiles, int groupIndex)
+        {
+            TilesGroup group = this.getGroup(groupIndex).clone();
             foreach (Tile tile in tiles)
             {
-                this.addTileToGroup(tile, groupIndex);
+                group.addTile(tile);
             }
+            return group.isValid();
         }
 
         public void moveTileFromOriginGroupToTargetGroup(string tileTextDescription, int originGroup, int targetGroup)
@@ -61,7 +76,7 @@ namespace Rummy.models
             TilesGroup oGroup = this.getGroup(originGroup);
             TilesGroup tGroup = this.getGroup(targetGroup);
             Tile originTile = oGroup.getTile(tile);
-            tGroup.addTile(originTile);
+            this.addTilesToGroup(new List<Tile>() { tile }, targetGroup);         
             oGroup.removeTile(originTile);
         }
 
@@ -136,7 +151,7 @@ namespace Rummy.models
             return tileFinded;
         }
 
-        internal bool existsTileInGroup(string tileDescription, int group)
+        public bool existsTileInGroup(string tileDescription, int group)
         {
             TilesGroup tilesGroup = this.getGroup(group);
             if (tilesGroup != null)

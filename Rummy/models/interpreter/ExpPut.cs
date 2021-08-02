@@ -16,8 +16,7 @@ namespace Rummy.models.interpreter
 
         public override void interpret(IPlayerCommand player) {
 
-            List<string> tiles = new List<string>();
-
+            List<List<string>> tiles = new List<List<string>>();
             foreach (ExpPutIn expIn in lstExpIn) {
                 expIn.interpret(player);
                 if (expIn.hasError())
@@ -25,8 +24,8 @@ namespace Rummy.models.interpreter
                     this.error = expIn.getError();
                     break;
                 } else
-                {
-                    tiles.AddRange(expIn.getTiles());
+                {                    
+                    tiles.Add(expIn.getTiles());
                 }
             }    
             if (!this.hasError())
@@ -35,13 +34,18 @@ namespace Rummy.models.interpreter
             }
         }
 
-        private void addTilesToGroup(IPlayerCommand player, List<string> tiles)
-        {                       
+        private void addTilesToGroup(IPlayerCommand player, List<List<string>> tiles)
+        {                                   
             if (player.isAllowedToTileDown(tiles))
             {
                 foreach (ExpPutIn expIn in lstExpIn)
                 {
                     expIn.addTilesToGroup(player);
+                    if (expIn.hasError())
+                    {
+                        this.error = expIn.getError();
+                        break;
+                    }
                 }
             }
             else

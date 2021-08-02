@@ -15,12 +15,14 @@ namespace TestRummy.models.interpreter
         private const string inputPutNewSerie = "PUT 10R 10G 10B";
         private const string inputPutToNotExistSerie = "PUT 10R 10G 10B IN 1";
         private const string inputPutNewRun = "PUT 9R 10R 11R";
-        private const string inputPutToNotExistRun = "PUT 9R 10R 11R IN 1";
+        private const string inputPutRunToNotExistGroup = "PUT 9R 10R 11R IN 1";
         private const string inputOtherPutForAddToSerieGroup = "PUT 10Y IN 1";
         private const string inputOtherPutForAddToRunGroup = "PUT 4R IN 1";
+        private const string inputPutNewSerieAndNewRunWithMoreThan30 = "PUT 6R 6G 6B 6Y, 7Y 8Y 9Y";
+        private const string inputPutNewSerieAndNewRunWithJokerAndMoreThan30 = "PUT 2R 2G J, 7Y 8Y J";
+        private const string inputMovFromGroup2ToNewGroup = "MOV FROM 1 6R";
+        private const string inputMovFromGroup1ToGroup2 = "MOV FROM 1 6Y IN 2";
 
-        private const string inputPutNewSerieAndNewRunAddupMoreThan30 = "PUT 4R 4G 4Y, 6Y 7Y 8Y";
-        
         private const int NUM_PLAYERS = 2;
 
         public CommandParserTest()
@@ -94,7 +96,7 @@ namespace TestRummy.models.interpreter
             Turn turn = new Turn(NUM_PLAYERS);
             Player player = turn.take();
             this.setRackInitialWithRun(player);
-            CommandParser command = new CommandParser(inputPutToNotExistRun, player);
+            CommandParser command = new CommandParser(inputPutRunToNotExistGroup, player);
             command.parse();
             Assert.IsTrue(command.hasError() && command.getError() == ErrorMessage.WRONG_GROUP);
         }
@@ -114,7 +116,7 @@ namespace TestRummy.models.interpreter
         }
 
         [Test]
-        public void givenPutCommandToRunGroupWhenParseThenIsTrue()
+        public void givenPutCommandToRunGroupWhenParseThenNotHasError()
         {
             Turn turn = new Turn(NUM_PLAYERS);
             Player player = turn.take();
@@ -123,6 +125,73 @@ namespace TestRummy.models.interpreter
             command.parse();
             player.addTileInRack(new Tile(TileNumber.FOUR, Color.RED));
             command = new CommandParser(inputOtherPutForAddToRunGroup, player);
+            command.parse();
+            Assert.IsFalse(command.hasError());
+        }
+
+        [Test]
+        public void givenPutNewSerieAndNewRunWithMoreThan30WhenParseThenNotHasError()
+        {            
+            Player player = new Player(new Table());
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.RED));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.BLUE));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.GREEN));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.SEVEN, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.EIGHT, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.NINE, Color.YELLOW));
+            CommandParser command = new CommandParser(inputPutNewSerieAndNewRunWithMoreThan30, player);
+            command.parse();
+            Assert.IsFalse(command.hasError());
+        }
+
+        [Test]
+        public void givenPutNewSerieAndNewRunWithJokerMoreThan30WhenParseThenNotHasError()
+        {
+            Player player = new Player(new Table());
+            player.addTileInRack(new Tile(TileNumber.TWO, Color.RED));
+            player.addTileInRack(new Tile(TileNumber.TWO, Color.GREEN));
+            player.addTileInRack(new Tile(TileNumber.JOKER, Color.JOKER));
+            player.addTileInRack(new Tile(TileNumber.SEVEN, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.EIGHT, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.JOKER, Color.JOKER));
+            CommandParser command = new CommandParser(inputPutNewSerieAndNewRunWithJokerAndMoreThan30, player);
+            command.parse();
+            Assert.IsFalse(command.hasError());
+        }
+
+        [Test]
+        public void givenInputMovFromGroup2ToNewGroupWhenParseThenNotHasError()
+        {
+            Player player = new Player(new Table());
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.RED));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.BLUE));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.GREEN));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.SEVEN, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.EIGHT, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.NINE, Color.YELLOW));
+            CommandParser command = new CommandParser(inputPutNewSerieAndNewRunWithMoreThan30, player);
+            command.parse();
+            command = new CommandParser(inputMovFromGroup2ToNewGroup, player);
+            command.parse();
+            Assert.IsFalse(command.hasError());
+        }
+
+        [Test]
+        public void givenInputMovFromGroup1ToGroup2WhenParseThenNotHasError()
+        {
+            Player player = new Player(new Table());
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.RED));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.BLUE));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.GREEN));
+            player.addTileInRack(new Tile(TileNumber.SIX, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.SEVEN, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.EIGHT, Color.YELLOW));
+            player.addTileInRack(new Tile(TileNumber.NINE, Color.YELLOW));
+            CommandParser command = new CommandParser(inputPutNewSerieAndNewRunWithMoreThan30, player);
+            command.parse();
+            command = new CommandParser(inputMovFromGroup1ToGroup2, player);
             command.parse();
             Assert.IsFalse(command.hasError());
         }

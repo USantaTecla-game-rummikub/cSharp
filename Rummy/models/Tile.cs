@@ -73,7 +73,13 @@ namespace Rummy.models
 
         internal void write()
         {
-            Console.Write(Pounch.getNumberVisualFormat(this.number) +  Pounch.getColorVisualFormat(this.color));
+            if (!this.isJoker())
+            {
+                Console.Write(Pounch.getNumberVisualFormat(this.number) + Pounch.getColorVisualFormat(this.color));
+            } else
+            {
+                Console.Write(Pounch.getNumberVisualFormat(this.number));
+            }
         }
 
         public bool isNumberDistinctTo(Tile tile)

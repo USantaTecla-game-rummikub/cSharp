@@ -63,9 +63,12 @@ namespace Rummy.models.interpreter
 
         private void parseInstructionSimple(string instruction)
         {
-            switch (instruction)
+            switch (instruction.ToUpper())
             {
-                case CommandString.END: new ExpEnd().interpret(this.player);
+                case CommandString.END:
+                    ExpEnd expEnd = new ExpEnd();
+                    expEnd.interpret(this.player);
+                    this.error = expEnd.getError();
                     break;
                 case CommandString.HELP:
                     break;
@@ -137,7 +140,7 @@ namespace Rummy.models.interpreter
 
         private void parseMov(string[] argumentsGroups) {
             List<ExpMovIn> lstExpFrom = new List<ExpMovIn>();
-            for (int i = 1; i < argumentsGroups.Length; i++) {
+            for (int i = 0; i < argumentsGroups.Length; i++) {
                 string[] tilesAndOriginAndTarget = argumentsGroups[i].Split(' ');
                 if (this.hasSubcommandFrom(tilesAndOriginAndTarget) && this.hasSubcommandIn(tilesAndOriginAndTarget)) {
                    string originGroup = tilesAndOriginAndTarget[1];
@@ -154,10 +157,6 @@ namespace Rummy.models.interpreter
 
         private bool hasSubcommandFrom(string[] tilesAndOriginAndTarget) {
             return (tilesAndOriginAndTarget[0].ToUpper() == SubcommandString.FROM);
-        }
-
-        private bool hasError(Expression exp) {
-            return exp.getError() != null && exp.getError() != "";
         }
     }
 }

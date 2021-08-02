@@ -46,6 +46,23 @@ namespace TestRummy.models.interpreter
             Assert.IsTrue(expMov.hasError() && expMov.getError() == ErrorMessage.WRONG_TILE);
         }
 
+        [Test]
+        public void givenTwoGroupsOnTheTableWhenParseExpMovToNewGroupThenOk()
+        {
+            Player player = new Player(new Table());
+            this.setRunGroup(player);
+            this.setSerieGroup(player);
+            player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
+            player.addTilesToGroup(new List<string>() { "10Y", "10G", "10B" }, Group.NEW);
+            List<ExpMovIn> lstMovIn = new List<ExpMovIn>()
+            {
+                new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("13R")}, new Group("1"), new Group(Group.NEW))
+            };
+            ExpMov expMov = new ExpMov(lstMovIn);
+            expMov.interpret(player);
+            Assert.IsFalse(expMov.hasError());
+        }
+
         private void setRunGroup(Player player)
         {            
             player.addTileInRack(new Tile(TileNumber.TEN, Color.RED));

@@ -174,5 +174,35 @@ namespace TestRummy.models
             Assert.IsTrue(table.existTileInTable("J"));
         }
 
+        [Test]
+        public void givenTableWithGroup1WhenPutInGroup1ThenNewTileExistInGroup1IsOk()
+        {
+            Table table = new Table();
+            List<Tile> runGroup = this.getTilesRunGroupWithoutJoker();
+            table.addTilesToGroup(runGroup, TilesGroup.NEW);
+            List<Tile> newTile = new List<Tile>() { new Tile(TileNumber.FIVE, Color.RED) };
+            table.addTilesToGroup(newTile, 1);             
+            Assert.IsTrue(table.existsTileInGroup("5R", 1) );
+        }
+
+        [Test]
+        public void givenTableWithGroup1WhenPutInGroup1ThenIsValidAdd()
+        {
+            Table table = new Table();
+            List<Tile> runGroup = this.getTilesRunGroupWithoutJoker();
+            table.addTilesToGroup(runGroup, TilesGroup.NEW);
+            List<Tile> newTile = new List<Tile>() { new Tile(TileNumber.FIVE, Color.RED), new Tile(TileNumber.SIX, Color.RED) };            
+            Assert.IsTrue(table.isValidAddTilesInGroup(newTile, 1));
+        }
+
+        [Test]
+        public void givenTableWithRunGroupWhenPutInRunGroupASerieGroupThenNotIsValidAddTilesInGroup()
+        {
+            Table table = new Table();
+            List<Tile> runGroup = this.getTilesRunGroupWithoutJoker();
+            table.addTilesToGroup(runGroup, TilesGroup.NEW);
+            List<Tile> newTiles = new List<Tile>() { new Tile(TileNumber.EIGHT, Color.RED), new Tile(TileNumber.EIGHT, Color.GREEN), new Tile(TileNumber.EIGHT, Color.BLUE) };
+            Assert.IsFalse(table.isValidAddTilesInGroup(newTiles, 1));
+        }
     }
 }

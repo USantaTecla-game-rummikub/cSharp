@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Rummy.models
@@ -69,6 +70,35 @@ namespace Rummy.models
             return numbersVisualFormat[number].ToString();
         }
 
+        public static Tile getTileByDescription(string tileDescription) {
+            Tile tile = null;
+            TileNumber tileNumber = TileNumber.JOKER;
+            Color color = Color.JOKER;
+            bool finded = false;            
+
+            foreach (TileNumber key in numbersVisualFormat.Keys) {
+                if (tileDescription.Contains((string)Pounch.numbersVisualFormat[key])) {
+                    tileNumber = key;
+                    finded = true;
+                    break;
+                }
+            }
+            if (finded) {
+                finded = false;
+                foreach (Color key in colorsVisualFormat.Keys) {
+                    if (tileDescription.Contains((string)Pounch.colorsVisualFormat[key])) {
+                        color = key;
+                        finded = true;
+                        break;
+                    }
+                }
+            }
+            if (finded) {
+                tile = new Tile(tileNumber, color);
+            }
+            return tile;
+        }
+
         private void createTiles(int numTiles) {
             this.pounch = new Tile[numTiles];            
             Array numbers = Enum.GetValues(typeof(TileNumber));
@@ -125,11 +155,7 @@ namespace Rummy.models
 
         public void write()
         {
-            Console.WriteLine(Message.POUNCH + this.top);
-          /*  foreach (Tile tile in this.pounch) {                
-                tile.write();
-                Console.Write(" ");
-            } */
+            Console.WriteLine(Message.POUNCH + this.top);          
             Console.WriteLine();
         }
     }

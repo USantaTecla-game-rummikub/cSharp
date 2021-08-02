@@ -20,3 +20,9 @@ C:\Users\arpaf\Documents\escuelait\Master-desarrollo\practica\cSharp\Rummy\obj\D
 C:\Users\arpaf\Documents\escuelait\Master-desarrollo\practica\cSharp\Rummy\obj\Debug\Rummy.csproj.CoreCompileInputs.cache
 C:\Users\arpaf\Documents\escuelait\Master-desarrollo\practica\cSharp\Rummy\obj\Debug\Rummy.exe
 C:\Users\arpaf\Documents\escuelait\Master-desarrollo\practica\cSharp\Rummy\obj\Debug\Rummy.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\bin\Debug\Rummy.exe.config
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\bin\Debug\Rummy.exe
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\bin\Debug\Rummy.pdb
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\obj\Debug\Rummy.csprojAssemblyReference.cache
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\obj\Debug\Rummy.exe
+C:\Users\Antonio\Documents\escuelait\master-desarrollo\Pruebas-del-software\proyecto\github\cSharp\Rummy\obj\Debug\Rummy.pdb

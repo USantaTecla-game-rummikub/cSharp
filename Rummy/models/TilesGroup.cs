@@ -78,6 +78,18 @@ namespace Rummy.models
             return this.isSizeValidForRun() && validGroup;
         }
 
+        public TilesGroup clone()
+        {
+            TilesGroup clonedGroup = new TilesGroup(TilesGroup.NEW);            
+            foreach (Tile tile in this.tiles)
+            {
+                Tile _tile = new Tile();
+                _tile.clone(tile);
+                clonedGroup.addTile(_tile);
+            }
+            return clonedGroup;
+        }
+
         private bool anyHaveJokers(Tile tile1, Tile tile2)
         {
             return (tile1.isJoker() || tile2.isJoker());
@@ -101,9 +113,36 @@ namespace Rummy.models
         public int getPoints()
         {
             int points = 0;
-            foreach (Tile tile in this.tiles)
+            for (int i = 0; i < this.tiles.Count; i++)
             {
-                points = points + (int)tile.getNumber();
+                Tile tile = this.tiles[i];
+                if (tile.getNumber() != TileNumber.JOKER)
+                {
+                    points += (int)tile.getNumber();
+                } else
+                {
+                    points += this.getJokerPointsForGroupType(i);                    
+                }
+            }
+            return points;
+        }
+
+        private int getJokerPointsForGroupType(int i) {
+            int points = 0;
+            if (this.isRunValid()) {
+                if (i > 0) {
+                    points += ((int)this.tiles[i - 1].getNumber()) + 1;
+                }
+                else {
+                    points += ((int)this.tiles[i + 1].getNumber()) - 1;
+                }
+            } else if (this.isSerieValid()) {
+                if (i > 0) {
+                    points += ((int)this.tiles[i - 1].getNumber());
+                }
+                else {
+                    points += ((int)this.tiles[i + 1].getNumber());
+                }
             }
             return points;
         }

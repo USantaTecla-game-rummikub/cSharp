@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Rummy.types
 {
     public enum ActionType {        
-        NULL,
+        STARTTURN,
         EXTRACT,        
         TILEDOWN,
         GROUPMOVEMENT,        

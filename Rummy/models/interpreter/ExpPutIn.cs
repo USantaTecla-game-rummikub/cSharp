@@ -27,11 +27,7 @@ namespace Rummy.models.interpreter
             if (!this.hasError()) {
                 this.tgroup.interpret(player);
                 this.error = tgroup.getError();
-            }           
-            if (!this.hasError())
-            {
-                this.addTilesToGroup(player);
-            }
+            }                  
         }
 
         public List<string> getTiles()
@@ -49,8 +45,14 @@ namespace Rummy.models.interpreter
             foreach (ExpTileRack tileExp in this.tilesExp)
             {
                 tiles.Add(tileExp.getDescription());
-            }                                                        
-            player.addTilesToGroup(tiles, this.tgroup.getGroup());                                                                  
-        }       
+            }
+            if (this.tgroup.getGroup() == Group.NEW || player.isValidAddTilesInGroup(tiles, int.Parse(this.tgroup.getGroup())))
+            {
+                player.addTilesToGroup(tiles, this.tgroup.getGroup());
+            } else
+            {
+                this.error = ErrorMessage.WRONG_GROUP;
+            }
+        }              
     }
 }

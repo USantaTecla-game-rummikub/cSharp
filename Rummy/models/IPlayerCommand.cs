@@ -15,9 +15,12 @@ namespace Rummy.models
 
         void moveTileFromGroupToGroup(string tileString, int origin, int target);
         
-        bool isAllowedToTileDown(List<string> tiles);
+        bool isAllowedToTileDown(List<List<string>> tileGroups);
 
         void finishTurn();
         bool existsTileInGroup(string tileDescription, int group);
+        bool isValidGroups();
+
+        bool isValidAddTilesInGroup(List<string> tiles, int groupIndex);
     }
 }

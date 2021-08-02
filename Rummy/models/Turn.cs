@@ -48,7 +48,8 @@ namespace Rummy.models
             this.currentPlayer = rnd.Next(0, this.players.Length);            
         }
 
-        public Player take() {            
+        public Player take() {
+            this.players[this.currentPlayer].startTurn();
             return this.players[this.currentPlayer];
         }
 

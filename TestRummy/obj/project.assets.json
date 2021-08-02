@@ -186,11 +186,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
+      "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\TestRummy.csproj",
       "projectName": "TestRummy",
-      "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\TestRummy.csproj",
+      "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\TestRummy.csproj",
       "packagesPath": "C:\\Users\\Antonio\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\TestRummy\\obj\\",
+      "outputPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Antonio\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -206,8 +206,8 @@
       "frameworks": {
         "net472": {
           "projectReferences": {
-            "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj": {
-              "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy\\Rummy.csproj"
+            "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy.csproj": {
+              "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy.csproj"
             }
           }
         }

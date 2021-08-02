@@ -17,13 +17,21 @@ namespace Rummy.models
         public Player(Table table) {
             this.table = table;
             this.rack = new List<Tile>();
-            this.lastAction = ActionType.NULL;
+            this.lastAction = ActionType.STARTTURN;
             this.hasPlayedHis30Points = false;
         }
       
         public void extractTile() {
             this.lastAction = ActionType.EXTRACT;
             this.addTileInRack(this.table.extract());
+        }
+
+        public Tile getLastExtractedTile() {
+            if (this.lastAction == ActionType.EXTRACT || this.lastAction == ActionType.ENDTURN) {
+                return this.rack[this.rack.Count - 1];
+            } else {
+                return null;
+            }
         }
 
         public void addTileInRack(Tile tile)
@@ -119,9 +127,24 @@ namespace Rummy.models
 
         public void executeAction()
         {
-            Console.Write(Message.REQUEST_ACTION);            
+            Console.Write(Message.REQUEST_ACTION);
             CommandParser parser = new CommandParser(Console.ReadLine(), this);
             parser.parse();
+            if (parser.hasError())
+            {
+                Console.WriteLine();
+                Console.WriteLine(parser.getError());
+                Console.WriteLine();
+            }
+            else if (this.getLastAction() == ActionType.ENDTURN)
+            {
+                if (this.getLastExtractedTile() != null)
+                {
+                    Console.Write("Has extracted tile ");
+                    this.getLastExtractedTile().write();
+                    Console.WriteLine();
+                }
+            }           
         }
 
         public bool isResume() {
@@ -133,7 +156,12 @@ namespace Rummy.models
         }
 
         public bool isEnd() {
-            return this.lastAction == ActionType.TILEDOWN || this.lastAction == ActionType.EXTRACT;
+            return this.lastAction == ActionType.ENDTURN;
+        }
+
+        public void startTurn()
+        {
+            this.lastAction = ActionType.STARTTURN;
         }
 
         public ActionType getLastAction() {
@@ -169,9 +197,14 @@ namespace Rummy.models
             this.lastAction = ActionType.TILEDOWN;
         }
      
-        public bool isAllowedToTileDown(List<string> tiles)
+        public bool isAllowedToTileDown(List<List<string>> tilesGroups)
         {
-            return (!this.hasPlayedHis30Points && this.getPointsByGroupsToDown(tiles) >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
+            int points = 0;
+            foreach (List<string> tiles in tilesGroups)
+            {
+                points += this.getPointsByGroupsToDown(tiles);
+            }
+            return (!this.hasPlayedHis30Points && points >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
         }
       
         private Tile findTileInRack(string tileString)
@@ -219,11 +252,26 @@ namespace Rummy.models
 
         public void finishTurn()
         {
-            if (this.lastAction == ActionType.NULL || this.lastAction == ActionType.EXTRACT)
+            if (this.lastAction == ActionType.STARTTURN || this.lastAction == ActionType.EXTRACT || this.lastAction == ActionType.ENDTURN)
             {
-                this.extractTile();                
+                this.extractTile();
             }
-            // this.lastAction = ActionType.ENDTURN;
+            this.lastAction = ActionType.ENDTURN;
         }            
+
+        public bool isValidGroups()
+        {
+            return this.table.isValidGroups();
+        }
+
+        public bool isValidAddTilesInGroup(List<string> tiles, int groupIndex)
+        {
+            List<Tile> lstTiles = new List<Tile>();
+            foreach (string tile in tiles)
+            {                
+                lstTiles.Add(Pounch.getTileByDescription(tile));
+            }
+            return this.table.isValidAddTilesInGroup(lstTiles, groupIndex);
+        }
     }
 }

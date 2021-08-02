@@ -63,7 +63,9 @@ namespace TestRummy.models
         public void givenTilesInRackWith30pointsWhenTestIfIsAllowedToTileDownThenIsOk()
         {
             Player player = this.getPlayerWithSerieGroupTiles();
-            Assert.IsTrue(player.isAllowedToTileDown(new List<string>() { "10R", "10G", "10B" }));
+            Assert.IsTrue(player.isAllowedToTileDown(new List<List<string>>() { 
+                new List<string>() { "10R", "10G", "10B" } 
+              }));
         }
 
         [Test]
@@ -105,7 +107,31 @@ namespace TestRummy.models
         public void givenPlayerWithoutTilesDownWhenFinishTurnThenLastActionIsExtract() {
             Player player = this.getPlayerWithSerieGroupTiles();
             player.finishTurn(); 
-            Assert.IsTrue(player.getLastAction() == ActionType.EXTRACT);
+            Assert.IsTrue(player.getLastAction() == ActionType.ENDTURN);
+        }
+
+        [Test]
+        public void givenPlayerWithoutTilesDownWhenFinishTurnThenGetLastExtractedTileIsTrue()
+        {
+            Player player = this.getPlayerWithSerieGroupTiles();
+            player.finishTurn();
+            Assert.IsTrue(player.getLastAction() == ActionType.ENDTURN && player.getLastExtractedTile() != null);
+        }
+
+        [Test]
+        public void givenPlayerWhatHasDownASerieGroupWhenDownWrongTileThenIsValidAddTilesInGroup()
+        {
+            Player player = this.getPlayerWithSerieGroupTiles();
+            player.addTilesToGroup(new List<string>() { "10R", "10G", "10B" }, "");
+            Assert.IsTrue(player.isValidAddTilesInGroup(new List<string>() { "10Y" }, 1));
+        }
+
+        [Test]
+        public void givenPlayerWhatHasDownASerieGroupWhenDownWrongTileThenNotisValidAddTilesInGroup()
+        {
+            Player player = this.getPlayerWithSerieGroupTiles();
+            player.addTilesToGroup(new List<string>() { "10R", "10G", "10B" }, "");            
+            Assert.IsFalse(player.isValidAddTilesInGroup(new List<string>() { "11R" }, 1));
         }
 
         private Player getPlayerWithSerieGroupTiles()

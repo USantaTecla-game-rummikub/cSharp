@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Rummy.models;
+using Rummy.types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace TestRummy.models
     public class TurnTest
     {
         private const int NUM_PLAYERS = 2;
+
+        [Test]
+        public void givenTurnWith2PlayersWhenTakeTurnThenPlayerIsStartTurn()
+        {
+            Turn turn = new Turn(NUM_PLAYERS);
+            Player player = turn.take();            
+            Assert.IsTrue(player.getLastAction() == ActionType.STARTTURN);
+        }
 
         [Test]
         public void givenTurnWith2PlayersWhenCurrentPlayerFinishTurnThenIsEnd()

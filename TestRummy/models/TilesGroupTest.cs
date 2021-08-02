@@ -23,8 +23,8 @@ namespace TestRummy.models
         public void givenSerieWithoutJokerWhenTestSizeThenIsTrue()
         {
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
-            TilesGroup group1 = this.getSerieGroup();                       
-            Assert.IsTrue( group1.isSizeValidForSerie());            
+            TilesGroup group1 = this.getSerieGroup();
+            Assert.IsTrue(group1.isSizeValidForSerie());
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace TestRummy.models
             group.addTile(tile1);
             group.addTile(tile2);
             group.addTile(tile3);
-            group.addTile(tile4);            
+            group.addTile(tile4);
             return group;
         }
 
@@ -65,10 +65,10 @@ namespace TestRummy.models
 
         [Test]
         public void givenSerieWithoutJokerWhenTestValidThenIsTrue()
-        {            
+        {
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
             TilesGroup group1 = this.getSerieGroup();
-            Assert.IsTrue(group1.isSerieValid());            
+            Assert.IsTrue(group1.isSerieValid());
         }
 
         [Test]
@@ -83,12 +83,12 @@ namespace TestRummy.models
         public void givenRunWithoutJokerWhenTestThenIsOk()
         {
             TilesGroup group1 = this.getRunGroup();
-            Assert.IsTrue(group1.isRunValid());            
+            Assert.IsTrue(group1.isRunValid());
         }
 
         [Test]
         public void givenRunWithJokerWhenTestThenIsOk()
-        {            
+        {
             TilesGroup group2 = this.getRunGroupWithOneJoker();
             Assert.IsTrue(group2.isRunValid());
         }
@@ -97,12 +97,12 @@ namespace TestRummy.models
         public void givenRunWithoutJokerWhenTestSizeThenIsOk()
         {
             TilesGroup group = this.getRunGroup();
-            Assert.IsTrue(group.isSizeValidForRun());            
+            Assert.IsTrue(group.isSizeValidForRun());
         }
 
         [Test]
         public void givenRunWithJokerWhenTestSizeThenIsOk()
-        {            
+        {
             TilesGroup group = this.getRunGroupWithOneJoker();
             Assert.IsTrue(group.isSizeValidForRun());
         }
@@ -146,17 +146,17 @@ namespace TestRummy.models
         public void givenSerieWithoutJokerWhenSearchOneTileThenIsFinded()
         {
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
-            TilesGroup group = this.getSerieGroup();            
-            Tile tileOneRed = new Tile(TileNumber.ONE, Color.RED);            
-            Assert.IsTrue(group.getTile(tileOneRed) != null && group.getTile("1R") != null);            
+            TilesGroup group = this.getSerieGroup();
+            Tile tileOneRed = new Tile(TileNumber.ONE, Color.RED);
+            Assert.IsTrue(group.getTile(tileOneRed) != null && group.getTile("1R") != null);
         }
 
         [Test]
         public void givenSerieWithJokerWhenSearchOneTileThenIsFinded()
         {
             Pounch pounch = new Pounch(Table.TILES_TOTALES);
-            TilesGroup group = this.getSerieGroupWithOneJoker();                        
-            Tile tileJoker = new Tile(TileNumber.JOKER, Color.JOKER);            
+            TilesGroup group = this.getSerieGroupWithOneJoker();
+            Tile tileJoker = new Tile(TileNumber.JOKER, Color.JOKER);
             Assert.IsTrue(group.getTile(tileJoker) != null && group.getTile("J") != null);
         }
 
@@ -176,6 +176,14 @@ namespace TestRummy.models
             TilesGroup group = this.getRunGroupWithOneJoker();
             Tile joker = new Tile(TileNumber.JOKER, Color.JOKER);
             Assert.IsTrue(group.getTile(joker) != null && group.getTile("J") != null);
-        }        
+        }
+
+        [Test]
+        public void givenRunGroup1WhenPutInNewTileInGroup1ThenGroupValid() { 
+
+            TilesGroup group = this.getRunGroup();
+            group.addTile(new Tile(TileNumber.FIVE, Color.RED));
+            Assert.IsTrue(group.isSizeValidForRun() && group.getPoints() == 15);    
+        }
     }
 }

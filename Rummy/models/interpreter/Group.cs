@@ -30,7 +30,13 @@ namespace Rummy.models.interpreter
 
         public int toInt()
         {
-            return int.Parse(group);
+            if (this.group != Group.NEW)
+            {
+                return int.Parse(group);
+            } else
+            {
+                return 0;
+            }
         }
     }
 }
