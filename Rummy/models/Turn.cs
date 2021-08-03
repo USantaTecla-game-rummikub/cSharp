@@ -123,5 +123,11 @@ namespace Rummy.models
             }
             return false;
         }
+
+        public SnapShot save()
+        {
+            return new SnapShot(this.currentPlayer, this.turnsAfterEmptyPounch,
+             this.players[this.currentPlayer].getState(), this.table.getPounchState(), this.table.getTilesGroup());
+        }
     }
 }

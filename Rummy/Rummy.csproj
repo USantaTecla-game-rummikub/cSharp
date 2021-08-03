@@ -61,6 +61,7 @@
     <Compile Include="models\Player.cs" />
     <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
+    <Compile Include="models\SnapShot.cs" />
     <Compile Include="models\Table.cs" />
     <Compile Include="models\Tile.cs" />
     <Compile Include="models\TilesGroup.cs" />

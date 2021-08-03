@@ -158,5 +158,20 @@ namespace Rummy.models
             Console.WriteLine(Message.POUNCH + this.top);          
             Console.WriteLine();
         }
+
+        internal void set(string state)
+        {
+
+        }
+
+        public override string ToString()
+        {
+            string result = "" + this.top + "|";
+            foreach (Tile tile in this.pounch)
+            {
+                result += tile.ToString() + " ";
+            }
+            return result;
+        }
     }
 }

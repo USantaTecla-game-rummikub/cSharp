@@ -189,5 +189,16 @@ namespace Rummy.models
             }
             return tileFinded;
         }
+
+        public override string ToString()
+        {
+            string result = "" + this.id + ". ";
+            foreach (Tile tile in this.tiles)
+            {
+                result += tile.ToString() + " ";
+            }
+            result += "\n";
+            return result;
+        }
     }
 }

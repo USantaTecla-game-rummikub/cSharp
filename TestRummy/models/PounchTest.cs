@@ -48,7 +48,7 @@ namespace TestRummy.models
         [Test]
         public void givenPounchWhenSearchByTileDescriptionThenTileFindedIsTrue()
         {            
-            Tile tile = Pounch.getTileForDescription("8R");
+            Tile tile = Pounch.getTileByDescription("8R");
             Assert.IsTrue(tile.isNumberEqualTo("8") && tile.isColorEqualsTo(Color.RED));
         }
     }

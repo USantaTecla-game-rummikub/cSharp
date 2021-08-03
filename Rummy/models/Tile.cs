@@ -73,12 +73,17 @@ namespace Rummy.models
 
         internal void write()
         {
+            Console.Write(this.ToString());
+        }
+
+        public override string ToString()
+        {
             if (!this.isJoker())
             {
-                Console.Write(Pounch.getNumberVisualFormat(this.number) + Pounch.getColorVisualFormat(this.color));
+                return Pounch.getNumberVisualFormat(this.number) + Pounch.getColorVisualFormat(this.color);
             } else
             {
-                Console.Write(Pounch.getNumberVisualFormat(this.number));
+                return Pounch.getNumberVisualFormat(this.number);
             }
         }
 

@@ -147,6 +147,21 @@ namespace Rummy.models
             }           
         }
 
+        public string getState()
+        {
+            return this.lastAction.ToString() + "|" + this.hasPlayedHis30Points.ToString() + "|" + this.rackToString();
+        }
+
+        private string rackToString()
+        {
+            string result = "";
+            foreach (Tile tile in this.rack)
+            {
+                result += tile.ToString() + " ";
+            }
+            return result;
+        }
+
         public bool isResume() {
             return false;
         }

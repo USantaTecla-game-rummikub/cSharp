@@ -1,12 +1,16 @@
 @startuml
 
+@startuml
+
 title diagrama de clases de diseño
 
 class Rummy {
+  -history: SnapShot[]
   +play()
 }
 
-Rummy --> Turn
+Rummy o--> "1..n" SnapShot
+Rummy *--> Turn
 Turn *--> Table
 Turn *--> "2..4" Player
 Table *--> Pounch
@@ -17,12 +21,16 @@ Player --> "n" Tile
 Rummy ..> Player
 
 class Turn {
+   -currentPlayer
+   -turnsAfterEmptyPounch
    +take(): Player
    +change()
    +isEnd(): bool
    +write()
    +getWinnerByPoints(): Player
    +hasWinnerByPoints(): bool
+   +save(): SnapShot
+   +restore(Snapshot)
 }
 
 class Table {
@@ -114,7 +122,12 @@ interface IPlayerCommand {
   +existGroup(targetGroup): bool
   +existTileInRack(tile): bool
   +existTileInTable(tile): bool
-  +moveTileFromGroupToGroup(tile, origin, target);
+  +moveTileFromGroupToGroup(tile, origin, target)
+  +isAllowedToTileDown(List<List<string>> tileGroups): bool
+  +finishTurn();
+  +existsTileInGroup(string tileDescription, int group):bool
+  +isValidGroups(): bool
+  +isValidAddTilesInGroup(List<string> tiles, int groupIndex): bool
 }
 
 Tile *--> Color
@@ -160,5 +173,13 @@ enum SubcommandString {
    FROM = "FROM"
 }
 
+Turn ..> SnapShot
+
+class SnapShot {
+  -currentPlayer
+  -turnsAfterEmptyPounch
+  +make()
+  +undo()
+}
 
 @enduml

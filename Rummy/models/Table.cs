@@ -151,6 +151,21 @@ namespace Rummy.models
             return tileFinded;
         }
 
+        public string getTilesGroup()
+        {
+            string result = "";
+            foreach (TilesGroup group in this.groups)
+            {
+                result += group.ToString();
+            }
+            return result;
+        }
+
+        public string getPounchState()
+        {
+            return this.pounch.ToString();
+        }
+
         public bool existsTileInGroup(string tileDescription, int group)
         {
             TilesGroup tilesGroup = this.getGroup(group);
