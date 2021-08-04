@@ -204,5 +204,19 @@ namespace TestRummy.models
             List<Tile> newTiles = new List<Tile>() { new Tile(TileNumber.EIGHT, Color.RED), new Tile(TileNumber.EIGHT, Color.GREEN), new Tile(TileNumber.EIGHT, Color.BLUE) };
             Assert.IsFalse(table.isValidAddTilesInGroup(newTiles, 1));
         }
+
+        [Test]
+        public void givenTableWellFormedWhenSerializeAndDeserializeThenRestoreOK()
+        {
+            Table table = new Table();
+            List<Tile> runGroup = this.getTilesRunGroupWithoutJoker();
+            table.addTilesToGroup(runGroup, TilesGroup.NEW);
+            string serializedTable = table.tilesGroupToString();
+            string serializedPounch = table.pounchToString();
+            List<Tile> newTile = new List<Tile>() { new Tile(TileNumber.FIVE, Color.RED) };
+            table.addTilesToGroup(newTile, 1);
+            table.set(serializedTable, serializedPounch);
+            Assert.IsFalse(table.existTileInTable("5R"));
+        }
     }
 }

@@ -95,5 +95,14 @@ namespace TestRummy.models
             Tile tile1 = new Tile(TileNumber.TEN, Color.BLUE);
             Assert.IsTrue(tile1.isNumberGreaterThan(tile2));
         }
+
+        [Test]
+        public void givenTileWhenToSerializeThenIsTrueTextRepresentations()
+        {
+            Pounch pounch = new Pounch(Table.TILES_TOTALES);
+            Tile tile1 = new Tile(TileNumber.TWO, Color.RED);
+            Tile tile2 = new Tile(TileNumber.JOKER, Color.JOKER);
+            Assert.IsTrue(tile1.ToString() == "2R" && tile2.ToString() == "J");
+        }
     }
 }

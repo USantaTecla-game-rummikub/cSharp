@@ -1,0 +1,72 @@
+﻿using Rummy.types;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Rummy.models
+{
+    public class SnapshotHistory
+    {
+        private List<SnapShot> snapshots;
+        private int pointer;
+        private Turn turn;
+
+        public SnapshotHistory(Turn turn)
+        {
+            this.snapshots = new List<SnapShot>();
+            this.pointer = 0;
+            this.turn = turn;
+        }
+
+        private bool canDoneBackup()
+        {
+            return turn.take().getLastAction() != ActionType.UNDO && turn.take().getLastAction() != ActionType.REDO;
+        }
+
+        public void backup()
+        {
+            if (this.canDoneBackup())
+            {
+                this.snapshots.Add(this.turn.save());
+                this.pointer++;
+            }
+        }
+
+        public void restoreAccordingAction(Player player)
+        {
+            if (player.getLastAction() == ActionType.UNDO)
+            {
+                turn.restore(this.undo());
+            } else if (player.getLastAction() == ActionType.REDO)
+            {
+                turn.restore(this.redo());
+            }
+        }
+
+        public SnapShot undo()
+        {
+            if (this.pointer > 0)
+            {
+                this.pointer--;
+                return this.snapshots[this.pointer];
+            } else
+            {
+                return this.snapshots[0];
+            }
+        }
+
+        public SnapShot redo()
+        {
+            if (this.pointer < this.snapshots.Count - 1)
+            {
+                this.pointer++;
+                return this.snapshots[this.pointer];
+            } else
+            {
+                return this.snapshots[this.snapshots.Count - 1];
+            }
+        }
+    }
+}

@@ -10,7 +10,9 @@ namespace Rummy.types
         STARTTURN,
         EXTRACT,        
         TILEDOWN,
-        GROUPMOVEMENT,        
-        ENDTURN
+        GROUPMOVEMENT,                
+        ENDTURN,
+        UNDO,
+        REDO
     }
 }

@@ -151,7 +151,7 @@ namespace Rummy.models
             return tileFinded;
         }
 
-        public string getTilesGroup()
+        public string tilesGroupToString()
         {
             string result = "";
             foreach (TilesGroup group in this.groups)
@@ -161,9 +161,24 @@ namespace Rummy.models
             return result;
         }
 
-        public string getPounchState()
+        public string pounchToString()
         {
             return this.pounch.ToString();
+        }
+
+        public void set(string groupString, string pounch)
+        {
+            string[] chunksStringGroups = groupString.Split('\n');
+            this.groups = new List<TilesGroup>();
+            foreach (string group in chunksStringGroups)
+            {
+                if (!String.IsNullOrEmpty(group))
+                {
+                    TilesGroup tilesGroup = new TilesGroup(TilesGroup.NEW);
+                    tilesGroup.set(group);
+                }
+            }
+            this.pounch.set(pounch);
         }
 
         public bool existsTileInGroup(string tileDescription, int group)

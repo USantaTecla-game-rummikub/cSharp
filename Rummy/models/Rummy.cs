@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rummy.types;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,12 +10,13 @@ namespace Rummy.models
 {
     public class Rummy
     {     
-        private const int NUM_INITIAL_POINTS = 30;
-                
+        private const int NUM_INITIAL_POINTS = 30;                
         private Turn turn;
+        private SnapshotHistory snapshots;
 
         public Rummy(int numPlayers) {                            
-            this.turn = new Turn(numPlayers);                        
+            this.turn = new Turn(numPlayers);
+            this.snapshots = new SnapshotHistory(this.turn);
         }   
                    
         public void play() {
@@ -22,9 +24,11 @@ namespace Rummy.models
             this.writeHead();
             do {
                 player = turn.take();                
-                do {
+                this.snapshots.backup();                
+                do {                   
                     turn.write();
-                    player.executeAction();
+                    player.executeAction();                    
+                    this.snapshots.restoreAccordingAction(player);                    
                 } while (!turn.isEnd());
                 if (turn.isEnd() && !player.isWinner() && !turn.hasWinnerByPoints()) {
                     turn.change();
@@ -34,7 +38,7 @@ namespace Rummy.models
                 player.writeCongratulations();
             }
         }
-
+               
         private void writeHead() {
             Console.WriteLine("RUMMY");
             Console.WriteLine();

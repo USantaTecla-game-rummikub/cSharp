@@ -134,6 +134,16 @@ namespace TestRummy.models
             Assert.IsFalse(player.isValidAddTilesInGroup(new List<string>() { "11R" }, 1));
         }
 
+        [Test]
+        public void givenTilesInRackWhenSerializePlayerAndDeserializeThenRestoreIsOk()
+        {
+            Player player = this.getPlayerWithSerieAndRunGroupTiles();            
+            string serializedPlayer = player.getState();
+            player.addTileInRack(new Tile(TileNumber.NINE, Color.YELLOW));
+            player.set(serializedPlayer);
+            Assert.IsFalse(player.existTileInRack("9Y"));
+        }       
+
         private Player getPlayerWithSerieGroupTiles()
         {
             Player player = new Player(new Table());

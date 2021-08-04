@@ -159,16 +159,22 @@ namespace Rummy.models
             Console.WriteLine();
         }
 
-        internal void set(string state)
+        public void set(string state)
         {
-
+            string[] chunks = state.Split('|');
+            this.numTiles = int.Parse(chunks[0]);
+            this.top = int.Parse(chunks[1]);
+            string[] tiles = chunks[2].Split(' ');
+            this.pounch = new Tile[numTiles];            
+            for (int i = 0; i < this.top; i++) {
+                this.pounch[i++] = Pounch.getTileByDescription(tiles[i]);
+            }            
         }
 
         public override string ToString()
         {
-            string result = "" + this.top + "|";
-            foreach (Tile tile in this.pounch)
-            {
+            string result = "" + this.numTiles + "|" + this.top + "|";
+            foreach (Tile tile in this.pounch) {
                 result += tile.ToString() + " ";
             }
             return result;

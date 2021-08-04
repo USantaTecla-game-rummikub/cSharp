@@ -181,19 +181,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\arpaf\\.nuget\\packages\\": {}
+    "C:\\Users\\Antonio\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj",
+      "projectUniqueName": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\TestRummy.csproj",
       "projectName": "TestRummy",
-      "projectPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\TestRummy.csproj",
-      "packagesPath": "C:\\Users\\arpaf\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\TestRummy\\obj\\",
+      "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\TestRummy.csproj",
+      "packagesPath": "C:\\Users\\Antonio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\TestRummy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\arpaf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Antonio\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -205,10 +205,9 @@
       },
       "frameworks": {
         "net472": {
-          "targetAlias": "net472",
           "projectReferences": {
-            "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj": {
-              "projectPath": "C:\\Users\\arpaf\\Documents\\escuelait\\Master-desarrollo\\practica\\cSharp\\Rummy\\Rummy.csproj"
+            "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy.csproj": {
+              "projectPath": "C:\\Users\\Antonio\\Documents\\escuelait\\master-desarrollo\\Pruebas-del-software\\proyecto\\github\\cSharp\\Rummy\\Rummy.csproj"
             }
           }
         }
@@ -221,7 +220,6 @@
     },
     "frameworks": {
       "net472": {
-        "targetAlias": "net472",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -236,7 +234,7 @@
             "version": "[3.16.1, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

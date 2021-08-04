@@ -51,5 +51,16 @@ namespace TestRummy.models
             Tile tile = Pounch.getTileByDescription("8R");
             Assert.IsTrue(tile.isNumberEqualTo("8") && tile.isColorEqualsTo(Color.RED));
         }
+        
+        [Test]
+        public void givenPounchInitialWhenSerializeBeforeExtractThenDeserializeAndNumTilesInitialsIsOK()
+        {
+            Pounch pounch = new Pounch(Table.TILES_TOTALES);
+            string serializePounch = pounch.ToString();
+            pounch.extract();            
+            pounch.extract();
+            pounch.set(serializePounch);
+            Assert.IsTrue(pounch.count() == Table.TILES_TOTALES);
+        }
     }
 }

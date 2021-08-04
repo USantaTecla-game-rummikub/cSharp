@@ -185,5 +185,37 @@ namespace TestRummy.models
             group.addTile(new Tile(TileNumber.FIVE, Color.RED));
             Assert.IsTrue(group.isSizeValidForRun() && group.getPoints() == 15);    
         }
+
+        [Test]
+        public void givenGroupsWhenToStringThenIsTrueTheirTextRepresentations()
+        {
+            Pounch pounch = new Pounch(Table.TILES_TOTALES);
+            TilesGroup groupSerie = this.getSerieGroup();
+            TilesGroup groupRun = this.getRunGroup();
+            TilesGroup groupSerieWithJoker = this.getSerieGroupWithOneJoker();
+            TilesGroup groupRunWithJoker = this.getRunGroupWithOneJoker();
+            Assert.IsTrue(groupSerie.ToString() == "0.1B 1R 1G 1Y \n" && groupRun.ToString() == "0.1R 2R 3R 4R \n" && groupSerieWithJoker.ToString() == "0.1B 1R J 1Y \n" && groupRunWithJoker.ToString() == "0.1R 2R J 4R \n");
+        }
+
+        [Test]
+        public void givenStringSerieGroupWhenDeserializeThenIsTrueTilesGroup()
+        {
+            Pounch pounch = new Pounch(Table.TILES_TOTALES);
+            TilesGroup groupSerie = new TilesGroup(TilesGroup.NEW);
+            groupSerie.set("0.1B 1R 1G 1Y \n");
+            Assert.IsTrue(groupSerie.hasIndex(0) && groupSerie.getTile("1B") != null && groupSerie.getTile("1R") != null && groupSerie.getTile("1G") != null && groupSerie.getTile("1Y") != null);
+        }
+
+        [Test]
+        public void givenRunGroupWhenAddTileWithoutOrderThenIsGroupWellFormed()
+        {
+            Pounch pounch = new Pounch(Table.TILES_TOTALES);
+            TilesGroup groupRun = new TilesGroup(TilesGroup.NEW);            
+            groupRun.addTile(new Tile(TileNumber.ONE, Color.RED));
+            groupRun.addTile(new Tile(TileNumber.THREE, Color.RED));
+            groupRun.addTile( new Tile(TileNumber.FOUR, Color.RED));
+            groupRun.addTile(new Tile(TileNumber.TWO, Color.RED));
+            Assert.IsTrue(groupRun.isValid());
+        }
     }
 }

@@ -53,11 +53,13 @@
     <Compile Include="models\interpreter\ExpMov.cs" />
     <Compile Include="models\interpreter\ExpPut.cs" />
     <Compile Include="models\interpreter\ExpTileGroup.cs" />
+    <Compile Include="models\interpreter\ExpUndo.cs" />
     <Compile Include="models\interpreter\Group.cs" />
     <Compile Include="models\interpreter\CommandParser.cs" />
     <Compile Include="models\interpreter\Expression.cs" />
     <Compile Include="models\interpreter\ExpTileRack.cs" />
     <Compile Include="models\IPlayerCommand.cs" />
+    <Compile Include="models\SnapshotHistory.cs" />
     <Compile Include="models\Player.cs" />
     <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
@@ -71,11 +73,8 @@
     <Compile Include="types\ActionType.cs" />
     <Compile Include="types\Color.cs" />
     <Compile Include="types\CommandString.cs" />
-    <Compile Include="types\ErrorCode.cs" />
     <Compile Include="types\ErrorMessage.cs" />
-    <Compile Include="types\GroupType.cs" />
     <Compile Include="types\Message.cs" />
-    <Compile Include="types\PlayerState.cs" />
     <Compile Include="types\SubcommandString.cs" />
     <Compile Include="types\TileNumber.cs" />
   </ItemGroup>

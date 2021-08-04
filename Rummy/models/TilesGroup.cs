@@ -29,9 +29,9 @@ namespace Rummy.models
                 for (int i = 0; i < this.tiles.Count; i++) {
                     if (!tile.isJoker() && tile.isNumberLessThan(this.tiles[i])) {
                         index = i;
-                        for (int j = this.tiles.Count; j > i; j--) {
+                       /* for (int j = this.tiles.Count; j > i; j--) {
                             this.tiles.Insert(j, this.tiles[j - 1]);
-                        }                        
+                        } */                        
                         break;
                     }
                 }
@@ -192,13 +192,24 @@ namespace Rummy.models
 
         public override string ToString()
         {
-            string result = "" + this.id + ". ";
+            string result = "" + this.id + ".";
             foreach (Tile tile in this.tiles)
             {
                 result += tile.ToString() + " ";
             }
             result += "\n";
             return result;
+        }
+
+        public void set(string state)
+        {
+            string[] chunks = state.Split('.');
+            this.id = int.Parse(chunks[0]);
+            string[] tiles = chunks[1].Split(' ');
+            for (int i = 0; i < tiles.Length - 1; i++)
+            {
+                this.addTile(Pounch.getTileByDescription(tiles[i]));
+            }
         }
     }
 }

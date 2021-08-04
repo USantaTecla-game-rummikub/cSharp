@@ -59,9 +59,23 @@ namespace TestRummy.models
                 currentPlayer = turn.take();
                 currentPlayer.extractTile();
                 turn.change();                
-            }
-            Player winner = turn.getWinnerByPoints();
-            Assert.IsTrue(winner != null);
+            }            
+            Assert.IsTrue(turn.getWinnerByPoints() != null);
+        }
+
+        [Test]
+        public void givenTurnWith2PlayersWhen()
+        {
+            Turn turn = new Turn(NUM_PLAYERS);
+            Player player1 = turn.take();            
+            turn.change();            
+            Player player2 = turn.take();
+            SnapShot snapShot = turn.save();
+            turn.change();
+            Player player3 = turn.take();
+            turn.restore(snapShot);
+            Player playerRestored = turn.take();
+            Assert.AreEqual(playerRestored, player2);
         }
     }
 }

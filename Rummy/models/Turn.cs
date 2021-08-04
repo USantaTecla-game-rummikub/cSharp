@@ -49,7 +49,10 @@ namespace Rummy.models
         }
 
         public Player take() {
-            this.players[this.currentPlayer].startTurn();
+            if (this.players[this.currentPlayer].isEnd())
+            {
+                this.players[this.currentPlayer].startTurn();
+            }
             return this.players[this.currentPlayer];
         }
 
@@ -127,7 +130,15 @@ namespace Rummy.models
         public SnapShot save()
         {
             return new SnapShot(this.currentPlayer, this.turnsAfterEmptyPounch,
-             this.players[this.currentPlayer].getState(), this.table.getPounchState(), this.table.getTilesGroup());
+             this.players[this.currentPlayer].getState(), this.table.pounchToString(), this.table.tilesGroupToString());
+        }
+
+        public void restore(SnapShot snapShot)
+        {
+            this.currentPlayer = snapShot.getCurrentPlayer();
+            this.turnsAfterEmptyPounch = snapShot.getTurnsAfterEmptyPounch();
+            this.players[this.currentPlayer].set(snapShot.getPlayerState());
+            this.table.set(snapShot.getTilesGroup(), snapShot.getTilesPounch());
         }
     }
 }

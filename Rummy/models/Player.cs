@@ -149,7 +149,7 @@ namespace Rummy.models
 
         public string getState()
         {
-            return this.lastAction.ToString() + "|" + this.hasPlayedHis30Points.ToString() + "|" + this.rackToString();
+            return (int)this.lastAction + "|" + this.hasPlayedHis30Points.ToString() + "|" + this.rackToString();
         }
 
         private string rackToString()
@@ -162,6 +162,22 @@ namespace Rummy.models
             return result;
         }
 
+        public void set(string state)
+        {
+            string[] chunks = state.Split('|');
+            this.lastAction = (ActionType)(int.Parse(chunks[0]));
+            this.hasPlayedHis30Points = bool.Parse(chunks[1]);
+            string[] tiles = chunks[2].Split(' ');
+            this.rack.Clear();
+            foreach (string tile in tiles)
+            {
+                if (!String.IsNullOrEmpty(tile))
+                {
+                    this.addTileInRack(Pounch.getTileByDescription(tile));
+                }
+            }
+        }
+
         public bool isResume() {
             return false;
         }
@@ -171,7 +187,7 @@ namespace Rummy.models
         }
 
         public bool isEnd() {
-            return this.lastAction == ActionType.ENDTURN;
+            return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
         }
 
         public void startTurn()
@@ -287,6 +303,16 @@ namespace Rummy.models
                 lstTiles.Add(Pounch.getTileByDescription(tile));
             }
             return this.table.isValidAddTilesInGroup(lstTiles, groupIndex);
+        }
+
+        public void undo()
+        {
+            this.lastAction = ActionType.UNDO;
+        }
+
+        public void redo()
+        {
+            this.lastAction = ActionType.REDO;
         }
     }
 }
