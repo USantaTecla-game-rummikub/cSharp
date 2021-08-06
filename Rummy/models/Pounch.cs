@@ -175,7 +175,13 @@ namespace Rummy.models
         {
             string result = "" + this.numTiles + "|" + this.top + "|";
             foreach (Tile tile in this.pounch) {
-                result += tile.ToString() + " ";
+                if (tile != null)
+                {
+                    result += tile.ToString() + " ";
+                } else
+                {
+                    result += "*" + " ";
+                }
             }
             return result;
         }

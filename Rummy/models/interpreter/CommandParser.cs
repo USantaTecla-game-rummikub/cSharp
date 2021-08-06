@@ -73,8 +73,14 @@ namespace Rummy.models.interpreter
                 case CommandString.HELP:
                     break;
                 case CommandString.UNDO:
+                    ExpUndo expUndo = new ExpUndo();
+                    expUndo.interpret(this.player);
+                    this.error = expUndo.getError();
                     break;
                 case CommandString.REDO:
+                    ExpRedo expRedo = new ExpRedo();
+                    expRedo.interpret(this.player);
+                    this.error = expRedo.getError();
                     break;
                 case CommandString.RESUME:
                     break;
@@ -128,10 +134,10 @@ namespace Rummy.models.interpreter
             return tilesExp;
         }
 
-        private List<ExpTileGroup> getGroupTiles(string[] tiles, int indexStart)
+        private List<ExpTileGroup> getGroupTiles(string[] tiles, int indexStart, int indexEnd)
         {
             List<ExpTileGroup> tilesExp = new List<ExpTileGroup>();
-            for (int i = indexStart; i < tiles.Length - 2; i++)
+            for (int i = indexStart; i <= indexEnd; i++)
             {
                 tilesExp.Add(new ExpTileGroup(tiles[i]));
             }
@@ -142,21 +148,30 @@ namespace Rummy.models.interpreter
             List<ExpMovIn> lstExpFrom = new List<ExpMovIn>();
             for (int i = 0; i < argumentsGroups.Length; i++) {
                 string[] tilesAndOriginAndTarget = argumentsGroups[i].Split(' ');
-                if (this.hasSubcommandFrom(tilesAndOriginAndTarget) && this.hasSubcommandIn(tilesAndOriginAndTarget)) {
-                   string originGroup = tilesAndOriginAndTarget[1];
-                   string targetGroup = tilesAndOriginAndTarget[tilesAndOriginAndTarget.Length - 1];
-                    List<ExpTileGroup> tilesExp = getGroupTiles(tilesAndOriginAndTarget, 2);
+                if (this.hasSubcommandFrom(tilesAndOriginAndTarget)) {                    
+                    string originGroup = tilesAndOriginAndTarget[2];
+                    string targetGroup = "";
+                    List<ExpTileGroup> tilesExp = null;
+                    if (this.hasSubcommandIn(tilesAndOriginAndTarget))
+                    {
+                        targetGroup = tilesAndOriginAndTarget[tilesAndOriginAndTarget.Length - 1];
+                        tilesExp = getGroupTiles(tilesAndOriginAndTarget, 3, tilesAndOriginAndTarget.Length - 3);
+                    } else
+                    {
+                        tilesExp = getGroupTiles(tilesAndOriginAndTarget, 3, tilesAndOriginAndTarget.Length - 1);
+                    }                    
                     Group tgroup = new Group(targetGroup);
                     Group ogroup = new Group(originGroup);
-                    ExpMovIn expIn = new ExpMovIn(tilesExp, ogroup, tgroup);                            
+                    ExpMovIn expIn = new ExpMovIn(tilesExp, ogroup, tgroup);
+                    lstExpFrom.Add(expIn);
                 }
             }
             ExpMov expMov = new ExpMov(lstExpFrom);
             expMov.interpret(this.player);
         }
-
+      
         private bool hasSubcommandFrom(string[] tilesAndOriginAndTarget) {
-            return (tilesAndOriginAndTarget[0].ToUpper() == SubcommandString.FROM);
+            return (tilesAndOriginAndTarget[1].ToUpper() == SubcommandString.FROM);
         }
     }
 }

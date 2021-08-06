@@ -171,7 +171,19 @@ namespace TestRummy.models
             table.addTilesToGroup(serieGroup, TilesGroup.NEW);
             table.addTilesToGroup(runGroup, TilesGroup.NEW);
             table.moveTileFromOriginGroupToTargetGroup("J", 1, 2);                        
-            Assert.IsTrue(table.existTileInTable("J"));
+            Assert.IsTrue(table.existTileInTable("J") && table.existsTileInGroup("J", 2));
+        }
+
+        [Test]
+        public void giveTableWith2GroupsWhenMoveOneTileAtNewGroupThenTileExistIsTrue()
+        {
+            Table table = new Table();
+            List<Tile> serieGroup = this.getTilesSerieGroupWithJoker();
+            List<Tile> runGroup = this.getTilesRunGroupWithoutJoker();
+            table.addTilesToGroup(serieGroup, TilesGroup.NEW);
+            table.addTilesToGroup(runGroup, TilesGroup.NEW);
+            table.moveTileFromOriginGroupToTargetGroup("J", 1, TilesGroup.NEW);
+            Assert.IsTrue(table.existTileInTable("J") && table.existsTileInGroup("J", 3));
         }
 
         [Test]

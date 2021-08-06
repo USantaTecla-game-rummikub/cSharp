@@ -313,6 +313,6 @@ namespace Rummy.models
         public void redo()
         {
             this.lastAction = ActionType.REDO;
-        }
+        }        
     }
 }

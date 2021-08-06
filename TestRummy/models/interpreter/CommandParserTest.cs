@@ -21,7 +21,7 @@ namespace TestRummy.models.interpreter
         private const string inputPutNewSerieAndNewRunWithMoreThan30 = "PUT 6R 6G 6B 6Y, 7Y 8Y 9Y";
         private const string inputPutNewSerieAndNewRunWithJokerAndMoreThan30 = "PUT 2R 2G J, 7Y 8Y J";
         private const string inputMovFromGroup2ToNewGroup = "MOV FROM 1 6R";
-        private const string inputMovFromGroup1ToGroup2 = "MOV FROM 1 6Y IN 2";
+        private const string inputMovFromGroup1ToGroup2 = "MOV FROM 1 6Y IN 2";        
 
         private const int NUM_PLAYERS = 2;
 
@@ -161,7 +161,7 @@ namespace TestRummy.models.interpreter
         }
 
         [Test]
-        public void givenInputMovFromGroup2ToNewGroupWhenParseThenNotHasError()
+        public void givenInputMovFromGroup2ToNewGroupWhenParseThenNewGroupIs3()
         {
             Player player = new Player(new Table());
             player.addTileInRack(new Tile(TileNumber.SIX, Color.RED));
@@ -174,8 +174,8 @@ namespace TestRummy.models.interpreter
             CommandParser command = new CommandParser(inputPutNewSerieAndNewRunWithMoreThan30, player);
             command.parse();
             command = new CommandParser(inputMovFromGroup2ToNewGroup, player);
-            command.parse();
-            Assert.IsFalse(command.hasError());
+            command.parse();            
+            Assert.IsTrue(player.existsTileInGroup("6R", 3));
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace TestRummy.models.interpreter
             command.parse();
             command = new CommandParser(inputMovFromGroup1ToGroup2, player);
             command.parse();
-            Assert.IsFalse(command.hasError());
+            Assert.IsTrue(player.existsTileInGroup("6Y", 2));
         }
     }
 }

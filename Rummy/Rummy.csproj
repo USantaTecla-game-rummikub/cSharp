@@ -52,6 +52,7 @@
     <Compile Include="models\interpreter\ExpPutIn.cs" />
     <Compile Include="models\interpreter\ExpMov.cs" />
     <Compile Include="models\interpreter\ExpPut.cs" />
+    <Compile Include="models\interpreter\ExpRedo.cs" />
     <Compile Include="models\interpreter\ExpTileGroup.cs" />
     <Compile Include="models\interpreter\ExpUndo.cs" />
     <Compile Include="models\interpreter\Group.cs" />

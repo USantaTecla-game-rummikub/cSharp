@@ -24,7 +24,7 @@ namespace Rummy.models
             this.writeHead();
             do {
                 player = turn.take();                
-                this.snapshots.backup();                
+                this.snapshots.backup(player);
                 do {                   
                     turn.write();
                     player.executeAction();                    

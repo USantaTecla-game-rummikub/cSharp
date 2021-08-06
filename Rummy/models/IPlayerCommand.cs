@@ -24,5 +24,6 @@ namespace Rummy.models
         bool isValidAddTilesInGroup(List<string> tiles, int groupIndex);
 
         void undo();
+        void redo();
     }
 }

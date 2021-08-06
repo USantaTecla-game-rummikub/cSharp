@@ -12,22 +12,24 @@ namespace Rummy.models
         private List<SnapShot> snapshots;
         private int pointer;
         private Turn turn;
+        private Player player;
 
         public SnapshotHistory(Turn turn)
         {
             this.snapshots = new List<SnapShot>();
             this.pointer = 0;
             this.turn = turn;
+            this.player = null;
         }
 
-        private bool canDoneBackup()
-        {
-            return turn.take().getLastAction() != ActionType.UNDO && turn.take().getLastAction() != ActionType.REDO;
+        private bool canDoneBackup(Player player)
+        {            
+            return player.getLastAction() != ActionType.UNDO && player.getLastAction() != ActionType.REDO;
         }
 
-        public void backup()
+        public void backup(Player player)
         {
-            if (this.canDoneBackup())
+            if (this.canDoneBackup(player))
             {
                 this.snapshots.Add(this.turn.save());
                 this.pointer++;
