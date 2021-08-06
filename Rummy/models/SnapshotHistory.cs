@@ -47,7 +47,7 @@ namespace Rummy.models
             }
         }
 
-        public SnapShot undo()
+        private SnapShot undo()
         {
             if (this.pointer > 0)
             {
@@ -59,7 +59,7 @@ namespace Rummy.models
             }
         }
 
-        public SnapShot redo()
+        private SnapShot redo()
         {
             if (this.pointer < this.snapshots.Count - 1)
             {

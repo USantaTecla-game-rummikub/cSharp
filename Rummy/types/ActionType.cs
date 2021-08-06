@@ -12,6 +12,7 @@ namespace Rummy.types
         TILEDOWN,
         GROUPMOVEMENT,                
         ENDTURN,
+        ENDTURN_WITH_EXTRACT,
         UNDO,
         REDO
     }

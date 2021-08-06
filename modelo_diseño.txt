@@ -1,15 +1,12 @@
 @startuml
 
-@startuml
-
 title diagrama de clases de diseño
 
 class Rummy {
-  -history: SnapShot[]
   +play()
 }
 
-Rummy o--> "1..n" SnapShot
+Rummy *--> SnapShotHistory
 Rummy *--> Turn
 Turn *--> Table
 Turn *--> "2..4" Player
@@ -31,6 +28,7 @@ class Turn {
    +hasWinnerByPoints(): bool
    +save(): SnapShot
    +restore(Snapshot)
+   
 }
 
 class Table {
@@ -175,11 +173,21 @@ enum SubcommandString {
 
 Turn ..> SnapShot
 
+class SnapShotHistory {
+   -pointer
+   +backup(player)
+   +restoreAccordingAction(player)
+}
+
+SnapShotHistory o--> "1..n" SnapShot
+SnapShotHistory --> Turn 
+
 class SnapShot {
-  -currentPlayer
-  -turnsAfterEmptyPounch
-  +make()
-  +undo()
+  +getCurrentPlayer(): int
+  +getTurnsAfterEmptyPounch(): int
+  +getPlayerState(): string
+  +getTilesPounch(): string
+  +getTilesGroup(): string
 }
 
 @enduml

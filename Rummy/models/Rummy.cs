@@ -47,8 +47,11 @@ namespace Rummy.models
             Console.WriteLine();
             Console.WriteLine("HELP: EXIT to exit the game, SAVE to save the game, UNDO to undo move, REDO to redo move");
             Console.WriteLine();
-            Console.WriteLine("Ejem: Put on group 2 of the table the combination 10B 10G 10R");
+            Console.WriteLine("Example: Put on group 2 of the table the combination 10B 10G 10R");
             Console.WriteLine("PUT 10B 10G 10R IN 2");
+            Console.WriteLine("Example: Move two tiles of a group at other group");
+            Console.WriteLine("MOV FROM 1 10B 10G IN 2");
+            Console.WriteLine();
         }       
     }
 }

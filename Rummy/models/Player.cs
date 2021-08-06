@@ -27,7 +27,7 @@ namespace Rummy.models
         }
 
         public Tile getLastExtractedTile() {
-            if (this.lastAction == ActionType.EXTRACT || this.lastAction == ActionType.ENDTURN) {
+            if (this.lastAction == ActionType.EXTRACT || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT) {
                 return this.rack[this.rack.Count - 1];
             } else {
                 return null;
@@ -136,15 +136,12 @@ namespace Rummy.models
                 Console.WriteLine(parser.getError());
                 Console.WriteLine();
             }
-            else if (this.getLastAction() == ActionType.ENDTURN)
-            {
-                if (this.getLastExtractedTile() != null)
-                {
-                    Console.Write("Has extracted tile ");
-                    this.getLastExtractedTile().write();
-                    Console.WriteLine();
-                }
-            }           
+            else if (this.getLastAction() == ActionType.ENDTURN_WITH_EXTRACT)
+            {      
+                Console.Write("Has extracted tile ");
+                this.getLastExtractedTile().write();
+                Console.WriteLine();
+             }           
         }
 
         public string getState()
@@ -187,7 +184,7 @@ namespace Rummy.models
         }
 
         public bool isEnd() {
-            return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
+            return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
         }
 
         public void startTurn()
@@ -283,16 +280,23 @@ namespace Rummy.models
 
         public void finishTurn()
         {
-            if (this.lastAction == ActionType.STARTTURN || this.lastAction == ActionType.EXTRACT || this.lastAction == ActionType.ENDTURN)
+            if (this.lastAction == ActionType.STARTTURN || this.lastAction == ActionType.EXTRACT)
             {
                 this.extractTile();
+                this.lastAction = ActionType.ENDTURN_WITH_EXTRACT;
+            } else {
+                this.lastAction = ActionType.ENDTURN;
             }
-            this.lastAction = ActionType.ENDTURN;
         }            
 
         public bool isValidGroups()
         {
-            return this.table.isValidGroups();
+            bool valids = this.table.isValidGroups();
+            if (!valids)
+            {  
+                this.lastAction = ActionType.STARTTURN;
+            }
+            return valids;
         }
 
         public bool isValidAddTilesInGroup(List<string> tiles, int groupIndex)
