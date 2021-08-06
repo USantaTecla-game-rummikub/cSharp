@@ -69,8 +69,9 @@
     <Compile Include="models\Tile.cs" />
     <Compile Include="models\TilesGroup.cs" />
     <Compile Include="models\Turn.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Rummy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RummyConsole.cs" />
     <Compile Include="types\ActionType.cs" />
     <Compile Include="types\Color.cs" />
     <Compile Include="types\CommandString.cs" />
@@ -88,7 +89,8 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.2\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers\views\" />
+    <Folder Include="controllers\" />
+    <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

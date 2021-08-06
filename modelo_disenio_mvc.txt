@@ -1,0 +1,100 @@
+@startuml
+
+title Diagrama de clases de diseño. Arquitectura MVC
+
+abstract class Rummy {
+   #createView()
+   #createLogic()
+}
+class RummyConsole {
+
+}
+
+Rummy <|-- RummyConsole 
+class Logic {
+   
+}
+
+Rummy *--> Logic
+Rummy *--> View
+Logic *--> "1..n" AcceptorController
+Logic ..> State
+View --> AcceptorController
+
+abstract class Controller {
+  +setState(State)
+  +getState()
+  +next()
+}
+
+abstract class View {
+   +interact(AcceptorController controller)
+}
+
+class ConsoleView  {
+   
+}
+
+ControllerVisitor <|-- ConsoleView
+
+View <|-- ConsoleView
+
+RummyConsole ..> ConsoleView
+ConsoleView *--> StartView
+ConsoleView *--> PlayView
+ConsoleView *--> ResumeView
+StartView *--> LoadView
+PlayView *--> ActionView
+
+View <|-- StartView
+View <|-- PlayView
+View <|-- ResumeView
+View <|-- LoadView
+
+
+Logic *--> Session
+class Session {
+}
+Session *--> Game
+Session *--> GameRegistry
+Session *--> State
+
+Logic --> View
+Controller <|-- AcceptorController
+AcceptorController ..> ControllerVisitor
+
+class AcceptorController {
+   +accept(ControllerVisitor)
+}
+
+interface ControllerVisitor {
+   #visit(StartController)
+   #visit(PlayController)
+   #visit(ResumeController)
+}
+
+AcceptorController <|-- StartController
+AcceptorController <|-- PlayController
+AcceptorController <|-- ResumeController
+
+enum State {
+   INIT
+   IN_GAME
+   RESUME
+   LOAD
+   SAVE
+   EXIT
+}
+
+class Game {
+  +play()
+}
+
+class GameRegistry {
+   
+}
+
+GameRegistry *--> "1..n" GameMemento
+GameRegistry --> Game
+
+@enduml
