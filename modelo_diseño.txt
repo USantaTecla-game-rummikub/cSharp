@@ -94,6 +94,8 @@ CommandParser ..> SubcommandString
 IExpression <|-- ExpPut
 IExpression <|-- ExpMov
 IExpression <|-- ExpEnd
+IExpression <|-- ExpUndo
+IExpression <|-- ExpRedo
 
 ExpPut *--> "1..n" ExpPutIn
 ExpMov *--> "1..n" ExpMovIn
