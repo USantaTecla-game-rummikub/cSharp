@@ -172,8 +172,7 @@ namespace Rummy.models
             return false;
         }
       
-        public bool isEnd() {
-            // return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
+        public bool isEnd() {            
             return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT;
         }
 
