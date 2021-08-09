@@ -1,13 +1,20 @@
 @startuml
 
-title diagrama de clases de diseÃ±o
+title diagrama de clases de diseño
 
-class Rummy {
-  +play()
+
+
+class Game {
+  +set(GameMemento)
+  +executeAction(string input)
+  +getMemento()
+  +takeTurn()
+  +changeTurn()
+  +hasWinner()
 }
 
-Rummy *--> SnapShotHistory
-Rummy *--> Turn
+
+Game *--> Turn
 Turn *--> Table
 Turn *--> "2..4" Player
 Table *--> Pounch
@@ -15,7 +22,7 @@ Table *--> "0..n" TilesGroup
 Player --> Table
 Player --> "n" Tile
 
-Rummy ..> Player
+Game --> Player
 
 class Turn {
    -currentPlayer
@@ -23,13 +30,15 @@ class Turn {
    +take(): Player
    +change()
    +isEnd(): bool
-   +write()
    +getWinnerByPoints(): Player
    +hasWinnerByPoints(): bool
    +save(): SnapShot
    +restore(Snapshot)
-   
+   +getMemento(): GameMemento
+   +restore(GameMemento)
 }
+
+Turn ..> GameMemento
 
 class Table {
   +extract()
@@ -37,7 +46,6 @@ class Table {
   +isValidInsertion(tile, groupIndex)
   +moveTileFromOriginToTarget(tile, originGroup, targetGroup)
   +isValidGroups(): bool
-  +write()
   +isEmptyPounch(): bool
   +hasGroup(indexGroup): bool
   +existTileInTable(tile): bool
@@ -53,11 +61,10 @@ class Player {
   +executeAction()
   +isWinner()
   +getPoints()
-  +write()
   +isResume()
-  +writeCongratulations()
   +isEnd()
   +getLastAction()
+  +executeAction(input)
 }
 
 abstract class TilesGroup {
@@ -66,7 +73,6 @@ abstract class TilesGroup {
    +removeTile(Tile)
    +hasIndex(indexGroup):bool
    +getTile(tile): Tile
-   +write()
 }
 
 class Tile {
@@ -173,21 +179,12 @@ enum SubcommandString {
    FROM = "FROM"
 }
 
-Turn ..> SnapShot
 
-class SnapShotHistory {
-   -pointer
-   +backup(player)
-   +restoreAccordingAction(player)
-}
-
-SnapShotHistory o--> "1..n" SnapShot
-SnapShotHistory --> Turn 
-
-class SnapShot {
+class GameMemento {
+  +getPlayersNumber(): int
   +getCurrentPlayer(): int
   +getTurnsAfterEmptyPounch(): int
-  +getPlayerState(): string
+  +getPlayerState(playerIndex): string
   +getTilesPounch(): string
   +getTilesGroup(): string
 }

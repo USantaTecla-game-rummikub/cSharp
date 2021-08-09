@@ -10,10 +10,11 @@ namespace Rummy.types
     {
         public const string PUT = "PUT";
         public const string MOV = "MOV";
-        public const string END = "END";
-        public const string HELP = "HELP";
+        public const string END = "END";        
         public const string UNDO = "UNDO";
         public const string REDO = "REDO";
+        public const string SAVE = "SAVE";
+        public const string LOAD = "LOAD";
         public const string RESUME = "RESUME";
         public const string EXIT = "EXIT";
     }

@@ -70,7 +70,7 @@ namespace TestRummy.models
             Player player1 = turn.take();            
             turn.change();            
             Player player2 = turn.take();
-            SnapShot snapShot = turn.save();
+            GameMemento snapShot = turn.save();
             turn.change();
             Player player3 = turn.take();
             turn.restore(snapShot);

@@ -1,5 +1,6 @@
 ﻿using Rummy.models.interpreter;
 using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ namespace Rummy.models
         private Table table;
         private ActionType lastAction;
         private bool hasPlayedHis30Points;
+        private string errorLastAction;
 
         public Player(Table table) {
             this.table = table;
@@ -22,7 +24,7 @@ namespace Rummy.models
         }
       
         public void extractTile() {
-            this.lastAction = ActionType.EXTRACT;
+            // this.lastAction = ActionType.EXTRACT;
             this.addTileInRack(this.table.extract());
         }
 
@@ -40,7 +42,7 @@ namespace Rummy.models
             newTile.clone(tile);
             this.rack.Add(newTile);
         }
-
+       
         public bool isWinner() {
             return this.rack.Count == 0;
         }
@@ -87,8 +89,7 @@ namespace Rummy.models
             return group;
         }       
 
-        public void write() {
-
+        public string getRackByGroups() {            
             List<Tile> redGroup = new List<Tile>();
             List<Tile> blueGroup = new List<Tile>();
             List<Tile> yellowGroup = new List<Tile>();
@@ -107,64 +108,56 @@ namespace Rummy.models
                     jokerGroup.Add(tile);
                 }
             }
-            this.writeGroup(redGroup);
-            Console.Write("| ");            
-            this.writeGroup(greenGroup);
-            Console.Write("| ");
-            this.writeGroup(blueGroup);
-            Console.Write("| ");
-            this.writeGroup(yellowGroup);            
-            Console.Write("| ");
-            this.writeGroup(jokerGroup);
+            return this.getGroupString(redGroup) + "| " + this.getGroupString(greenGroup) + "| " + this.getGroupString(blueGroup) + "| " + this.getGroupString(yellowGroup) + "| " + this.getGroupString(jokerGroup);  
         }
         
-        private void writeGroup(List<Tile> colorGroup) {
+        private string getGroupString(List<Tile> colorGroup) {
+            string result = "";
             foreach (Tile tile in colorGroup) {
-                tile.write();
-                Console.Write(" ");
+                result += tile.ToString() + " ";                
             }
+            return result;
         }
-
-        public void executeAction()
+       
+        internal void executeAction(string input)
         {
-            Console.Write(Message.REQUEST_ACTION);
-            CommandParser parser = new CommandParser(Console.ReadLine(), this);
+            CommandParser parser = new CommandParser(input, this);
             parser.parse();
             if (parser.hasError())
             {
-                Console.WriteLine();
-                Console.WriteLine(parser.getError());
-                Console.WriteLine();
-            }
-            else if (this.getLastAction() == ActionType.ENDTURN_WITH_EXTRACT)
-            {      
-                Console.Write("Has extracted tile ");
-                this.getLastExtractedTile().write();
-                Console.WriteLine();
-             }           
+                this.errorLastAction = parser.getError();                
+            } else
+            {
+                this.errorLastAction = null;
+            }            
+        }
+
+        internal string getErrorLastAction()
+        {
+            return this.errorLastAction;
         }
 
         public string getState()
         {
-            return (int)this.lastAction + "|" + this.hasPlayedHis30Points.ToString() + "|" + this.rackToString();
+            return (int)this.lastAction + Message.VERTICAL_SLASH + this.hasPlayedHis30Points.ToString() + Message.VERTICAL_SLASH + this.rackToString();
         }
 
-        private string rackToString()
+        public string rackToString()
         {
             string result = "";
             foreach (Tile tile in this.rack)
             {
-                result += tile.ToString() + " ";
+                result += tile.ToString() + Message.SPACE;
             }
             return result;
         }
 
         public void set(string state)
         {
-            string[] chunks = state.Split('|');
+            string[] chunks = state.Split(char.Parse(Message.VERTICAL_SLASH));
             this.lastAction = (ActionType)(int.Parse(chunks[0]));
             this.hasPlayedHis30Points = bool.Parse(chunks[1]);
-            string[] tiles = chunks[2].Split(' ');
+            string[] tiles = chunks[2].Split(char.Parse(Message.SPACE));
             this.rack.Clear();
             foreach (string tile in tiles)
             {
@@ -178,13 +171,10 @@ namespace Rummy.models
         public bool isResume() {
             return false;
         }
-
-        public void writeCongratulations() {
-            Console.WriteLine("¡¡ Congratulations, you made a RUMMY !!");
-        }
-
+      
         public bool isEnd() {
-            return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
+            // return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT || this.lastAction == ActionType.UNDO || this.lastAction == ActionType.REDO;
+            return this.lastAction == ActionType.ENDTURN || this.lastAction == ActionType.ENDTURN_WITH_EXTRACT;
         }
 
         public void startTurn()
@@ -318,5 +308,15 @@ namespace Rummy.models
         {
             this.lastAction = ActionType.REDO;
         }        
+
+        public void save()
+        {
+            this.lastAction = ActionType.SAVE;
+        }
+
+        public void load()
+        {
+            this.lastAction = ActionType.LOAD;
+        }
     }
 }

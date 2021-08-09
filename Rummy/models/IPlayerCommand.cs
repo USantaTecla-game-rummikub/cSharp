@@ -9,6 +9,7 @@ namespace Rummy.models
     public interface IPlayerCommand {
         void addTilesToGroup(List<string> tileString, string groupIndex);        
         bool existGroup(string targetGroup);
+        void load();
         bool existTileInRack(string tileDescription);
 
         bool existTileInTable(string tileDescription);
@@ -25,5 +26,7 @@ namespace Rummy.models
 
         void undo();
         void redo();
+
+        void save();
     }
 }

@@ -71,11 +71,6 @@ namespace Rummy.models
             }
         }
 
-        internal void write()
-        {
-            Console.Write(this.ToString());
-        }
-
         public override string ToString()
         {
             if (!this.isJoker())

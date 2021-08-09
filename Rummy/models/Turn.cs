@@ -11,6 +11,7 @@ namespace Rummy.models
     public class Turn
     {
         private const int NUM_PLAYERS_MAX = 4;
+        private const int NUM_PLAYERS_MIN = 2;
         private const int TILES_PER_PLAYER = 14;
         private const int POINTS_MAX = 728;
 
@@ -28,11 +29,26 @@ namespace Rummy.models
         }
 
         private void createPlayers(int numPlayers) {
-            Debug.Assert(numPlayers <= 2 && numPlayers <= NUM_PLAYERS_MAX);
+            Debug.Assert(numPlayers >= NUM_PLAYERS_MIN && numPlayers <= NUM_PLAYERS_MAX);
             this.players = new Player[numPlayers];
             for (int i = 0; i < numPlayers; i++) {
                 this.players[i] = new Player(this.table);
             }
+        }
+       
+        internal string getCurrentPlayerNumber()
+        {
+            return (this.currentPlayer + 1).ToString();
+        }
+
+        internal string getTable()
+        {
+            return this.table.tilesGroupToString();
+        }
+
+        public static bool isNumberPlayersValid(int numPlayers)
+        {
+            return numPlayers >= NUM_PLAYERS_MIN && numPlayers <= NUM_PLAYERS_MAX;
         }
       
         private void distributeTiles() {
@@ -47,7 +63,7 @@ namespace Rummy.models
             Random rnd = new Random();
             this.currentPlayer = rnd.Next(0, this.players.Length);            
         }
-
+        
         public Player take() {
             if (this.players[this.currentPlayer].isEnd())
             {
@@ -66,25 +82,7 @@ namespace Rummy.models
         public bool isEnd() {
             return this.players[this.currentPlayer].isEnd();            
         }
-
-        public void write() {
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            this.table.write();
-            this.writePlayers();
-        }
-
-        private void writePlayers() {
-            Console.WriteLine();
-            for (int i = 0; i < this.players.Length; i++) {
-                if (this.currentPlayer == i)
-                {
-                    Console.Write("Player " + (i + 1) + ": ");
-                    this.players[i].write();
-                    Console.WriteLine();
-                }
-            }
-        }
-
+      
         public Player getWinnerByPoints() {
             Player winner = null;
             if (this.table.isEmptyPounch()) {
@@ -127,18 +125,43 @@ namespace Rummy.models
             return false;
         }
 
-        public SnapShot save()
+        public int getPounchTilesNumber()
         {
-            return new SnapShot(this.currentPlayer, this.turnsAfterEmptyPounch,
-             this.players[this.currentPlayer].getState(), this.table.pounchToString(), this.table.tilesGroupToString());
+            return this.table.getPounchTilesNumber();
         }
 
-        public void restore(SnapShot snapShot)
+        public GameMemento getMemento()
         {
-            this.currentPlayer = snapShot.getCurrentPlayer();
-            this.turnsAfterEmptyPounch = snapShot.getTurnsAfterEmptyPounch();
-            this.players[this.currentPlayer].set(snapShot.getPlayerState());
-            this.table.set(snapShot.getTilesGroup(), snapShot.getTilesPounch());
+            return new GameMemento(this.players.Length, this.currentPlayer, this.turnsAfterEmptyPounch,
+             this.getPlayerStates(), this.table.pounchToString(), this.table.tilesGroupToString());
+        }
+
+        private List<string> getPlayerStates()
+        {
+            List<string> playerStates = new List<string>();            
+            foreach (Player player in this.players)
+            {
+                playerStates.Add(player.getState());
+            }
+            return playerStates;
+        }
+
+        public void restore(GameMemento memento)
+        {
+            this.currentPlayer = memento.getCurrentPlayer();
+            this.turnsAfterEmptyPounch = memento.getTurnsAfterEmptyPounch();
+            this.restorePlayers(memento);
+            this.table.set(memento.getTilesGroup(), memento.getTilesPounch());
+        }
+
+        private void restorePlayers(GameMemento memento)
+        {
+            int i = 0;
+            foreach (Player player in this.players)
+            {
+                player.set(memento.getPlayerState(i));
+                i++;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,18 +91,7 @@ namespace Rummy.models
             }
             return valids;
         }
-        
-        public void write() {
-
-            this.pounch.write();
-            Console.WriteLine("Table: ");
-            foreach (TilesGroup group in this.groups) {
-                group.write();                
-                Console.WriteLine();                
-            }
-            Console.WriteLine();
-        }
-
+      
         public bool isEmptyPounch()
         {
             return this.pounch.isEmpty();
@@ -151,6 +141,11 @@ namespace Rummy.models
             return tileFinded;
         }
 
+        internal int getPounchTilesNumber()
+        {
+            return this.pounch.count();
+        }
+
         public string tilesGroupToString()
         {
             string result = "";
@@ -168,7 +163,7 @@ namespace Rummy.models
 
         public void set(string groupString, string pounch)
         {
-            string[] chunksStringGroups = groupString.Split('\n');
+            string[] chunksStringGroups = groupString.Split(char.Parse(Message.CARRY_RETURN));
             this.groups = new List<TilesGroup>();
             foreach (string group in chunksStringGroups)
             {
@@ -176,6 +171,7 @@ namespace Rummy.models
                 {
                     TilesGroup tilesGroup = new TilesGroup(TilesGroup.NEW);
                     tilesGroup.set(group);
+                    this.groups.Add(tilesGroup);
                 }
             }
             this.pounch.set(pounch);

@@ -14,6 +14,8 @@ namespace Rummy.types
         ENDTURN,
         ENDTURN_WITH_EXTRACT,
         UNDO,
-        REDO
+        REDO,
+        SAVE,
+        LOAD
     }
 }

@@ -69,19 +69,22 @@ namespace Rummy.models.interpreter
                     ExpEnd expEnd = new ExpEnd();
                     expEnd.interpret(this.player);
                     this.error = expEnd.getError();
-                    break;
-                case CommandString.HELP:
-                    break;
+                    break;                
                 case CommandString.UNDO:
                     ExpUndo expUndo = new ExpUndo();
                     expUndo.interpret(this.player);
                     this.error = expUndo.getError();
                     break;
+                case CommandString.SAVE:
+                    ExpSave expSave = new ExpSave();
+                    expSave.interpret(this.player);
+                    this.error = expSave.getError();
+                    break;
                 case CommandString.REDO:
                     ExpRedo expRedo = new ExpRedo();
                     expRedo.interpret(this.player);
                     this.error = expRedo.getError();
-                    break;
+                    break;                
                 case CommandString.RESUME:
                     break;
                 case CommandString.EXIT:

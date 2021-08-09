@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,12 +48,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controllers\AcceptorController.cs" />
+    <Compile Include="controllers\Controller.cs" />
+    <Compile Include="controllers\ControllerVisitor.cs" />
+    <Compile Include="controllers\implementation\LoadControllerImplementation.cs" />
+    <Compile Include="controllers\implementation\LogicImplementation.cs" />
+    <Compile Include="controllers\implementation\PlayControllerImplementation.cs" />
+    <Compile Include="controllers\implementation\ResumeControllerImplementation.cs" />
+    <Compile Include="controllers\implementation\SaveControllerImplementation.cs" />
+    <Compile Include="controllers\implementation\StartControllerImplementation.cs" />
+    <Compile Include="controllers\LoadController.cs" />
+    <Compile Include="controllers\Logic.cs" />
+    <Compile Include="controllers\PlayController.cs" />
+    <Compile Include="controllers\ResumeController.cs" />
+    <Compile Include="controllers\SaveController.cs" />
+    <Compile Include="controllers\StartController.cs" />
+    <Compile Include="models\DAO\GameDAO.cs" />
+    <Compile Include="models\DAO\SessionImplementationDAO.cs" />
+    <Compile Include="models\Game.cs" />
+    <Compile Include="models\GameRegistry.cs" />
     <Compile Include="models\interpreter\ExpEnd.cs" />
+    <Compile Include="models\interpreter\ExpLoad.cs" />
     <Compile Include="models\interpreter\ExpMovIn.cs" />
     <Compile Include="models\interpreter\ExpPutIn.cs" />
     <Compile Include="models\interpreter\ExpMov.cs" />
     <Compile Include="models\interpreter\ExpPut.cs" />
     <Compile Include="models\interpreter\ExpRedo.cs" />
+    <Compile Include="models\interpreter\ExpSave.cs" />
     <Compile Include="models\interpreter\ExpTileGroup.cs" />
     <Compile Include="models\interpreter\ExpUndo.cs" />
     <Compile Include="models\interpreter\Group.cs" />
@@ -60,11 +82,13 @@
     <Compile Include="models\interpreter\Expression.cs" />
     <Compile Include="models\interpreter\ExpTileRack.cs" />
     <Compile Include="models\IPlayerCommand.cs" />
-    <Compile Include="models\SnapshotHistory.cs" />
+    <Compile Include="models\Session.cs" />
+    <Compile Include="models\SessionImplementation.cs" />
     <Compile Include="models\Player.cs" />
     <Compile Include="models\Pounch.cs" />
     <Compile Include="models\Rummy.cs" />
-    <Compile Include="models\SnapShot.cs" />
+    <Compile Include="models\GameMemento.cs" />
+    <Compile Include="models\State.cs" />
     <Compile Include="models\Table.cs" />
     <Compile Include="models\Tile.cs" />
     <Compile Include="models\TilesGroup.cs" />
@@ -76,9 +100,18 @@
     <Compile Include="types\Color.cs" />
     <Compile Include="types\CommandString.cs" />
     <Compile Include="types\ErrorMessage.cs" />
-    <Compile Include="types\Message.cs" />
+    <Compile Include="types\StateValue.cs" />
     <Compile Include="types\SubcommandString.cs" />
     <Compile Include="types\TileNumber.cs" />
+    <Compile Include="views\console\ConsoleView.cs" />
+    <Compile Include="views\console\LoadView.cs" />
+    <Compile Include="views\console\models\Input.cs" />
+    <Compile Include="views\console\PlayView.cs" />
+    <Compile Include="views\console\SaveView.cs" />
+    <Compile Include="views\console\StartView.cs" />
+    <Compile Include="views\console\ResumeView.cs" />
+    <Compile Include="views\Message.cs" />
+    <Compile Include="views\View.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,8 +122,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.2\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers\" />
-    <Folder Include="views\" />
+    <Folder Include="partidas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

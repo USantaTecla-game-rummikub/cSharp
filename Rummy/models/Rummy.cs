@@ -12,30 +12,30 @@ namespace Rummy.models
     {     
         private const int NUM_INITIAL_POINTS = 30;                
         private Turn turn;
-        private SnapshotHistory snapshots;
+        //private SnapshotHistory snapshots;
 
         public Rummy(int numPlayers) {                            
             this.turn = new Turn(numPlayers);
-            this.snapshots = new SnapshotHistory(this.turn);
+            //this.snapshots = new SnapshotHistory(this.turn);
         }   
-                   
+                    
         public void play() {
             Player player = null;
             this.writeHead();
             do {
                 player = turn.take();                
-                this.snapshots.backup(player);
+                //this.snapshots.backup(player);
                 do {                   
-                    turn.write();
-                    player.executeAction();                    
-                    this.snapshots.restoreAccordingAction(player);                    
+                    //turn.write();
+                    //player.executeAction();                    
+                    // this.snapshots.restoreAccordingAction(player);                    
                 } while (!turn.isEnd());
                 if (turn.isEnd() && !player.isWinner() && !turn.hasWinnerByPoints()) {
                     turn.change();
                 }
             } while (!player.isResume() && !player.isWinner() && !turn.hasWinnerByPoints());
             if (player.isWinner()) {
-                player.writeCongratulations();
+                // player.writeCongratulations();
             }
         }
                

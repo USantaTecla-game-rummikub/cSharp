@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Rummy.controllers;
+using Rummy.controllers.implementation;
+using Rummy.views;
+using Rummy.views.console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +12,19 @@ namespace Rummy
 {
     class RummyConsole: Rummy
     {
-
-        static void Main(string[] args)
+       public override Logic createLogic()
         {
-            new models.Rummy(int.Parse(args[0])).play();
-        }
-
-        public override Logic createLogic()
-        {
-            throw new NotImplementedException();
+            return new LogicImplementation();
         }
 
         public override View createView()
         {
-            throw new NotImplementedException();
+            return new ConsoleView();
         }
+
+        static void Main(string[] args)
+        {
+            new RummyConsole().play();
+        }       
     }
 }

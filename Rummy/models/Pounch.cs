@@ -1,4 +1,5 @@
 ﻿using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -147,24 +148,18 @@ namespace Rummy.models
         public bool isEmpty() {
             return this.top == 0;
         }
-
+       
         public int count()
         {
             return this.top;
         }
 
-        public void write()
-        {
-            Console.WriteLine(Message.POUNCH + this.top);          
-            Console.WriteLine();
-        }
-
         public void set(string state)
         {
-            string[] chunks = state.Split('|');
+            string[] chunks = state.Split(char.Parse(Message.VERTICAL_SLASH));
             this.numTiles = int.Parse(chunks[0]);
             this.top = int.Parse(chunks[1]);
-            string[] tiles = chunks[2].Split(' ');
+            string[] tiles = chunks[2].Split(char.Parse(Message.SPACE));
             this.pounch = new Tile[numTiles];            
             for (int i = 0; i < this.top; i++) {
                 this.pounch[i++] = Pounch.getTileByDescription(tiles[i]);
@@ -173,14 +168,14 @@ namespace Rummy.models
 
         public override string ToString()
         {
-            string result = "" + this.numTiles + "|" + this.top + "|";
+            string result = "" + this.numTiles + Message.VERTICAL_SLASH + this.top + Message.VERTICAL_SLASH;
             foreach (Tile tile in this.pounch) {
                 if (tile != null)
                 {
-                    result += tile.ToString() + " ";
+                    result += tile.ToString() + Message.SPACE;
                 } else
                 {
-                    result += "*" + " ";
+                    result += Message.POUNCH_EMPTY_INPUT + Message.SPACE;
                 }
             }
             return result;

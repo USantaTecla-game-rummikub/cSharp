@@ -1,4 +1,5 @@
 ﻿using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -146,16 +147,7 @@ namespace Rummy.models
             }
             return points;
         }
-       
-        internal void write()
-        {
-            Console.Write(this.id + ". ");
-            foreach (Tile tile in this.tiles)
-            {                
-                tile.write(); Console.Write(" ");               
-            }
-        }
-
+              
         public void removeTile(Tile originTile)
         {
             this.tiles.Remove(originTile);
@@ -192,20 +184,20 @@ namespace Rummy.models
 
         public override string ToString()
         {
-            string result = "" + this.id + ".";
+            string result = String.Empty + this.id + Message.POINT;
             foreach (Tile tile in this.tiles)
             {
-                result += tile.ToString() + " ";
+                result += tile.ToString() + Message.SPACE;
             }
-            result += "\n";
+            result += Message.CARRY_RETURN;
             return result;
         }
 
         public void set(string state)
         {
-            string[] chunks = state.Split('.');
+            string[] chunks = state.Split(char.Parse(Message.POINT));
             this.id = int.Parse(chunks[0]);
-            string[] tiles = chunks[1].Split(' ');
+            string[] tiles = chunks[1].Split(char.Parse(Message.SPACE));
             for (int i = 0; i < tiles.Length - 1; i++)
             {
                 this.addTile(Pounch.getTileByDescription(tiles[i]));

@@ -5,15 +5,20 @@ title Diagrama de clases de diseño. Arquitectura MVC
 abstract class Rummy {
    #createView()
    #createLogic()
+   +play()
 }
 class RummyConsole {
-
+   
 }
+
+RummyConsole ..> LogicImplementation
 
 Rummy <|-- RummyConsole 
 class Logic {
    
 }
+
+Logic <|-- LogicImplementation
 
 Rummy *--> Logic
 Rummy *--> View
@@ -43,8 +48,8 @@ RummyConsole ..> ConsoleView
 ConsoleView *--> StartView
 ConsoleView *--> PlayView
 ConsoleView *--> ResumeView
-StartView *--> LoadView
-PlayView *--> ActionView
+ConsoleView *--> LoadView
+ConsoleView *--> SaveView
 
 View <|-- StartView
 View <|-- PlayView
@@ -52,12 +57,32 @@ View <|-- ResumeView
 View <|-- LoadView
 
 
-Logic *--> Session
-class Session {
+Logic *--> SessionImplementation
+
+Session <|-- SessionImplementation
+
+interface Session {
+  StateValue getState()
+  void next()
+  void setState(StateValue stateValue)
 }
-Session *--> Game
-Session *--> GameRegistry
-Session *--> State
+SessionImplementation *--> Game
+SessionImplementation *--> GameRegistry
+SessionImplementation *--> State
+
+class SessionImplementation {
+  +executeAction(input)
+  +takeTurn()
+  +changeTurn()
+  +hasWinner()
+  +play(numPlayers)
+}
+
+class State {
+  
+}
+
+State *--> StateValue
 
 Logic --> View
 Controller <|-- AcceptorController
@@ -71,13 +96,44 @@ interface ControllerVisitor {
    #visit(StartController)
    #visit(PlayController)
    #visit(ResumeController)
+   #visit(LoadController)
+   #visit(SaveController)
 }
 
 AcceptorController <|-- StartController
 AcceptorController <|-- PlayController
 AcceptorController <|-- ResumeController
+AcceptorController <|-- LoadController
+AcceptorController <|-- SaveController
 
-enum State {
+StartController <|-- StartControllerImpl
+PlayController <|-- PlayControllerImpl
+ResumeController <|-- ResumeControllerImpl
+LoadController <|-- LoadControllerImpl
+SaveController <|-- SaveControllerImpl
+
+LogicImplementation *--> StartControllerImpl
+LogicImplementation *--> PlayControllerImpl
+LogicImplementation *--> ResumeControllerImpl
+LogicImplementation *--> LoadControllerImpl
+LogicImplementation *--> SaveControllerImpl
+
+LogicImplementation *--> SessionImplDAO
+
+class SessionImplDAO {
+
+}
+
+SessionImplDAO *--> GameDAO
+SessionImplDAO --> SessionImplementation
+
+GameDAO --> Game
+
+class LoadController  {
+  
+}
+
+enum StateValue {
    INIT
    IN_GAME
    RESUME
@@ -87,11 +143,20 @@ enum State {
 }
 
 class Game {
-  +play()
+  +executeAction(input)
+  +setNumberPlayers(numPlayers)
+  +takeTurn()
+  +changeTurn()
+  +hasWinner()
 }
 
 class GameRegistry {
-   
+    +void reset();
+   +void register();
+   +void undo();
+   +void redo();
+   +bool isRedoable();
+   +bool isUndoable();
 }
 
 GameRegistry *--> "1..n" GameMemento

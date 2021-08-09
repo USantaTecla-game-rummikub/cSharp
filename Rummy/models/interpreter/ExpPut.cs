@@ -1,4 +1,5 @@
 ﻿using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
