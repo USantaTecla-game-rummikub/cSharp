@@ -17,8 +17,8 @@ namespace TestRummy.models.interpreter
         {
             Player player = new Player(new Table());
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
-            ExpTileRack expTileRack = new ExpTileRack("1R");            
-            expTileRack.interpret(player);
+            TileRack expTileRack = new TileRack("1R");            
+            //expTileRack.interpret(player);
             Assert.IsFalse(expTileRack.hasError());
         }
 
@@ -27,8 +27,8 @@ namespace TestRummy.models.interpreter
         {
             Player player = new Player(new Table());
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
-            ExpTileRack expTileRack = new ExpTileRack("2R");
-            expTileRack.interpret(player);
+            TileRack expTileRack = new TileRack("2R");
+            //expTileRack.interpret(player);
             Assert.IsTrue(expTileRack.hasError());
         }      
     }

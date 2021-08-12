@@ -51,7 +51,7 @@ namespace Rummy.models.DAO
                 streamWriter.Close();
             } catch (Exception ex)
             {
-                throw ex;
+                this.sessionImplementation.setActionError(ex.Message);
             }
         }
 

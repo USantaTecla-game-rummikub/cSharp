@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rummy.controllers;
+using Rummy.models.interpreter;
 using Rummy.types;
 
 namespace Rummy.models
@@ -12,12 +14,14 @@ namespace Rummy.models
         private State state;
         private Game game;
         private GameRegistry gameRegistry;
+        private string errorLastCommand;
 
         public SessionImplementation()
         {
             this.state = new State();
             this.game = new Game();
             this.gameRegistry = new GameRegistry(this.game);
+            this.errorLastCommand = null;
         }
 
         public void next()
@@ -40,19 +44,16 @@ namespace Rummy.models
             this.setState(StateValue.IN_GAME);
         }
 
-        internal void executeAction(string input)
+        internal void setActionError(string message)
         {
-            if (!this.isLastActionUndo() && !this.isLastActionRedo()) {
-                this.gameRegistry.register();
-            }
-            this.game.executeAction(input);   
-            if (this.isLastActionUndo() && this.gameRegistry.isUndoable())
-            {
-                this.gameRegistry.undo();
-            } else if (this.isLastActionRedo() && this.gameRegistry.isRedoable())
-            {
-                this.gameRegistry.redo();
-            }
+            this.errorLastCommand = message;
+        }
+        
+        public void executeAction(Command command, PlayController playController)
+        {
+            this.gameRegistry.register();
+            command.execute(playController);
+            this.errorLastCommand = command.getError();           
         }
 
         internal Game getGame()
@@ -92,7 +93,7 @@ namespace Rummy.models
 
         internal bool isActionError()
         {
-            return !String.IsNullOrEmpty(this.game.getErrorLastAction());
+            return !String.IsNullOrEmpty(this.errorLastCommand);
         }
 
         internal int getPounchTilesNumber()
@@ -117,12 +118,83 @@ namespace Rummy.models
 
         internal string getActionError()
         {
-            return this.game.getErrorLastAction();
+            return this.errorLastCommand;
+        }
+
+        internal void undo()
+        {
+            if (this.gameRegistry.isUndoable())
+            {
+                this.gameRegistry.undo();
+            }
+        }
+
+        internal void redo()
+        {
+            if (this.gameRegistry.isRedoable())
+            {
+                this.gameRegistry.redo();
+            }
+        }
+
+        internal bool existTileInRack(string tileDescription)
+        {
+            return this.game.existTileInRack(tileDescription);
+        }
+
+        internal bool isValidGroups()
+        {
+            return this.game.isValidGroups();
+        }
+
+        internal bool existTileInTable(string tileDescription)
+        {
+            return this.game.existTileInTable(tileDescription);
+        }
+
+        internal bool existGroup(string group)
+        {
+            return this.game.existGroup(group);
+        }
+
+        internal bool isValidAddTilesInGroup(List<string> tiles, int group)
+        {
+            return this.game.isValidAddTilesInGroup(tiles, group);
+        }
+
+        internal bool isAllowedToTileDown(List<List<string>> tiles)
+        {
+            return this.game.isAllowedToTileDown(tiles);
+        }
+
+        internal bool hasPlayed30FirstPoints()
+        {
+            return this.game.hasPlayed30FirstPoints();
         }
 
         internal bool isLastActionLoad()
         {
             return this.game.isLastActionLoad();
+        }
+
+        internal void finishTurn()
+        {
+            this.game.finishTurn();
+        }
+
+        internal void addTilesToGroup(List<string> tiles, string group)
+        {
+            this.game.addTilesToGroup(tiles, group);
+        }
+
+        internal bool existsTileInGroup(string tile, int group)
+        {
+            return this.game.existsTileInGroup(tile, group);
+        }
+
+        internal void moveTileFromGroupToGroup(string tile, int originGroup, int targetGroup)
+        {
+            this.game.moveTileFromGroupToGroup(tile, originGroup, targetGroup);
         }
 
         internal bool isLastActionAnExtraction()

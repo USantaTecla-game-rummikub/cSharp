@@ -19,7 +19,7 @@ namespace TestRummy.models.interpreter
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
             player.addTilesToGroup(new List<string>() { "1R" }, "");
             Group group = new Group("1");
-            group.interpret(player);
+            //group.interpret(player);
             Assert.IsFalse(group.hasError());
         }
 
@@ -30,7 +30,7 @@ namespace TestRummy.models.interpreter
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
             player.addTilesToGroup(new List<string>() { "1R" }, "");
             Group group = new Group("2");
-            group.interpret(player);
+            //group.interpret(player);
             Assert.IsTrue(group.hasError());
         }
     }

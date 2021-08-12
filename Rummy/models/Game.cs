@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using Rummy.models.interpreter;
 using Rummy.types;
@@ -39,12 +40,7 @@ namespace Rummy.models
 
         public void set(GameMemento gameMemento)
         {
-            this.turn.restore(gameMemento);
-        }
-
-        internal void executeAction(string input)
-        {
-            this.player.executeAction(input);            
+            this.turn.restore(gameMemento);            
         }
 
         internal GameMemento getMemento()
@@ -61,7 +57,7 @@ namespace Rummy.models
         {
             return this.turn.getTable();
         }
-
+      
         internal string getCurrentPlayerNumber()
         {
             return this.turn.getCurrentPlayerNumber();
@@ -121,6 +117,71 @@ namespace Rummy.models
         internal bool isLastActionLoad()
         {
             return this.player.getLastAction() == ActionType.LOAD;
+        }
+
+        internal bool isValidGroups()
+        {
+            return this.player.isValidGroups();
+        }
+
+        internal bool existTileInRack(string tileDescription)
+        {
+            return this.player.existTileInRack(tileDescription);
+        }
+
+        internal bool existTileInTable(string tileDescription)
+        {
+            return this.player.existTileInTable(tileDescription);
+        }
+
+        internal bool existGroup(string group)
+        {
+            return this.player.existGroup(group);
+        }
+
+        internal bool isValidAddTilesInGroup(List<string> tiles, int group)
+        {
+            return this.player.isValidAddTilesInGroup(tiles, group);
+        }
+
+        internal void redo()
+        {
+            this.player.redo();
+        }
+
+        internal void undo()
+        {
+            this.player.undo();
+        }
+
+        internal bool isAllowedToTileDown(List<List<string>> tiles)
+        {
+            return this.player.isAllowedToTileDown(tiles);
+        }
+
+        internal void addTilesToGroup(List<string> tiles, string group)
+        {
+            this.player.addTilesToGroup(tiles, group);
+        }
+
+        internal bool existsTileInGroup(string tile, int group)
+        {
+            return this.player.existsTileInGroup(tile, group);
+        }
+
+        internal void moveTileFromGroupToGroup(string tile, int originGroup, int targetGroup)
+        {
+            this.player.moveTileFromGroupToGroup(tile, originGroup, targetGroup);
+        }
+
+        internal void finishTurn()
+        {
+            this.player.finishTurn();
+        }
+
+        internal bool hasPlayed30FirstPoints()
+        {
+            return this.player.hasPlayed30FirstPoints();
         }
     }
 }

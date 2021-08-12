@@ -118,20 +118,7 @@ namespace Rummy.models
             }
             return result;
         }
-       
-        internal void executeAction(string input)
-        {
-            CommandParser parser = new CommandParser(input, this);
-            parser.parse();
-            if (parser.hasError())
-            {
-                this.errorLastAction = parser.getError();                
-            } else
-            {
-                this.errorLastAction = null;
-            }            
-        }
-
+             
         internal string getErrorLastAction()
         {
             return this.errorLastAction;
@@ -214,6 +201,11 @@ namespace Rummy.models
             this.lastAction = ActionType.TILEDOWN;
         }
      
+        public bool hasPlayed30FirstPoints()
+        {
+            return this.hasPlayedHis30Points;
+        }
+
         public bool isAllowedToTileDown(List<List<string>> tilesGroups)
         {
             int points = 0;
@@ -221,7 +213,7 @@ namespace Rummy.models
             {
                 points += this.getPointsByGroupsToDown(tiles);
             }
-            return (!this.hasPlayedHis30Points && points >= POINTS_FOR_FIRST_TILES_DOWN) || this.hasPlayedHis30Points;
+            return (!this.hasPlayedHis30Points && points >= POINTS_FOR_FIRST_TILES_DOWN) || (this.hasPlayedHis30Points && points > 0);
         }
       
         private Tile findTileInRack(string tileString)

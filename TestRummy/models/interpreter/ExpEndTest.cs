@@ -19,8 +19,8 @@ namespace TestRummy.models.interpreter
             Turn turn = new Turn(NUM_PLAYERS);
             Player player = turn.take();
             int numPointsInitials = player.getPoints();
-            ExpEnd expEnd = new ExpEnd();
-            expEnd.interpret(player);
+            EndCommand expEnd = new EndCommand();
+            //expEnd.execute(player);
             Assert.IsTrue(player.isEnd() && player.getPoints() == (numPointsInitials + 1));
         }
     }

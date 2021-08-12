@@ -1,6 +1,8 @@
 ﻿using System;
 using Rummy.controllers;
 using Rummy.controllers.implementation;
+using Rummy.models.interpreter;
+using Rummy.models.interpreter.InputParser;
 
 namespace Rummy.views.console
 {
@@ -13,36 +15,43 @@ namespace Rummy.views.console
             this.requestUserAction(controller);
         }
 
-        private void requestUserAction(AcceptorController controller)
-        {
+        private void requestUserAction(AcceptorController controller) {
             PlayController playController = (PlayController)controller;
-            playController.executeAction(Console.ReadLine());
-            if (playController.hasErrorLastAction())
-            {
+            string inputText = Console.ReadLine();
+            Input input = new Input(inputText);
+            new CommandParser(input).parse();            
+            if (input.hasSintaxErrors()) {
+                Console.WriteLine(input.errorToString());
+            }
+            else {                           
+                playController.executeAction(new CommandBuilder(inputText).create());
+                this.applyLogicPostExecutionCommand(playController);
+            }
+        }
+
+        private void applyLogicPostExecutionCommand(PlayController playController) {
+            if (playController.hasErrorLastAction()) {
                 this.showError(playController);
             }
-            else if (playController.hasWinner())
-            {
+            else if (playController.hasWinner()) {
                 Console.WriteLine(Message.CONGRATULATIONS);
                 playController.next();
             }
-            else if (playController.isLastActionAnExtraction() || playController.isLastActionEndTurn())
-            {
+            else if (playController.isLastActionAnExtraction() || playController.isLastActionEndTurn()) {
                 if (playController.isLastActionAnExtraction())
                 {
                     Console.Write(Message.TILE_EXTRACTION);
                     Console.Write(playController.getLastExtractionTile());
                 }
                 playController.changeTurn();
-            
-            } else if (playController.isLastActionSave())
-            {
+            }
+            else if (playController.isLastActionSave()) {
                 playController.save();
-            } else if (playController.isLastActionLoad())
-            {
+            }
+            else if (playController.isLastActionLoad()) {
                 playController.load();
             }
-        }
+        }       
 
         private void showError(PlayController playController)
         {
@@ -58,6 +67,10 @@ namespace Rummy.views.console
             Console.WriteLine();
             Console.WriteLine(Message.TABLE);
             Console.WriteLine(playController.getTable());
+            if (playController.hasPlayed30FirstPoints())
+            {
+                Console.Write(Message.ASTERISK);
+            }
             Console.WriteLine(Message.PLAYER + playController.getCurrentPlayerNumber() + " " + Message.TWO_POINTS + playController.getCurrentPlayerRackByGroups());
             Console.Write(Message.REQUEST_ACTION);              
         }

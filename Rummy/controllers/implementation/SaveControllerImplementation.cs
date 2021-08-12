@@ -21,19 +21,28 @@ namespace Rummy.controllers.implementation
 
         public override void save(string name)
         {
-            try
-            {
-                this.sessionDAO.save(name);
-            } catch (Exception ex)
-            {
-                
-            }
+           
+            this.sessionDAO.save(name);                       
+        }
+
+        public override void continuePlay()
+        {
             this.session.continuePlay();
         }
 
         internal override string[] getSavedPreviousFiles()
         {
             return this.sessionDAO.getFilesNames();
+        }
+
+        internal override bool hasCommandError()
+        {
+            return this.session.isActionError();
+        }
+
+        internal override string getCommandError()
+        {
+            return this.session.getActionError();
         }
     }
 }

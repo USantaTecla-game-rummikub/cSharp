@@ -18,8 +18,8 @@ namespace TestRummy.models.interpreter
             Player player = new Player(new Table());
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
             player.addTilesToGroup(new List<string>() { "1R" }, "");
-            ExpTileGroup expTileGroup = new ExpTileGroup("1R");
-            expTileGroup.interpret(player);
+            TileGroup expTileGroup = new TileGroup("1R");
+            //expTileGroup.execute(player);
             Assert.IsFalse(expTileGroup.hasError());
         }
 
@@ -29,8 +29,8 @@ namespace TestRummy.models.interpreter
             Player player = new Player(new Table());
             player.addTileInRack(new Tile(TileNumber.ONE, Color.RED));
             player.addTilesToGroup(new List<string>() { "1R" }, "");
-            ExpTileGroup expTileGroup = new ExpTileGroup("2B");
-            expTileGroup.interpret(player);
+            TileGroup expTileGroup = new TileGroup("2B");
+            //expTileGroup.interpret(player);
             Assert.IsTrue(expTileGroup.hasError());
         }
     }

@@ -53,6 +53,7 @@ namespace Rummy.views.console
                 foreach (string file in files)
                 {
                     Console.WriteLine(i + Message.POINT + Message.SPACE + file);
+                    i++;
                 }
             }
         }

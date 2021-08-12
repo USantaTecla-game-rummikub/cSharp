@@ -20,12 +20,12 @@ namespace TestRummy.models.interpreter
             this.setSerieGroup(player);
             player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
             player.addTilesToGroup(new List<string>() { "10Y", "10G", "10B" }, Group.NEW);
-            List<ExpMovIn> lstMovIn = new List<ExpMovIn>()
+            List<MovIn> lstMovIn = new List<MovIn>()
             {
-                new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("10R")}, new Group("1"), new Group("2"))
+                new MovIn(new List<TileGroup>() { new TileGroup("10R")}, new Group("1"), new Group("2"))
             };
-            ExpMov expMov = new ExpMov(lstMovIn);
-            expMov.interpret(player);
+            MovCommand expMov = new MovCommand(lstMovIn);
+            //expMov.interpret(player);
             Assert.IsFalse(expMov.hasError());
         }
 
@@ -37,12 +37,12 @@ namespace TestRummy.models.interpreter
             this.setSerieGroup(player);
             player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
             player.addTilesToGroup(new List<string>() { "10Y", "10G", "10B" }, Group.NEW);
-            List<ExpMovIn> lstMovIn = new List<ExpMovIn>()
+            List<MovIn> lstMovIn = new List<MovIn>()
             {
-                new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("10B")}, new Group("1"), new Group("2"))
+                new MovIn(new List<TileGroup>() { new TileGroup("10B")}, new Group("1"), new Group("2"))
             };
-            ExpMov expMov = new ExpMov(lstMovIn);
-            expMov.interpret(player);
+            MovCommand expMov = new MovCommand(lstMovIn);
+            //expMov.interpret(player);
             Assert.IsTrue(expMov.hasError() && expMov.getError() == ErrorMessage.WRONG_TILE);
         }
 
@@ -54,12 +54,12 @@ namespace TestRummy.models.interpreter
             this.setSerieGroup(player);
             player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
             player.addTilesToGroup(new List<string>() { "10Y", "10G", "10B" }, Group.NEW);
-            List<ExpMovIn> lstMovIn = new List<ExpMovIn>()
+            List<MovIn> lstMovIn = new List<MovIn>()
             {
-                new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("13R")}, new Group("1"), new Group(Group.NEW))
+                new MovIn(new List<TileGroup>() { new TileGroup("13R")}, new Group("1"), new Group(Group.NEW))
             };
-            ExpMov expMov = new ExpMov(lstMovIn);
-            expMov.interpret(player);
+            MovCommand expMov = new MovCommand(lstMovIn);
+            //expMov.interpret(player);
             Assert.IsFalse(expMov.hasError());
         }
 

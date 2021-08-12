@@ -24,8 +24,8 @@ namespace TestRummy.models.interpreter
             player.addTileInRack(new Tile(TileNumber.TEN, Color.GREEN));            
             player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
             player.addTilesToGroup(new List<string>() { "10B", "10G" }, Group.NEW);                        
-            ExpMovIn expMovIn = new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("10R") }, new Group("1"), new Group("2"));
-            expMovIn.interpret(player);
+            MovIn expMovIn = new MovIn(new List<TileGroup>() { new TileGroup("10R") }, new Group("1"), new Group("2"));
+            //expMovIn.interpret(player);
             Assert.IsFalse(expMovIn.hasError());
         }
 
@@ -41,8 +41,8 @@ namespace TestRummy.models.interpreter
             player.addTileInRack(new Tile(TileNumber.TEN, Color.GREEN));
             player.addTilesToGroup(new List<string>() { "10R", "11R", "12R", "13R" }, Group.NEW);
             player.addTilesToGroup(new List<string>() { "10B", "10G" }, Group.NEW);            
-            ExpMovIn expMovIn = new ExpMovIn(new List<ExpTileGroup>() { new ExpTileGroup("10B") }, new Group("1"), new Group("2"));
-            expMovIn.interpret(player);
+            MovIn expMovIn = new MovIn(new List<TileGroup>() { new TileGroup("10B") }, new Group("1"), new Group("2"));
+            //expMovIn.interpret(player);
             Assert.IsTrue(expMovIn.hasError());
         }
     }

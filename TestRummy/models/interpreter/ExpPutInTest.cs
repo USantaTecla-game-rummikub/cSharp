@@ -1,7 +1,11 @@
 ﻿using NUnit.Framework;
+using Rummy.controllers;
+using Rummy.controllers.implementation;
 using Rummy.models;
+using Rummy.models.DAO;
 using Rummy.models.interpreter;
 using Rummy.types;
+using Rummy.views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +22,25 @@ namespace TestRummy.models.interpreter
             Player player = new Player(new Table());
             this.setRunGroup(player);         
             Group group = new Group();
-            List<ExpTileRack> expTiles = new List<ExpTileRack>()
+            List<TileRack> expTiles = new List<TileRack>()
             {
-                new ExpTileRack("10R"), new ExpTileRack("11R"), new ExpTileRack("12R")
+                new TileRack("10R"), new TileRack("11R"), new TileRack("12R")
             };                        
-            ExpPutIn expPutIn = new ExpPutIn(expTiles, group);
-            expPutIn.interpret(player);
+            PutIn expPutIn = new PutIn(expTiles, group);
+            PlayController playController = this.getPlayController();
+            
+            // expPutIn.execute();
             Assert.IsFalse(expPutIn.hasError());
+        }
+
+        private PlayController getPlayController()
+        {
+            SessionImplementation session = new SessionImplementation();
+            StartControllerImplementation startController = new StartControllerImplementation(session);
+            startController.play(2);
+            PlayControllerImplementation playController = new PlayControllerImplementation(session, new SessionImplementationDAO());            
+            playController.takeTurn();
+            return (PlayController)playController;
         }
 
         [Test]
@@ -33,12 +49,12 @@ namespace TestRummy.models.interpreter
             Player player = new Player(new Table());
             this.setRunGroup(player);
             Group group = new Group();
-            List<ExpTileRack> expTiles = new List<ExpTileRack>()
+            List<TileRack> expTiles = new List<TileRack>()
             {
-                new ExpTileRack("10R"), new ExpTileRack("11R"), new ExpTileRack("13R")
+                new TileRack("10R"), new TileRack("11R"), new TileRack("13R")
             };
-            ExpPutIn expPutIn = new ExpPutIn(expTiles, group);
-            expPutIn.interpret(player);
+            PutIn expPutIn = new PutIn(expTiles, group);
+            // expPutIn.interpret(player);
             Assert.IsTrue(expPutIn.hasError());
         }
 
@@ -57,13 +73,13 @@ namespace TestRummy.models.interpreter
             player.addTileInRack(new Tile(TileNumber.TWO, Color.RED));
             player.addTileInRack(new Tile(TileNumber.THREE, Color.RED));
             Group group = new Group();
-            List<ExpTileRack> expTiles = new List<ExpTileRack>()
+            List<TileRack> expTiles = new List<TileRack>()
             {
-                new ExpTileRack("1R"), new ExpTileRack("2R"), new ExpTileRack("3R")
+                new TileRack("1R"), new TileRack("2R"), new TileRack("3R")
             };
-            ExpPutIn expPutIn = new ExpPutIn(expTiles, group);
-            expPutIn.interpret(player);
-            Assert.IsTrue(expPutIn.hasError() && expPutIn.getError() == Message.WRONG_POINTS);
+            PutIn expPutIn = new PutIn(expTiles, group);
+            // expPutIn.interpret(player);
+            Assert.IsTrue(expPutIn.hasError() && expPutIn.getError() == ErrorMessage.WRONG_POINTS);
         }
     }
 }

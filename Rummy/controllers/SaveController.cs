@@ -20,6 +20,13 @@ namespace Rummy.controllers
         }
 
         public abstract void save(string name);
+
+        public abstract void continuePlay();
+
         internal abstract string[] getSavedPreviousFiles();
+
+        internal abstract bool hasCommandError();        
+
+        internal abstract string getCommandError();
     }
 }

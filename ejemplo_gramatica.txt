@@ -1,0 +1,32 @@
+
+
+PUT 4R 5R 6R, 10R 10B 10G IN 2
+
+Command --> PUT PutArgumentsList  
+            PUT Tiles TargetGroup otherPutArgumentsList
+            PUT Tile RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " Tiles TargetGroup otherPutArgumentsList
+            PUT 4R " " Tile RestTiles TargetGroup otherPutArgumentsList 
+            PUT 4R " " 5R RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " Tiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " Tile RestTiles TargetGroup otherPutArgumentsList 
+            PUT 4R " " 5R " " 6R RestTiles TargetGroup otherPutArgumentsList 
+            PUT 4R " " 5R " " 6R  TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R  otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," PutArgumentsList
+            PUT 4R " " 5R " " 6R "," Tiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," Tile RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " Tiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " Tile RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " Tile RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " Tiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " Tile RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G RestTiles TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G TargetGroup otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G IN Group otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G IN 2 otherPutArgumentsList
+            PUT 4R " " 5R " " 6R "," 10R " " 10B " " 10G IN 2

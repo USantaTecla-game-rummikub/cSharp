@@ -20,6 +20,18 @@ namespace Rummy.views.console
         {
             Console.WriteLine(Message.INTRODUCE_FILE_NAME);
             saveController.save(Console.ReadLine());
+            this.applyLogicPostCommand(saveController);
+        }
+
+        private void applyLogicPostCommand(SaveController saveController)
+        {
+            if (saveController.hasCommandError())
+            {
+                Console.WriteLine(saveController.getCommandError());
+            } else
+            {
+                Console.WriteLine(Message.SAVED_FILE_OK);
+            }
         }
 
         private void showPreviousFiles(SaveController saveController)

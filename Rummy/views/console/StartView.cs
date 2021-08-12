@@ -51,15 +51,15 @@ namespace Rummy.views.console
                 {
                     int numPlayers = int.Parse(Console.ReadLine());
                     StartController startController = (StartController)controller;
-                    if (startController.isNumberPlayersValid(numPlayers))
-                    {
-                        optionValid = true;
+                    optionValid = startController.isNumberPlayersValid(numPlayers);
+                    if (optionValid)
+                    {                        
                         startController.play(numPlayers);                        
                     } else
                     {
                         Console.WriteLine(ErrorMessage.WRONG_NUMBER_PLAYERS_OPTION);
                     }
-                } catch (Exception ex)
+                } catch (Exception )
                 {
                     Console.WriteLine(ErrorMessage.WRONG_NUMBER_PLAYERS_OPTION);
                 }

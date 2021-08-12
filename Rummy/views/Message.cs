@@ -17,8 +17,7 @@ namespace Rummy.views
         public static string INTRODUCE_FILE_NAME = "Introduce file name: ";
         public static string INTRODUCE_FILE_NUMBER = "Introduce file number: ";
         public static string REQUEST_ACTION = "What action do you want to do?: ";
-        public static string POUNCH = "Pounch: ";
-        public const string WRONG_POINTS = "You don't have your first 30 points yet";
+        public static string POUNCH = "Pounch: ";        
         public const string TABLE = "Table: ";
         public const string PLAYER = "Player ";
         public const string TWO_POINTS = ": ";
@@ -34,5 +33,7 @@ namespace Rummy.views
         public const string SPACE = " ";
         public const string POUNCH_EMPTY_INPUT = "*";
         public const string CARRY_RETURN = "\n";
+        public const string SAVED_FILE_OK = "File saved successfully !!";
+        public const string ASTERISK = "*";
     }
 }

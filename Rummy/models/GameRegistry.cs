@@ -34,12 +34,14 @@ namespace Rummy.models
         {            
             this.pointer--;
             this.game.set(this.mementos[this.mementos.Count - 1 + this.pointer]);
+            this.game.undo();
         }
 
         public void redo()
         {            
             this.game.set(this.mementos[this.mementos.Count - 1 + this.pointer]);
             this.pointer++;
+            this.game.redo();
         }
 
         public bool isRedoable()
